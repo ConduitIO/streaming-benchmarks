@@ -20,3 +20,6 @@ run-latest-nightly: plugins/conduit-connector-noop-dest
 
 print-results:
 	go run main.go
+
+lint:
+	golangci-lint run

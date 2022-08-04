@@ -19,12 +19,12 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	"github.com/charmbracelet/glamour"
 	"net/http"
 	"os"
 	"strconv"
 	"time"
 
+	"github.com/charmbracelet/glamour"
 	"github.com/docker/go-units"
 	promclient "github.com/prometheus/client_model/go"
 	"github.com/prometheus/common/expfmt"
