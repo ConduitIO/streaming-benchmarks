@@ -20,4 +20,4 @@ jobs:
         run: make plugins/conduit-connector-noop-dest
 
       - name: Build tool
-        run: go build main.go
+        run: make build
