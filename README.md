@@ -1,4 +1,5 @@
-# streaming-benchmarks
+## Performance benchmarks
+
 ### Principles
 
 Our performance benchmarks is built upon the following principles:
@@ -37,12 +38,12 @@ The available `make` targets for this purpose are:
 
 ### Workloads
 
-Workloads are pipelines configured in specific ways and exercising different areas of Conduit. For example, one workload
+Workloads are pipelines configured in specific ways and exercising different areas of Conduit. For example, one workload 
 can test how does Conduit behave when records with large payloads flow through it. Another one can test Conduit's with
 built-in vs. standalone plugins.
 
-Workloads are specified through bash scripts, which create and configure pipelines using Conduit's HTTP API. They need
-to be placed in the [workloads](./workloads) directory so that they are automatically run. By default, all workload
+Workloads are specified through bash scripts, which create and configure pipelines using Conduit's HTTP API. They need 
+to be placed in the [workloads](./workloads) directory so that they are automatically run. By default, all workload 
 scripts found in the `workloads` directory will be run for each performance test run.
 
 ### Printing results
@@ -57,7 +58,7 @@ of the `make run-` targets and has the following configuration parameters:
 | --print-to | Specifies where the metrics will be printed. If 'csv'<br/> is selected, a CSV file will be automatically created. | csv, console                                                | csv     |
 | --workload | Workload description.                                                                                             | any string                                                  | none    |
 
-Another option to monitor Conduit's performance while running a performance test is [prom-graf](https://github.com/conduitio-labs/prom-graf).
+Another option to monitor Conduit's performance while running a performance test is [prom-graf](https://github.com/conduitio-labs/prom-graf). 
 The differences between the CLI tool and `prom-graf` are:
 
 1. The CLI tool prints metrics related to records while they are in Conduit only. The Grafana dashboard show
