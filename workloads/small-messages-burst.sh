@@ -60,7 +60,7 @@ echo "Creating a NoOp destination..."
 DEST_CONN_REQ=$(
 jq -n  --arg pipeline_id "$PIPELINE_ID" '{
      "type": "TYPE_DESTINATION",
-     "plugin": "builtin:noopdest",
+     "plugin": "/plugins/conduit-connector-noop-dest",
      "pipeline_id": $pipeline_id,
      "config":
      {
