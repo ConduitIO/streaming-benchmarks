@@ -16,7 +16,6 @@ require (
 	github.com/conduitio/conduit-connector-protocol v0.2.1-0.20220608133528-f466a956bd4d // indirect
 	github.com/dlclark/regexp2 v1.4.0 // indirect
 	github.com/fatih/color v1.7.0 // indirect
-	github.com/golang/mock v1.6.0 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/gorilla/css v1.0.0 // indirect
 	github.com/hashicorp/go-hclog v0.14.1 // indirect
