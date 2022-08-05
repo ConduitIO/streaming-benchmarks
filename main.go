@@ -42,14 +42,14 @@ type Metrics struct {
 	BytesPerSec   string
 
 	// Processor related
-	Goroutines uint64
-	Threads    uint64
+	Goroutines float64
+	Threads    float64
 
 	// Memory related
-	MemstatsAllocBytes      uint64
-	MemstatsAllocBytesTotal uint64
-	MemstatsStackInUseBytes uint64
-	MemstatsHeapInUseBytes  uint64
+	MemstatsAllocBytes      float64
+	MemstatsAllocBytesTotal float64
+	MemstatsStackInUseBytes float64
+	MemstatsHeapInUseBytes  float64
 }
 
 func (m Metrics) msPerRecStr() string {
@@ -202,7 +202,23 @@ func (c *collector) collect() (Metrics, error) {
 	m.PipelineRate = (count - c.first.Count) / uint64(time.Since(c.first.MeasuredAt).Seconds())
 	m.MeasuredAt = time.Now()
 
+	m.Goroutines = c.getGauge(metricFamilies, "go_goroutines")
+	m.Threads = c.getGauge(metricFamilies, "go_threads")
+
+	m.MemstatsAllocBytes = c.getGauge(metricFamilies, "go_memstats_alloc_bytes")
+	m.MemstatsAllocBytesTotal = c.getCounter(metricFamilies, "go_memstats_alloc_bytes_total")
+	m.MemstatsStackInUseBytes = c.getGauge(metricFamilies, "go_memstats_stack_inuse_bytes")
+	m.MemstatsHeapInUseBytes = c.getGauge(metricFamilies, "go_memstats_heap_inuse_bytes")
+
 	return m, nil
+}
+
+func (c *collector) getGauge(families map[string]*promclient.MetricFamily, name string) float64 {
+	return families[name].GetMetric()[0].GetGauge().GetValue()
+}
+
+func (c *collector) getCounter(families map[string]*promclient.MetricFamily, name string) float64 {
+	return families[name].GetMetric()[0].GetCounter().GetValue()
 }
 
 // getMetrics returns all the metrics which Conduit exposes
