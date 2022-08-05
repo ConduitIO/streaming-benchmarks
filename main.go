@@ -34,7 +34,7 @@ const pipelineName = "perf-test"
 
 type Metrics struct {
 	Count         uint64
-	Bytes         float64
+	bytes         float64
 	MeasuredAt    time.Time
 	RecordsPerSec float64
 	MsPerRec      float64
@@ -185,20 +185,20 @@ func (c *collector) init() error {
 func (c *collector) collect() (Metrics, error) {
 	metricFamilies, err := c.getMetrics()
 	if err != nil {
-		return Metrics{}, fmt.Errorf("failed getting Metrics: %v", err)
+		return Metrics{}, fmt.Errorf("failed getting metrics: %v", err)
 	}
 
 	m := Metrics{}
 	count, totalTime, err := c.getPipelineMetrics(metricFamilies)
 	if err != nil {
-		fmt.Printf("failed getting pipeline Metrics: %v", err)
+		fmt.Printf("failed getting pipeline metrics: %v", err)
 		os.Exit(1)
 	}
 	m.Count = count
 	m.RecordsPerSec = float64(count) / totalTime
 	m.MsPerRec = (totalTime / float64(count)) * 1000
-	m.Bytes = c.getSourceByteMetrics(metricFamilies)
-	m.BytesPerSec = units.HumanSize(m.Bytes / totalTime)
+	m.bytes = c.getSourceByteMetrics(metricFamilies)
+	m.BytesPerSec = units.HumanSize(m.bytes / totalTime)
 	m.PipelineRate = (count - c.first.Count) / uint64(time.Since(c.first.MeasuredAt).Seconds())
 	m.MeasuredAt = time.Now()
 
@@ -225,7 +225,7 @@ func (c *collector) getCounter(families map[string]*promclient.MetricFamily, nam
 func (c *collector) getMetrics() (map[string]*promclient.MetricFamily, error) {
 	metrics, err := http.Get("http://localhost:8080/metrics")
 	if err != nil {
-		fmt.Printf("failed getting Metrics: %v", err)
+		fmt.Printf("failed getting metrics: %v", err)
 		os.Exit(1)
 	}
 	defer metrics.Body.Close()
@@ -248,7 +248,7 @@ func (c *collector) getPipelineMetrics(families map[string]*promclient.MetricFam
 		}
 	}
 
-	return 0, 0, fmt.Errorf("Metrics for pipeline %q not found", pipelineName)
+	return 0, 0, fmt.Errorf("metrics for pipeline %q not found", pipelineName)
 }
 
 // getSourceByteMetrics returns the amount of bytes the sources in the test pipeline produced
@@ -281,12 +281,12 @@ func main() {
 	duration := flag.Duration(
 		"duration",
 		5*time.Minute,
-		"duration for which the Metrics will be collected and printed",
+		"duration for which the metrics will be collected and printed",
 	)
 	printTo := flag.String(
 		"print-to",
 		"csv",
-		"where the Metrics will be printed ('csv' to print to a CSV file, or 'console' to print to console",
+		"where the metrics will be printed ('csv' to print to a CSV file, or 'console' to print to console",
 	)
 	workload := flag.String(
 		"workload",
