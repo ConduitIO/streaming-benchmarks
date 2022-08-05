@@ -1,7 +1,7 @@
 .PHONY: build-local build-noop-dest run-local run-latest run-latest-nightly print-results
 
 build:
-	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build main.go
+	go build main.go
 
 # Builds a fresh Docker image, so we're not limited on the GA and nightly builds
 build-local:
