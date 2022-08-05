@@ -40,6 +40,16 @@ type Metrics struct {
 	MsPerRec      float64
 	PipelineRate  uint64
 	BytesPerSec   string
+
+	// Processor related
+	Goroutines uint64
+	Threads    uint64
+
+	// Memory related
+	MemstatsAllocBytes      uint64
+	MemstatsAllocBytesTotal uint64
+	MemstatsStackInUseBytes uint64
+	MemstatsHeapInUseBytes  uint64
 }
 
 func (m Metrics) msPerRecStr() string {
