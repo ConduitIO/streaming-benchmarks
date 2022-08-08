@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package noopdest
+package main
 
 import (
 	"context"
@@ -30,7 +30,7 @@ func main() {
 
 func Spec() sdk.Specification {
 	return sdk.Specification{
-		Name:              "noopdest",
+		Name:              "NoOp destination",
 		Summary:           "A NoOp destination connector.",
 		Description:       "A NoOp destination connector.",
 		Version:           "v0.1.0",
