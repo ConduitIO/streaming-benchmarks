@@ -16,6 +16,7 @@ package noopdest
 
 import (
 	"context"
+	
 	sdk "github.com/conduitio/conduit-connector-sdk"
 )
 
