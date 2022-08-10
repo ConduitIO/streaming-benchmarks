@@ -20,7 +20,6 @@ import (
 	sdk "github.com/conduitio/conduit-connector-sdk"
 )
 
-//nolint:deadcode,unused //entry point for the plugin, when Conduit runs it
 func main() {
 	sdk.Serve(sdk.Connector{
 		NewSpecification: Spec,
