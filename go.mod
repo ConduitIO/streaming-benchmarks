@@ -13,6 +13,7 @@ require (
 require (
 	github.com/alecthomas/chroma v0.10.0 // indirect
 	github.com/aymerick/douceur v0.2.0 // indirect
+	github.com/conduitio/conduit-connector-protocol v0.2.1-0.20220802135043-4b89a6c94401 // indirect
 	github.com/dlclark/regexp2 v1.4.0 // indirect
 	github.com/fatih/color v1.7.0 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
@@ -37,7 +38,7 @@ require (
 	github.com/rs/zerolog v1.27.0 // indirect
 	github.com/yuin/goldmark v1.4.4 // indirect
 	github.com/yuin/goldmark-emoji v1.0.1 // indirect
-	go.buf.build/library/go-grpc/conduitio/conduit-connector-protocol v1.4.2 // indirect
+	go.buf.build/grpc/go/conduitio/conduit-connector-protocol v1.3.3 // indirect
 	go.uber.org/goleak v1.1.12 // indirect
 	golang.org/x/net v0.0.0-20220225172249-27dd8689420f // indirect
 	golang.org/x/sys v0.0.0-20220405052023-b1e9470b6e64 // indirect
