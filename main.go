@@ -231,7 +231,7 @@ func (c *collector) getCounter(families map[string]*promclient.MetricFamily, nam
 
 // getMetrics returns all the metrics which Conduit exposes
 func (c *collector) getMetrics() (map[string]*promclient.MetricFamily, error) {
-	metrics, err := http.Get(c.metricsURL)
+	metrics, err := http.Get(c.metricsURL) //nolint:noctx // contexts generally not used here
 	if err != nil {
 		fmt.Printf("failed getting metrics: %v", err)
 		os.Exit(1)

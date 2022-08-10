@@ -16,7 +16,7 @@ package main
 
 import (
 	"context"
-	
+
 	sdk "github.com/conduitio/conduit-connector-sdk"
 )
 
