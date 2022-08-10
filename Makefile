@@ -1,5 +1,8 @@
 .PHONY: build-local build-noop-dest run-local run-latest run-latest-nightly print-results
 
+build:
+	go build main.go
+
 # Builds a fresh Docker image, so we're not limited on the GA and nightly builds
 build-local:
 	@cd ../.. && docker build -t conduit:local .
@@ -20,3 +23,6 @@ run-latest-nightly: plugins/conduit-connector-noop-dest
 
 print-results:
 	go run main.go
+
+lint:
+	golangci-lint run

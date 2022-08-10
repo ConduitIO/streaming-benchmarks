@@ -19,12 +19,12 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	"github.com/charmbracelet/glamour"
 	"net/http"
 	"os"
 	"strconv"
 	"time"
 
+	"github.com/charmbracelet/glamour"
 	"github.com/docker/go-units"
 	promclient "github.com/prometheus/client_model/go"
 	"github.com/prometheus/common/expfmt"
@@ -204,7 +204,7 @@ func (c *collector) collect() (metrics, error) {
 
 // getMetrics returns all the metrics which Conduit exposes
 func (c *collector) getMetrics() (map[string]*promclient.MetricFamily, error) {
-	metrics, err := http.Get("http://localhost:8080/metrics")
+	metrics, err := http.Get("http://localhost:8080/metrics") //nolint:noctx // contexts generally not used here
 	if err != nil {
 		fmt.Printf("failed getting metrics: %v", err)
 		os.Exit(1)
