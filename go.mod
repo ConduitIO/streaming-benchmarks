@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/charmbracelet/glamour v0.5.0
-	github.com/conduitio/conduit-connector-sdk v0.2.1-0.20220622151135-47f1a8905435
+	github.com/conduitio/conduit-connector-sdk v0.2.1-0.20220803121801-c861a0fb207c
 	github.com/docker/go-units v0.4.0
 	github.com/prometheus/client_model v0.2.0
 	github.com/prometheus/common v0.37.0
@@ -13,7 +13,6 @@ require (
 require (
 	github.com/alecthomas/chroma v0.10.0 // indirect
 	github.com/aymerick/douceur v0.2.0 // indirect
-	github.com/conduitio/conduit-connector-protocol v0.2.1-0.20220608133528-f466a956bd4d // indirect
 	github.com/dlclark/regexp2 v1.4.0 // indirect
 	github.com/fatih/color v1.7.0 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect

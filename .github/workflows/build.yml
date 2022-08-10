@@ -1,0 +1,23 @@
+name: build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.18
+
+      - name: Build NoOp destination plugin
+        run: make plugins/conduit-connector-noop-dest
+
+      - name: Build tool
+        run: make build
