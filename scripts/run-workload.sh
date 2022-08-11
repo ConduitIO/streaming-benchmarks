@@ -8,4 +8,4 @@ bash "$WORKLOAD"
 
 # todo print all results from this run into the same file
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-${__dir}/benchmark --interval=15s --duration=5m --print-to=csv --base-url="$CONDUIT_URL"  --workload="$WORKLOAD"
+${__dir}/benchmark --interval=15s --duration=15m --print-to=csv --base-url="$CONDUIT_URL"  --workload="$WORKLOAD"
