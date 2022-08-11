@@ -34,6 +34,7 @@ import (
 const pipelineName = "perf-test"
 
 type Metrics struct {
+	Workload      string
 	Count         uint64
 	bytes         float64
 	MeasuredAt    time.Time
@@ -104,6 +105,7 @@ func (c *csvPrinter) init() error {
 }
 
 func (c *csvPrinter) print(m Metrics) error {
+	m.Workload = c.workload
 	str, err := gocsv.MarshalStringWithoutHeaders([]Metrics{m})
 	if err != nil {
 		return err
