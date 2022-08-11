@@ -11,6 +11,11 @@ curl -Ss -X POST 'http://localhost:8080/v1/pipelines' -d '
 }' | jq -r '.id'
 )
 
+# we can't have messages larger than 4 MB, see: https://github.com/ConduitIO/conduit/issues/547
+FILE_SIZE=1KB
+echo "Generating a file of size ${FILE_SIZE}"
+rm -f /tmp/conduit-test-file
+fallocate -l $FILE_SIZE /tmp/conduit-test-file
 
 echo "Creating a generator source..."
 SOURCE_CONN_REQ_1=$(
@@ -23,8 +28,8 @@ jq -n --arg pipeline_id "$PIPELINE_ID" '{
         "name": "generator-source-1",
         "settings":
         {
-            "format.type": "structured",
-            "format.options": "id:int,name:string,company:string,trial:bool",
+            "format.type": "file",
+            "format.options": "/tmp/conduit-test-file",
             "readTime": "0.1ms",
             "recordCount": "-1"
         }
@@ -32,6 +37,28 @@ jq -n --arg pipeline_id "$PIPELINE_ID" '{
 }'
 )
 CONNECTOR_ID=$(curl -Ss -X POST 'http://localhost:8080/v1/connectors' -d "$SOURCE_CONN_REQ_1" | jq -r '.id')
+
+
+echo "Creating a generator source (2)..."
+SOURCE_CONN_REQ_2=$(
+jq -n --arg pipeline_id "$PIPELINE_ID" '{
+    "type": "TYPE_SOURCE",
+    "plugin": "builtin:generator",
+    "pipeline_id": $pipeline_id,
+    "config":
+    {
+        "name": "generator-source-2",
+        "settings":
+        {
+            "format.type": "file",
+            "format.options": "/tmp/conduit-test-file",
+            "readTime": "0.2ms",
+            "recordCount": "-1"
+        }
+    }
+}'
+)
+CONNECTOR_ID=$(curl -Ss -X POST 'http://localhost:8080/v1/connectors' -d "$SOURCE_CONN_REQ_2" | jq -r '.id')
 
 echo "Creating a NoOp destination..."
 DEST_CONN_REQ=$(
