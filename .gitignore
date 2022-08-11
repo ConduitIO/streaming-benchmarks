@@ -19,6 +19,7 @@
 ### VisualStudioCode ###
 .vscode
 
+scripts/benchmark
 plugins/
 performance-test-results-*.csv
 .DS_Store

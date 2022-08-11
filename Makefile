@@ -3,6 +3,9 @@
 build:
 	go build main.go
 
+scripts/benchmark:
+	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o scripts/benchmark main.go
+
 # Builds a fresh Docker image, so we're not limited on the GA and nightly builds
 build-local:
 	@cd ../conduit && docker build -t conduit:local .
