@@ -89,8 +89,13 @@ type csvPrinter struct {
 }
 
 func (c *csvPrinter) init() error {
+	w := strings.ReplaceAll(
+		strings.ReplaceAll(c.workload, "/", "-"),
+		".sh",
+		"",
+	)
 	file, err := os.Create(
-		fmt.Sprintf("./performance-test-results-%v.csv", time.Now().Format("2006-01-02-15-04-05")),
+		fmt.Sprintf("./%v-%v.csv", w, time.Now().Format("2006-01-02-15-04-05")),
 	)
 	if err != nil {
 		return fmt.Errorf("failed creating file: %w", err)
