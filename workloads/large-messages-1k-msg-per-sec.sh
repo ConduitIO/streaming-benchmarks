@@ -14,7 +14,9 @@ curl -Ss -X POST 'http://localhost:8080/v1/pipelines' -d '
 # we can't have messages larger than 4 MB, see: https://github.com/ConduitIO/conduit/issues/547
 FILE_SIZE=4MB
 echo "Generating a file of size ${FILE_SIZE}"
-fallocate -l $FILE_SIZE /conduit-test-file
+rm -f /tmp/conduit-test-file
+fallocate -l $FILE_SIZE /tmp/conduit-test-file
+
 
 echo "Creating a generator source..."
 SOURCE_CONN_REQ_1=$(
@@ -28,8 +30,8 @@ jq -n --arg pipeline_id "$PIPELINE_ID" '{
         "settings":
         {
             "format.type": "file",
-            "format.options": "/conduit-test-file",
-            "readTime": "1s",
+            "format.options": "/tmp/conduit-test-file",
+            "readTime": "1ms",
             "recordCount": "-1"
         }
     }
