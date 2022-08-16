@@ -21,5 +21,5 @@
 
 scripts/benchmark
 plugins/
-performance-test-results-*.csv
+workloads-*.csv
 .DS_Store
