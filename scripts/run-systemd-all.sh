@@ -10,7 +10,11 @@ that if built-in plugins are used, their resource usage is part of Conduit's usa
 
 EOF
 
+SLEEP_TIME=60
 for w in workloads/*.sh; do
   __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
   source ${__dir}/run-systemd-workload.sh "$w"
+
+  echo "sleeping for $SLEEP_TIME seconds"
+  sleep $SLEEP_TIME
 done
