@@ -34,6 +34,7 @@ import (
 const pipelineName = "perf-test"
 
 type Metrics struct {
+	Workload      string
 	Count         uint64
 	bytes         float64
 	MeasuredAt    time.Time
@@ -88,8 +89,13 @@ type csvPrinter struct {
 }
 
 func (c *csvPrinter) init() error {
+	w := strings.ReplaceAll(
+		strings.ReplaceAll(c.workload, "/", "-"),
+		".sh",
+		"",
+	)
 	file, err := os.Create(
-		fmt.Sprintf("./performance-test-results-%v.csv", time.Now().Format("2006-01-02-15-04-05")),
+		fmt.Sprintf("./%v-%v.csv", w, time.Now().Format("2006-01-02-15-04-05")),
 	)
 	if err != nil {
 		return fmt.Errorf("failed creating file: %w", err)
@@ -104,6 +110,7 @@ func (c *csvPrinter) init() error {
 }
 
 func (c *csvPrinter) print(m Metrics) error {
+	m.Workload = c.workload
 	str, err := gocsv.MarshalStringWithoutHeaders([]Metrics{m})
 	if err != nil {
 		return err

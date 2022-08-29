@@ -9,6 +9,7 @@ docker stop conduit-perf-test || true
 docker run --rm --name conduit-perf-test --memory 1g --cpus=2 -v "$(pwd)/plugins":/plugins -p 8080:8080 -d "$CONDUIT_IMAGE"
 sleep 1
 
-./run-workload.sh "http://localhost:8080" "$WORKLOAD"
+__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source ${__dir}/run-workload.sh "http://localhost:8080" "$WORKLOAD"
 
 docker stop conduit-perf-test || true

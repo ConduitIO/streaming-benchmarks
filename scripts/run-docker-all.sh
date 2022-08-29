@@ -10,6 +10,11 @@ that if built-in plugins are used, their resource usage is part of Conduit's usa
 
 EOF
 
+SLEEP_TIME=60
 for w in workloads/*.sh; do
-  ./run-conduit-workload.sh $CONDUIT_IMAGE "$w"
+  __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+  source ${__dir}/run-docker-workload.sh $CONDUIT_IMAGE "$w"
+
+  echo "sleeping for $SLEEP_TIME seconds"
+  sleep $SLEEP_TIME
 done

@@ -19,6 +19,8 @@
 ### VisualStudioCode ###
 .vscode
 
+scripts/benchmark
 plugins/
-performance-test-results-*.csv
+workloads-*.csv
 .DS_Store
+conduit-test-file
