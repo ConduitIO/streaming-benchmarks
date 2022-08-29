@@ -15,7 +15,6 @@
 package main
 
 import (
-	"encoding/csv"
 	"errors"
 	"flag"
 	"fmt"
@@ -27,31 +26,43 @@ import (
 
 	"github.com/charmbracelet/glamour"
 	"github.com/docker/go-units"
+	"github.com/gocarina/gocsv"
 	promclient "github.com/prometheus/client_model/go"
 	"github.com/prometheus/common/expfmt"
 )
 
 const pipelineName = "perf-test"
 
-type metrics struct {
-	count         uint64
+type Metrics struct {
+	Count         uint64
 	bytes         float64
-	measuredAt    time.Time
-	recordsPerSec float64
-	msPerRec      float64
-	pipelineRate  uint64
-	bytesPerSec   string
+	MeasuredAt    time.Time
+	RecordsPerSec float64
+	MsPerRec      float64
+	PipelineRate  uint64
+	BytesPerSec   string
+
+	// Processor related
+	Goroutines float64
+	Threads    float64
+
+	// Memory related
+	MemstatsAllocBytes      float64
+	MemstatsAllocBytesTotal float64
+	MemstatsStackInUseBytes float64
+	MemstatsHeapInUseBytes  float64
 }
 
-func (m metrics) msPerRecStr() string {
-	return strconv.FormatFloat(m.msPerRec, 'f', 10, 64)
+func (m Metrics) msPerRecStr() string {
+	return strconv.FormatFloat(m.MsPerRec, 'f', 10, 64)
 }
 
 var printerTypes = []string{"csv", "console"}
 
 type printer interface {
 	init() error
-	print(metrics) error
+	print(Metrics) error
+	close() error
 }
 
 func newPrinter(printerType string, workload string) (printer, error) {
@@ -72,8 +83,8 @@ func newPrinter(printerType string, workload string) (printer, error) {
 }
 
 type csvPrinter struct {
-	writer   *csv.Writer
 	workload string
+	file     *os.File
 }
 
 func (c *csvPrinter) init() error {
@@ -83,38 +94,26 @@ func (c *csvPrinter) init() error {
 	if err != nil {
 		return fmt.Errorf("failed creating file: %w", err)
 	}
-	c.writer = csv.NewWriter(file)
-	err = c.writer.Write([]string{
-		"workload",
-		"total records",
-		"rec/s (Conduit)",
-		"ms/record (Conduit)",
-		"rec/s (pipeline)",
-		"bytes/s",
-		"measured_at",
-	})
+	c.file = file
+	str, err := gocsv.MarshalString([]Metrics{})
 	if err != nil {
 		return err
 	}
-	c.writer.Flush()
-	return nil
+	_, err = c.file.WriteString(str)
+	return err
 }
 
-func (c *csvPrinter) print(m metrics) error {
-	err := c.writer.Write([]string{
-		c.workload,
-		fmt.Sprintf("%v", m.count),
-		fmt.Sprintf("%v", m.recordsPerSec),
-		m.msPerRecStr(),
-		fmt.Sprintf("%v", m.pipelineRate),
-		fmt.Sprintf("%v", m.bytesPerSec),
-		fmt.Sprintf("%v", m.measuredAt.Format(time.RFC3339)),
-	})
+func (c *csvPrinter) print(m Metrics) error {
+	str, err := gocsv.MarshalStringWithoutHeaders([]Metrics{m})
 	if err != nil {
 		return err
 	}
-	c.writer.Flush()
-	return nil
+	_, err = c.file.WriteString(str)
+	return err
+}
+
+func (c *csvPrinter) close() error {
+	return c.file.Close()
 }
 
 type consolePrinter struct {
@@ -132,7 +131,7 @@ func (c *consolePrinter) init() error {
 	return nil
 }
 
-func (c *consolePrinter) print(m metrics) error {
+func (c *consolePrinter) print(m Metrics) error {
 	in := `
 | workload | total records | rec/s (Conduit) | ms/record (Conduit) | rec/s (pipeline) | bytes/s | measured at |
 |----------|---------------|-----------------|---------------------|------------------|---------|-------------|
@@ -143,12 +142,12 @@ func (c *consolePrinter) print(m metrics) error {
 	in = fmt.Sprintf(
 		in,
 		c.workload,
-		m.count,
-		m.recordsPerSec,
+		m.Count,
+		m.RecordsPerSec,
 		m.msPerRecStr(),
-		m.pipelineRate,
-		m.bytesPerSec,
-		m.measuredAt.Format(time.RFC3339),
+		m.PipelineRate,
+		m.BytesPerSec,
+		m.MeasuredAt.Format(time.RFC3339),
 	)
 	out, err := c.renderer.Render(in)
 	if err != nil {
@@ -158,8 +157,12 @@ func (c *consolePrinter) print(m metrics) error {
 	return nil
 }
 
+func (c *consolePrinter) close() error {
+	return nil
+}
+
 type collector struct {
-	first      metrics
+	first      Metrics
 	metricsURL string
 }
 
@@ -187,27 +190,43 @@ func (c *collector) init() error {
 	return nil
 }
 
-func (c *collector) collect() (metrics, error) {
+func (c *collector) collect() (Metrics, error) {
 	metricFamilies, err := c.getMetrics()
 	if err != nil {
-		return metrics{}, fmt.Errorf("failed getting metrics: %v", err)
+		return Metrics{}, fmt.Errorf("failed getting metrics: %v", err)
 	}
 
-	m := metrics{}
+	m := Metrics{}
 	count, totalTime, err := c.getPipelineMetrics(metricFamilies)
 	if err != nil {
 		fmt.Printf("failed getting pipeline metrics: %v", err)
 		os.Exit(1)
 	}
-	m.count = count
-	m.recordsPerSec = float64(count) / totalTime
-	m.msPerRec = (totalTime / float64(count)) * 1000
+	m.Count = count
+	m.RecordsPerSec = float64(count) / totalTime
+	m.MsPerRec = (totalTime / float64(count)) * 1000
 	m.bytes = c.getSourceByteMetrics(metricFamilies)
-	m.bytesPerSec = units.HumanSize(m.bytes / totalTime)
-	m.pipelineRate = (count - c.first.count) / uint64(time.Since(c.first.measuredAt).Seconds())
-	m.measuredAt = time.Now()
+	m.BytesPerSec = units.HumanSize(m.bytes / totalTime)
+	m.PipelineRate = (count - c.first.Count) / uint64(time.Since(c.first.MeasuredAt).Seconds())
+	m.MeasuredAt = time.Now()
+
+	m.Goroutines = c.getGauge(metricFamilies, "go_goroutines")
+	m.Threads = c.getGauge(metricFamilies, "go_threads")
+
+	m.MemstatsAllocBytes = c.getGauge(metricFamilies, "go_memstats_alloc_bytes")
+	m.MemstatsAllocBytesTotal = c.getCounter(metricFamilies, "go_memstats_alloc_bytes_total")
+	m.MemstatsStackInUseBytes = c.getGauge(metricFamilies, "go_memstats_stack_inuse_bytes")
+	m.MemstatsHeapInUseBytes = c.getGauge(metricFamilies, "go_memstats_heap_inuse_bytes")
 
 	return m, nil
+}
+
+func (c *collector) getGauge(families map[string]*promclient.MetricFamily, name string) float64 {
+	return families[name].GetMetric()[0].GetGauge().GetValue()
+}
+
+func (c *collector) getCounter(families map[string]*promclient.MetricFamily, name string) float64 {
+	return families[name].GetMetric()[0].GetCounter().GetValue()
 }
 
 // getMetrics returns all the metrics which Conduit exposes
@@ -309,9 +328,14 @@ func main() {
 			fmt.Printf("couldn't collect metrics: %v", err)
 			os.Exit(1)
 		}
-		p.print(metrics)
+		err = p.print(metrics)
+		if err != nil {
+			fmt.Printf("couldn't print metrics: %v", err)
+			os.Exit(1)
+		}
 		if time.Now().After(until) {
 			break
 		}
 	}
+	p.close()
 }
