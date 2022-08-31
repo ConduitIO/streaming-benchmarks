@@ -39,12 +39,14 @@ The available `make` targets for this purpose are:
 
 Performance tests can be run against Conduit running on an EC2 instance. The steps are the following:
 1. Use ["Deploying to Amazon EC2"](https://docs.conduit.io/docs/Deploy/aws_ec2/) guide to create and launch an EC2 instance.
-2. Upload `scripts`, the NoOp destination and the `benchmark` tool. To do so, run `scripts/upload-benchmark.sh {path to PEM file} {target IP}`,
+2. Upload `scripts`, the NoOp destination and the `benchmark` tool. To do so, run `scripts/aws-ec2-upload-benchmark.sh {path to PEM file} {target IP}`,
 where `{path to PEM file}` is the path to the private key for the test EC2 instance, and `{target IP}` is the IP address 
 of it.
 3. SSH into `{target IP}`.
 4. `cd streaming-benchmarks/`
-5. Run the benchmark by using `nohup scripts/run-systemd-all.sh &`. This makes it possible to end the SSH session without
+5. (first time only) Run `scripts/aws-ec2-install-conduit.sh` to install Conduit. For example, to install version 0.3.0 
+of Conduit, execute `scripts/aws-ec2-install-conduit.sh 0.3.0`.
+6. Run the benchmark by using `nohup scripts/run-systemd-all.sh &`. This makes it possible to end the SSH session without
 stopping the tests.
 
 #### Finding the results
