@@ -17,6 +17,9 @@ for w in workloads/*.sh; do
   __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
   source ${__dir}/run-systemd-workload.sh "$w"
 
+  # The sleep time here creates a "gap" in monitoring tools,
+  # which makes it clear when a workload ended
+  # and when the next one started.
   echo "sleeping for $SLEEP_TIME seconds"
   sleep $SLEEP_TIME
 done
