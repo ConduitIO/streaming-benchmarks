@@ -12,11 +12,8 @@ curl -Ss -X POST 'http://localhost:8080/v1/pipelines' -d '
 )
 
 # we can't have messages larger than 4 MB, see: https://github.com/ConduitIO/conduit/issues/547
-FILE_SIZE=4MB
-echo "Generating a file of size ${FILE_SIZE}"
-rm -f /tmp/conduit-test-file
-fallocate -l $FILE_SIZE /tmp/conduit-test-file
-
+__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+${__dir}/gen-file.sh 4M
 
 echo "Creating a generator source..."
 SOURCE_CONN_REQ_1=$(

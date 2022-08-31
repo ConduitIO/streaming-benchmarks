@@ -11,10 +11,8 @@ curl -Ss -X POST 'http://localhost:8080/v1/pipelines' -d '
 }' | jq -r '.id'
 )
 
-FILE_SIZE=1KB
-echo "Generating a file of size ${FILE_SIZE}"
-rm -f /tmp/conduit-test-file
-fallocate -l $FILE_SIZE /tmp/conduit-test-file
+__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+${__dir}/gen-file.sh 1K
 
 echo "Creating a normal source..."
 NORMAL_SOURCE=$(
