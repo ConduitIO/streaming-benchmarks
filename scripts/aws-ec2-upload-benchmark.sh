@@ -1,4 +1,5 @@
 #!/bin/bash
+# Uploads the benchmark (scripts and helper binaries) to a target AWS EC2 instance.
 KEY_FILE=$1
 TARGET=$2
 

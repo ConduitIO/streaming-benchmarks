@@ -1,4 +1,6 @@
 #!/bin/bash
+# This scripts runs a workload against a Conduit service, managed by systemd.
+# The first parameter is a path to the workload script.
 WORKLOAD=$1
 
 printf "\n-- Running %s with %s\n" "$WORKLOAD"

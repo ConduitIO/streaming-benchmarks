@@ -1,4 +1,8 @@
 #!/bin/bash
+# This scripts runs a workload against a Conduit service, available at a given endpoint,
+# and then periodically collects metrics, using the benchmark tool.
+# The first parameter is Conduit's base URL.
+# The second parameter is a path to the workload script.
 CONDUIT_URL=$1
 WORKLOAD=$2
 

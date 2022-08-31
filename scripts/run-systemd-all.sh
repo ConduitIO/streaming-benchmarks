@@ -1,4 +1,6 @@
 #!/bin/bash
+# This scripts runs all workloads against a Conduit service, managed by systemd.
+# The first parameter is the Conduit image.
 CONDUIT_IMAGE=$1
 
 cat << EOF

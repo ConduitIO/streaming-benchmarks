@@ -1,5 +1,6 @@
 #!/bin/bash
-# Script taken from: https://docs.conduit.io/docs/Deploy/aws_ec2/
+# Downloads and installs Conduit on an AWS EC2 instance.
+# Script taken from https://docs.conduit.io/docs/Deploy/aws_ec2/ .
 TAG=$1
 
 # Download

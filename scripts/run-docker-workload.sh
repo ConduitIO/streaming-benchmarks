@@ -1,4 +1,7 @@
 #!/bin/bash
+# This scripts runs a workload in a Docker containers.
+# The first parameter is the Conduit image.
+# The second parameter is a path to the workload script.
 CONDUIT_IMAGE=$1
 WORKLOAD=$2
 
