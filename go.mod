@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/charmbracelet/glamour v0.5.0
 	github.com/conduitio/conduit-connector-sdk v0.2.1-0.20220803121801-c861a0fb207c
-	github.com/docker/go-units v0.4.0
+	github.com/docker/go-units v0.5.0
 	github.com/gocarina/gocsv v0.0.0-20220729221910-a7386ae0b221
 	github.com/prometheus/client_model v0.2.0
 	github.com/prometheus/common v0.37.0
