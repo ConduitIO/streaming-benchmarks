@@ -14,6 +14,9 @@ EOF
 
 SLEEP_TIME=60
 for w in workloads/*.sh; do
+  if [[ "$w" == *"helper"* ]]; then
+    continue
+  fi
   __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
   source ${__dir}/run-systemd-workload.sh "$w"
 
