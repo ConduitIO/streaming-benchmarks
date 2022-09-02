@@ -9,5 +9,4 @@ make scripts/benchmark
 rm plugins/noop-dest
 make plugins/noop-dest
 
-rsync -v -e "ssh -i $KEY_FILE" -aR scripts/ workloads/ ec2-user@"$TARGET":/home/ec2-user/streaming-benchmarks/
-rsync -v -e "ssh -i $KEY_FILE" -aR plugins/ ec2-user@"$TARGET":/home/ec2-user/streaming-benchmarks/connectors
+rsync -v -e "ssh -i $KEY_FILE" -aR scripts/ workloads/ plugins/ ec2-user@"$TARGET":/home/ec2-user/streaming-benchmarks/

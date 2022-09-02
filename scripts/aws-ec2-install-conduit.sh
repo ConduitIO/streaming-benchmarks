@@ -20,8 +20,8 @@ sudo chown -R ec2-user /var/lib/conduit
 sudo mkdir -p /usr/local/lib/systemd/system
 sudo chown -R ec2-user /usr/local/lib/systemd/system
 
-sudo mkdir -p /plugins/
-sudo cp ./plugins/noop-dest /plugins/
+sudo mkdir -p /var/lib/conduit/connectors/
+sudo cp ./plugins/noop-dest /var/lib/conduit/connectors/
 
 printf "[Unit]\nDescription=Conduit daemon\n\n[Service]\nType=simple\nUser=ec2-user\nWorkingDirectory=/var/lib/conduit\nExecStart=/usr/bin/conduit\n\n[Install]\nWantedBy=multi-user.target" > /usr/local/lib/systemd/system/conduit.service
 

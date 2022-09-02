@@ -13,7 +13,7 @@ curl -Ss -X POST 'http://localhost:8080/v1/pipelines' -d '
 
 # we can't have messages larger than 4 MB, see: https://github.com/ConduitIO/conduit/issues/547
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-${__dir}/helper-gen-file.sh 4M
+${__dir}/helper-gen-file.sh 4000k
 
 echo "Creating a generator source..."
 SOURCE_CONN_REQ_1=$(
@@ -40,7 +40,7 @@ echo "Creating a NoOp destination..."
 DEST_CONN_REQ=$(
 jq -n  --arg pipeline_id "$PIPELINE_ID" '{
      "type": "TYPE_DESTINATION",
-     "plugin": "/plugins/noop-dest",
+     "plugin": "standalone@noop-dest",
      "pipeline_id": $pipeline_id,
      "config":
      {
