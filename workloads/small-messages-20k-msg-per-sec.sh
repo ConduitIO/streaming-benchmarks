@@ -12,7 +12,7 @@ curl -Ss -X POST 'http://localhost:8080/v1/pipelines' -d '
 )
 
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-${__dir}/gen-file.sh 1K
+${__dir}/helper-gen-file.sh 1K
 
 echo "Creating a generator source (1)..."
 SOURCE_CONN_REQ_1=$(
