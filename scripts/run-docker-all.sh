@@ -16,7 +16,9 @@ SLEEP_TIME=60
 for w in workloads/*.sh; do
   if [[ "$w" == *"helper"* ]]; then
     continue
-  fi  __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+  fi
+
+  __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
   source ${__dir}/run-docker-workload.sh $CONDUIT_IMAGE "$w"
 
   # The sleep time here creates a "gap" in monitoring tools,
