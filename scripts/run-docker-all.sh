@@ -12,7 +12,7 @@ that if built-in plugins are used, their resource usage is part of Conduit's usa
 
 EOF
 
-SLEEP_TIME=60
+SLEEP_TIME=300
 for w in workloads/*.sh; do
   if [[ "$w" == *"helper"* ]]; then
     continue
