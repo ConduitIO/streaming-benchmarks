@@ -30,13 +30,11 @@ func main() {
 
 func Spec() sdk.Specification {
 	return sdk.Specification{
-		Name:              "NoOp destination",
-		Summary:           "A NoOp destination connector.",
-		Description:       "A NoOp destination connector.",
-		Version:           "v0.1.0",
-		Author:            "Meroxa, Inc.",
-		DestinationParams: map[string]sdk.Parameter{},
-		SourceParams:      map[string]sdk.Parameter{},
+		Name:        "noop-dest",
+		Summary:     "A NoOp destination connector.",
+		Description: "A NoOp destination connector.",
+		Version:     "v0.1.0",
+		Author:      "Meroxa, Inc.",
 	}
 }
 
@@ -48,6 +46,10 @@ func NewDestination() sdk.Destination {
 	return destination{}
 }
 
+func (d destination) Parameters() map[string]sdk.Parameter {
+	return map[string]sdk.Parameter{}
+}
+
 func (d destination) Configure(_ context.Context, _ map[string]string) error {
 	return nil
 }
@@ -56,8 +58,8 @@ func (d destination) Open(ctx context.Context) error {
 	return nil
 }
 
-func (d destination) Write(_ context.Context, _ sdk.Record) error {
-	return nil
+func (d destination) Write(ctx context.Context, r []sdk.Record) (n int, err error) {
+	return len(r), nil
 }
 
 func (d destination) Teardown(_ context.Context) error {

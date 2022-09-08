@@ -4,9 +4,9 @@ go 1.18
 
 require (
 	github.com/charmbracelet/glamour v0.5.0
-	github.com/conduitio/conduit-connector-sdk v0.2.1-0.20220803121801-c861a0fb207c
+	github.com/conduitio/conduit-connector-sdk v0.2.1-0.20220830103153-f1e73bed9120
 	github.com/docker/go-units v0.5.0
-	github.com/gocarina/gocsv v0.0.0-20220729221910-a7386ae0b221
+	github.com/gocarina/gocsv v0.0.0-20220823132111-71f3a5cb2654
 	github.com/prometheus/client_model v0.2.0
 	github.com/prometheus/common v0.37.0
 )
@@ -36,7 +36,7 @@ require (
 	github.com/oklog/run v1.0.0 // indirect
 	github.com/olekukonko/tablewriter v0.0.5 // indirect
 	github.com/rivo/uniseg v0.2.0 // indirect
-	github.com/rs/zerolog v1.27.0 // indirect
+	github.com/rs/zerolog v1.28.0 // indirect
 	github.com/yuin/goldmark v1.4.4 // indirect
 	github.com/yuin/goldmark-emoji v1.0.1 // indirect
 	go.buf.build/grpc/go/conduitio/conduit-connector-protocol v1.3.3 // indirect
@@ -44,6 +44,7 @@ require (
 	golang.org/x/net v0.0.0-20220225172249-27dd8689420f // indirect
 	golang.org/x/sys v0.0.0-20220405052023-b1e9470b6e64 // indirect
 	golang.org/x/text v0.3.7 // indirect
+	golang.org/x/time v0.0.0-20220722155302-e5dcc9cfc0b9 // indirect
 	google.golang.org/genproto v0.0.0-20211104193956-4c6863e31247 // indirect
 	google.golang.org/grpc v1.43.0 // indirect
 	google.golang.org/protobuf v1.28.0 // indirect
