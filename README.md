@@ -12,7 +12,7 @@ Our performance benchmarks is built upon the following principles:
 Because of principle #1, our benchmarks usually use a [NoOp destination](/test/perf/noopdest). The time a record spends
 in Conduit is measured from when it's read from a source until it's ack-ed by all destinations. With a NoOp destination,
 the last part is almost 0ms (the NoOp destination is a standalone plugin, so there's a bit of gRPC overhead). This makes
-our measurement of how much time do records spend in Conduit pretty accurate.
+our measurement of how long a record spends in Conduit pretty accurate.
 
 ### Running benchmark
 
@@ -28,7 +28,7 @@ build an image called `conduit:local`.
 
 Benchmarks are run using `make` targets which start with `run-`. Each of them:
 1. Starts Conduit (the version depends on the make target)
-2. Runa all workload
+2. Runs all workload
 3. Prints results
 
 The available `make` targets for this purpose are:
@@ -39,7 +39,7 @@ The available `make` targets for this purpose are:
 ### Workloads
 
 Workloads are pipelines configured in specific ways and exercising different areas of Conduit. For example, one workload 
-can test how does Conduit behave when records with large payloads flow through it. Another one can test Conduit's with
+can test how does Conduit behave when records with large payloads flow through it. Another one can test Conduit with
 built-in vs. standalone plugins.
 
 Workloads are specified through bash scripts, which create and configure pipelines using Conduit's HTTP API. They need 
