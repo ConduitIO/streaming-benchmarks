@@ -7,7 +7,7 @@ require (
 	github.com/conduitio/conduit-connector-sdk v0.2.1-0.20220830103153-f1e73bed9120
 	github.com/docker/go-units v0.5.0
 	github.com/gocarina/gocsv v0.0.0-20220823132111-71f3a5cb2654
-	github.com/prometheus/client_model v0.2.0
+	github.com/prometheus/client_model v0.3.0
 	github.com/prometheus/common v0.37.0
 )
 
