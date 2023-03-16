@@ -1,6 +1,6 @@
 module github.com/conduitio/streaming-benchmarks
 
-go 1.18
+go 1.20
 
 require (
 	github.com/charmbracelet/glamour v0.6.0
