@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/charmbracelet/glamour v0.6.0
-	github.com/conduitio/conduit-connector-sdk v0.7.1
+	github.com/conduitio/conduit-connector-sdk v0.7.2
 	github.com/docker/go-units v0.5.0
 	github.com/gocarina/gocsv v0.0.0-20220823132111-71f3a5cb2654
 	github.com/prometheus/client_model v0.5.0
