@@ -12,7 +12,7 @@ pipelines:
         settings:
           format.type: file
           format.options.path: "/app/data/conduit-test-file"
-          rate: 1000
+          rate: 2000
       - id: destination1
         type: destination
         plugin: builtin:log
