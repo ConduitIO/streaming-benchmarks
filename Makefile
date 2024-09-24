@@ -4,7 +4,6 @@
 build:
 	go build main.go
 
-.PHONY: scripts/benchmark
 scripts/benchmark:
 	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o scripts/benchmark main.go
 
@@ -14,16 +13,16 @@ build-local:
 	@cd ../conduit && docker build -t conduit:local .
 
 .PHONY: run-local
-run-local:
+run-local: scripts/benchmark
 	scripts/run-docker-all.sh conduit:local
 
 .PHONY: run-latest
-run-latest:
+run-latest: scripts/benchmark
 	docker pull ghcr.io/conduitio/conduit:latest
 	scripts/run-docker-all.sh ghcr.io/conduitio/conduit:latest
 
 .PHONY: run-latest-nightly
-run-latest-nightly:
+run-latest-nightly: scripts/benchmark
 	docker pull ghcr.io/conduitio/conduit:latest-nightly
 	scripts/run-docker-all.sh ghcr.io/conduitio/conduit:latest-nightly
 

@@ -1,11 +1,6 @@
 #!/bin/bash
-# todo reuse script
-FILE_SIZE=1K
-
-__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-# todo standardize this directory, pre-create
-mkdir -p "$__dir/data"
-FILE_NAME="$__dir/data/conduit-test-file"
+FILE_SIZE=$1
+FILE_NAME=/tmp/conduit-test-file
 
 echo "Generating a file of size ${FILE_SIZE}"
 rm -f /tmp/conduit-test-file
