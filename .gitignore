@@ -25,4 +25,4 @@ workloads-*.csv
 .DS_Store
 conduit-test-file
 
-workloads/small-messages-20k-msg-per-sec/connectors/conduit-connector-chaos
+workloads/size-1k-rate-20k-log/connectors/conduit-connector-chaos
