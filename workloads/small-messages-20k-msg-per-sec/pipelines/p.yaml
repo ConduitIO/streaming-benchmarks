@@ -11,7 +11,7 @@ pipelines:
         name: source1
         settings:
           format.type: file
-          format.options.path: "./data/conduit-test-file"
+          format.options.path: "/app/data/conduit-test-file"
           rate: 20000
       - id: destination1
         type: destination
