@@ -12,7 +12,7 @@ that if built-in plugins are used, their resource usage is part of Conduit's usa
 
 EOF
 
-SLEEP_TIME=120
+SLEEP_TIME=1
 for w in workloads/*; do
     if [ -d "$w" ]; then
       __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

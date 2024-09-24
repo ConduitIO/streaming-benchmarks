@@ -22,7 +22,4 @@ create_tmp_file() {
   fi
 }
 
-# Call the function
-install_connector
-
 create_tmp_file

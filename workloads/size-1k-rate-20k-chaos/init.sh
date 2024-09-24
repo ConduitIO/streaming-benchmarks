@@ -5,30 +5,22 @@ __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 install_connector() {
   # Define variables
   local url="https://github.com/conduitio-labs/conduit-connector-chaos/releases/download/v0.1.1/conduit-connector-chaos_0.1.1_Linux_x86_64.tar.gz"
-  local archive_name="conduit-connector-chaos_0.1.1_Linux_x86_64.tar.gz"
+  local archive_name="/tmp/conduit-connector-chaos_0.1.1_Linux_x86_64.tar.gz"
   local connectors_dir="$__dir/connectors"
   local binary_name="conduit-connector-chaos"
 
-  # Download the archive
   echo "Downloading archive..."
   curl -s -L -o "$archive_name" "$url" || { echo "Failed to download the archive"; return 1; }
 
-  # Extract the conduit binary
-  echo "Extracting $binary_name binary..."
-  tar -xzf "$archive_name" "$binary_name" || { echo "Failed to extract $binary_name binary"; return 1; }
-
-  # Create the connectors directory with appropriate permissions
   echo "Creating $connectors_dir..."
   mkdir -p "$connectors_dir" || { echo "Failed to create $connectors_dir"; return 1; }
 
-  # Copy the conduit binary to the connectors directory
-  echo "Copying $binary_name binary to $connectors_dir..."
-  cp "$binary_name" "$connectors_dir/" || { echo "Failed to copy $binary_name binary"; return 1; }
+  echo "Extracting $binary_name binary..."
+  tar -xzf "$archive_name" -C "$connectors_dir" "$binary_name" || { echo "Failed to extract $binary_name binary"; return 1; }
 
   # Clean up
   echo "Cleaning up..."
   rm "$archive_name"
-  rm "$binary_name"
 
   echo "Done!"
 }
