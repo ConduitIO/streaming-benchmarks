@@ -1,0 +1,18 @@
+version: "2.2"
+pipelines:
+  - id: pipeline1
+    status: running
+    name: pipeline1
+
+    connectors:
+      - id: source1
+        type: source
+        plugin: builtin:generator
+        name: source1
+        settings:
+          format.type: file
+          format.options.path: "/tmp/conduit-test-file"
+          rate: 20000
+      - id: destination1
+        type: destination
+        plugin: builtin:log

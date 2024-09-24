@@ -9,7 +9,7 @@ printf "\n-- Running %s with %s\n" "$WORKLOAD" "$CONDUIT_IMAGE"
 
 docker stop conduit-perf-test || true
 
-docker run --rm --name conduit-perf-test --memory 1g --cpus=2 -v "$(pwd)/plugins":/plugins -p 8080:8080 -d "$CONDUIT_IMAGE"
+docker run --rm --name conduit-perf-test --memory 1g --cpus=2 -v "$(pwd)/pipelines":/pipelines -p 8080:8080 -d "$CONDUIT_IMAGE"
 sleep 1
 
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
