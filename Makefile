@@ -1,11 +1,19 @@
 .PHONY: build-local build-noop-dest run-local run-latest run-latest-nightly print-results
 
+# todo following two are duplicates
+
 .PHONY: build
 build:
 	go build main.go
 
 scripts/benchmark:
 	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o scripts/benchmark main.go
+
+.PHONY: install-tools
+install-tools: download
+	@echo Installing tools from tools.go
+	@go list -e -f '{{ join .Imports "\n" }}' tools.go | xargs -I % go list -f "%@{{.Module.Version}}" % | xargs -tI % go install %
+	@go mod tidy
 
 # Builds a fresh Docker image, so we're not limited on the GA and nightly builds
 .PHONY: build-local
