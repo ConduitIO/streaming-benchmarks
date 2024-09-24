@@ -24,3 +24,5 @@ plugins/
 workloads-*.csv
 .DS_Store
 conduit-test-file
+
+workloads/small-messages-20k-msg-per-sec/connectors/conduit-connector-chaos
