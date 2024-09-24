@@ -28,3 +28,5 @@ conduit-test-file
 # todo find better way
 workloads/size-1k-rate-20k-log/connectors/conduit-connector-chaos
 workloads/size-1k-rate-20k-chaos/connectors/conduit-connector-chaos
+workloads/size-1k-rate-20k-log/data/conduit-test-file
+workloads/size-1k-rate-1k-log/data/conduit-test-file
