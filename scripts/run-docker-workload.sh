@@ -20,6 +20,7 @@ docker run \
   --name conduit-perf-test \
   --memory 1g \
   --cpus=2 \
+  --rm \
   -v "$WORKLOAD_DATA":/app/data \
   -v "$WORKLOAD_PIPELINES":/app/pipelines \
   -v "$WORKLOAD_CONNECTORS":/app/connectors \
