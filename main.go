@@ -34,14 +34,22 @@ import (
 const pipelineName = "perf-test"
 
 type Metrics struct {
-	Workload      string
-	Count         uint64
-	bytes         float64
-	MeasuredAt    time.Time
-	RecordsPerSec float64
+	Workload   string
+	Count      uint64
+	bytes      float64
+	MeasuredAt time.Time
+	// MsPerRec is the number of milliseconds Conduit spends per record,
+	// measured from when the record was read (i.e. doesn't include the time a record spent in a source)
+	// to the time it took to ack the record (i.e. it includes the time it took to write a record).
 	MsPerRec      float64
-	PipelineRate  uint64
-	BytesPerSec   string
+	RecordsPerSec float64
+
+	// PipelineRate is calculated as: total_number_of_records/total_time,
+	// where total_time is measured from when Conduit read the first record
+	// to when it wrote the last record
+	// (i.e. it includes the time a record spent in sources, processors and destinations)
+	PipelineRate uint64
+	BytesPerSec  string
 
 	// Processor related
 	Goroutines float64
