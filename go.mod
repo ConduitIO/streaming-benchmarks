@@ -5,7 +5,7 @@ go 1.23.1
 require (
 	github.com/charmbracelet/glamour v0.8.0
 	github.com/docker/go-units v0.5.0
-	github.com/gocarina/gocsv v0.0.0-20220823132111-71f3a5cb2654
+	github.com/gocarina/gocsv v0.0.0-20240520201108-78e41c74b4b1
 	github.com/golangci/golangci-lint v1.61.0
 	github.com/prometheus/client_model v0.6.1
 	github.com/prometheus/common v0.59.1
