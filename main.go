@@ -18,6 +18,7 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"math"
 	"net/http"
 	"os"
 	"strconv"
@@ -38,11 +39,11 @@ type Metrics struct {
 	Count      uint64
 	bytes      float64
 	MeasuredAt time.Time
-	// MsPerRec is the number of milliseconds Conduit spends per record,
+	// InternalMsPerRec is the number of milliseconds Conduit spends per record,
 	// measured from when the record was read (i.e. doesn't include the time a record spent in a source)
 	// to the time it took to ack the record (i.e. it includes the time it took to write a record).
-	MsPerRec      float64
-	RecordsPerSec float64
+	InternalMsPerRec      float64
+	InternalRecordsPerSec float64
 
 	// PipelineRate is calculated as: total_number_of_records/total_time,
 	// where total_time is measured from when Conduit read the first record
@@ -63,7 +64,7 @@ type Metrics struct {
 }
 
 func (m Metrics) msPerRecStr() string {
-	return strconv.FormatFloat(m.MsPerRec, 'f', 10, 64)
+	return strconv.FormatFloat(m.InternalMsPerRec, 'f', 10, 64)
 }
 
 var printerTypes = []string{"csv", "console"}
@@ -158,7 +159,7 @@ func (c *consolePrinter) print(m Metrics) error {
 		in,
 		c.workload,
 		m.Count,
-		m.RecordsPerSec,
+		m.InternalRecordsPerSec,
 		m.msPerRecStr(),
 		m.PipelineRate,
 		m.BytesPerSec,
@@ -212,17 +213,19 @@ func (c *collector) collect() (Metrics, error) {
 	}
 
 	m := Metrics{}
-	count, totalTime, err := c.getPipelineMetrics(metricFamilies)
+	count, totalInternalTime, err := c.getPipelineMetrics(metricFamilies)
 	if err != nil {
 		fmt.Printf("failed getting pipeline metrics: %v", err)
 		os.Exit(1)
 	}
 	m.Count = count
-	m.RecordsPerSec = float64(count) / totalTime
-	m.MsPerRec = (totalTime / float64(count)) * 1000
+	m.InternalRecordsPerSec = math.Round(float64(count) / totalInternalTime)
+	m.InternalMsPerRec = (totalInternalTime / float64(count)) * 1000
+
+	timeSinceFirstMetric := uint64(time.Since(c.first.MeasuredAt).Seconds())
+	m.PipelineRate = (count - c.first.Count) / timeSinceFirstMetric
 	m.bytes = c.getSourceByteMetrics(metricFamilies)
-	m.BytesPerSec = units.HumanSize(m.bytes / totalTime)
-	m.PipelineRate = (count - c.first.Count) / uint64(time.Since(c.first.MeasuredAt).Seconds())
+	m.BytesPerSec = units.HumanSize(m.bytes / float64(timeSinceFirstMetric))
 	m.MeasuredAt = time.Now()
 
 	m.Goroutines = c.getGauge(metricFamilies, "go_goroutines")

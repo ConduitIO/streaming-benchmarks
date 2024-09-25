@@ -9,7 +9,11 @@ WORKLOAD=$2
 echo "running workload $WORKLOAD on Conduit $CONDUIT_URL"
 
 echo "running init script"
-bash "$WORKLOAD/init.sh"
+if [ -f "$WORKLOAD/init.sh" ]; then
+  bash "$WORKLOAD/init.sh"
+else
+  echo "init.sh does not exist."
+fi
 
 # todo print all results from this run into the same file
 echo "collecting metrics"
