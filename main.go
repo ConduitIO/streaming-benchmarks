@@ -215,8 +215,7 @@ func (c *collector) collect() (Metrics, error) {
 	m := Metrics{}
 	count, totalInternalTime, err := c.getPipelineMetrics(metricFamilies)
 	if err != nil {
-		fmt.Printf("failed getting pipeline metrics: %v", err)
-		os.Exit(1)
+		return Metrics{}, fmt.Errorf("failed getting pipeline metrics: %v", err)
 	}
 	m.Count = count
 	m.InternalRecordsPerSec = math.Round(float64(count) / totalInternalTime)
@@ -251,8 +250,7 @@ func (c *collector) getCounter(families map[string]*promclient.MetricFamily, nam
 func (c *collector) getMetrics() (map[string]*promclient.MetricFamily, error) {
 	metrics, err := http.Get(c.metricsURL) //nolint:noctx // contexts generally not used here
 	if err != nil {
-		fmt.Printf("failed getting metrics: %v", err)
-		os.Exit(1)
+		return nil, fmt.Errorf("failed getting metrics: %v", err)
 	}
 	defer metrics.Body.Close()
 
@@ -355,5 +353,9 @@ func main() {
 			break
 		}
 	}
-	p.close()
+
+	err = p.close()
+	if err != nil {
+		fmt.Printf("couldn't close printer: %v", err)
+	}
 }
