@@ -15,7 +15,6 @@
 package main
 
 import (
-	"errors"
 	"flag"
 	"fmt"
 	"math"
@@ -83,12 +82,15 @@ func newPrinter(printerType string, workload string) (printer, error) {
 	case "csv":
 		p = &csvPrinter{workload: workload}
 	default:
-		return nil, fmt.Errorf("unknown printer type %q, possible values: %v", printerType, printerTypes)
+		//nolint:err113 // error type is not checked, we only look if there's an error or not
+		return nil, fmt.Errorf("unknown printer type %q (possible values: %v)", printerType, printerTypes)
 	}
+
 	err := p.init()
 	if err != nil {
 		return nil, fmt.Errorf("failed initializing printer: %w", err)
 	}
+
 	return p, nil
 }
 
@@ -112,24 +114,39 @@ func (c *csvPrinter) init() error {
 	c.file = file
 	str, err := gocsv.MarshalString([]Metrics{})
 	if err != nil {
-		return err
+		return fmt.Errorf("failed marshaling metrics: %w", err)
 	}
+
 	_, err = c.file.WriteString(str)
-	return err
+	if err != nil {
+		return fmt.Errorf("failed writing metrics: %w", err)
+	}
+
+	return nil
 }
 
 func (c *csvPrinter) print(m Metrics) error {
 	m.Workload = c.workload
 	str, err := gocsv.MarshalStringWithoutHeaders([]Metrics{m})
 	if err != nil {
-		return err
+		return fmt.Errorf("failed marshaling metrics: %w", err)
 	}
+
 	_, err = c.file.WriteString(str)
-	return err
+	if err != nil {
+		return fmt.Errorf("failed writing file: %w", err)
+	}
+
+	return nil
 }
 
 func (c *csvPrinter) close() error {
-	return c.file.Close()
+	err := c.file.Close()
+	if err != nil {
+		return fmt.Errorf("failed closing file: %w", err)
+	}
+
+	return nil
 }
 
 type consolePrinter struct {
@@ -209,13 +226,13 @@ func (c *collector) init() error {
 func (c *collector) collect() (Metrics, error) {
 	metricFamilies, err := c.getMetrics()
 	if err != nil {
-		return Metrics{}, fmt.Errorf("failed getting metrics: %v", err)
+		return Metrics{}, fmt.Errorf("failed getting metrics: %w", err)
 	}
 
 	m := Metrics{}
 	count, totalInternalTime, err := c.getPipelineMetrics(metricFamilies)
 	if err != nil {
-		return Metrics{}, fmt.Errorf("failed getting pipeline metrics: %v", err)
+		return Metrics{}, fmt.Errorf("failed getting pipeline metrics: %w", err)
 	}
 	m.Count = count
 	m.InternalRecordsPerSec = math.Round(float64(count) / totalInternalTime)
@@ -246,24 +263,31 @@ func (c *collector) getCounter(families map[string]*promclient.MetricFamily, nam
 	return families[name].GetMetric()[0].GetCounter().GetValue()
 }
 
-// getMetrics returns all the metrics which Conduit exposes
+// getMetrics returns all the metrics which Conduit exposes.
 func (c *collector) getMetrics() (map[string]*promclient.MetricFamily, error) {
 	metrics, err := http.Get(c.metricsURL) //nolint:noctx // contexts generally not used here
 	if err != nil {
-		return nil, fmt.Errorf("failed getting metrics: %v", err)
+		return nil, fmt.Errorf("failed getting metrics: %w", err)
 	}
 	defer metrics.Body.Close()
 
 	var parser expfmt.TextParser
-	return parser.TextToMetricFamilies(metrics.Body)
+	metricFamilies, err := parser.TextToMetricFamilies(metrics.Body)
+	if err != nil {
+		return nil, fmt.Errorf("failed parsing metrics: %w", err)
+	}
+
+	return metricFamilies, nil
 }
 
 // getPipelineMetrics extract the test pipeline's metrics
-// (total number of records, time records spent in pipeline)
+// (total number of records, time records spent in pipeline).
 func (c *collector) getPipelineMetrics(families map[string]*promclient.MetricFamily) (uint64, float64, error) {
-	family, ok := families["conduit_pipeline_execution_duration_seconds"]
+	metricFamilyName := "conduit_pipeline_execution_duration_seconds"
+	family, ok := families[metricFamilyName]
 	if !ok {
-		return 0, 0, errors.New("metric family conduit_pipeline_execution_duration_seconds not available")
+		//nolint:err113 // error type is not checked, we only look if there's an error or not
+		return 0, 0, fmt.Errorf("metric family %v not found", metricFamilyName)
 	}
 
 	for _, m := range family.Metric {
@@ -272,10 +296,11 @@ func (c *collector) getPipelineMetrics(families map[string]*promclient.MetricFam
 		}
 	}
 
+	//nolint:err113 // error type is not checked, we only look if there's an error or not
 	return 0, 0, fmt.Errorf("metrics for pipeline %q not found", pipelineName)
 }
 
-// getSourceByteMetrics returns the amount of bytes the sources in the test pipeline produced
+// getSourceByteMetrics returns the amount of bytes the sources in the test pipeline produced.
 func (c *collector) getSourceByteMetrics(families map[string]*promclient.MetricFamily) float64 {
 	for _, m := range families["conduit_connector_bytes"].Metric {
 		if c.hasLabel(m, "pipeline_name", pipelineName) && c.hasLabel(m, "type", "source") {
@@ -286,7 +311,7 @@ func (c *collector) getSourceByteMetrics(families map[string]*promclient.MetricF
 	return 0
 }
 
-// hasLabel returns true, if the input metrics has a label with the given name and value
+// hasLabel returns true, if the input metrics has a label with the given name and value.
 func (c *collector) hasLabel(m *promclient.Metric, name string, value string) bool {
 	for _, labelPair := range m.GetLabel() {
 		if labelPair.GetName() == name && labelPair.GetValue() == value {

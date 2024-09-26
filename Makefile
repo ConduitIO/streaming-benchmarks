@@ -10,7 +10,7 @@ scripts/benchmark:
 	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o scripts/benchmark main.go
 
 .PHONY: install-tools
-install-tools: download
+install-tools:
 	@echo Installing tools from tools.go
 	@go list -e -f '{{ join .Imports "\n" }}' tools.go | xargs -I % go list -f "%@{{.Module.Version}}" % | xargs -tI % go install %
 	@go mod tidy
@@ -34,6 +34,10 @@ run-latest-nightly: scripts/benchmark
 	docker pull ghcr.io/conduitio/conduit:latest-nightly
 	scripts/run-docker-all.sh ghcr.io/conduitio/conduit:latest-nightly
 
+.PHONY: fmt
+fmt:
+	gofumpt -l -w .
+
 .PHONY: lint
 lint:
-	golangci-lint run
+	golangci-lint run -v
