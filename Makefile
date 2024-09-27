@@ -1,4 +1,10 @@
-.PHONY: build-local build-noop-dest run-local run-latest run-latest-nightly print-results
+# Define variables
+VERSION := 1.3.1
+OS := $(shell uname -s | tr A-Z a-z)
+ARCH := $(shell uname -m | sed 's/x86_64/amd64/')
+
+# Define the installation directory
+NODE_EXPORTER_DIR := $(HOME)/node_exporter
 
 # todo following two are duplicates
 
@@ -41,3 +47,27 @@ fmt:
 .PHONY: lint
 lint:
 	golangci-lint run -v
+
+.PHONY: install-node-exporter
+install-node-exporter:
+	@if [ -f "$(NODE_EXPORTER_DIR)/node_exporter" ]; then \
+		echo "node_exporter is already installed."; \
+	else \
+		echo "Installing node_exporter..."; \
+		curl -sSL -o node_exporter-$(VERSION).$(OS)-$(ARCH).tar.gz \
+			https://github.com/prometheus/node_exporter/releases/download/v$(VERSION)/node_exporter-$(VERSION).$(OS)-$(ARCH).tar.gz || \
+			{ echo "curl download failed, installation aborted."; exit 1; }; \
+		tar xvfz node_exporter-*.$(OS)-$(ARCH).tar.gz; \
+		mkdir -p $(NODE_EXPORTER_DIR); \
+		mv node_exporter-$(VERSION).$(OS)-$(ARCH)/node_exporter $(NODE_EXPORTER_DIR)/; \
+		rm -rf node_exporter-*.$(OS)-$(ARCH).tar.gz node_exporter-$(VERSION).$(OS)-$(ARCH); \
+		echo "node_exporter has been installed to $(NODE_EXPORTER_DIR)"; \
+	fi
+
+.PHONY: run-node-exporter
+run-node-exporter:
+	@if [ -f "$(NODE_EXPORTER_DIR)/node_exporter" ]; then \
+		$(NODE_EXPORTER_DIR)/node_exporter; \
+	else \
+		echo "node_exporter is not installed. Please run 'make install-node-exporter' first."; \
+	fi
