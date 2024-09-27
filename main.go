@@ -15,9 +15,9 @@
 package main
 
 import (
-	"errors"
 	"flag"
 	"fmt"
+	"math"
 	"net/http"
 	"os"
 	"strconv"
@@ -34,14 +34,22 @@ import (
 const pipelineName = "perf-test"
 
 type Metrics struct {
-	Workload      string
-	Count         uint64
-	bytes         float64
-	MeasuredAt    time.Time
-	RecordsPerSec float64
-	MsPerRec      float64
-	PipelineRate  uint64
-	BytesPerSec   string
+	Workload   string
+	Count      uint64
+	bytes      float64
+	MeasuredAt time.Time
+	// InternalMsPerRec is the number of milliseconds Conduit spends per record,
+	// measured from when the record was read (i.e. doesn't include the time a record spent in a source)
+	// to the time it took to ack the record (i.e. it includes the time it took to write a record).
+	InternalMsPerRec      float64
+	InternalRecordsPerSec float64
+
+	// PipelineRate is calculated as: number of records since last metrics/time since last metrics,
+	// where total_time is measured from when Conduit read the lastMetrics record
+	// to when it wrote the last record
+	// (i.e. it includes the time a record spent in sources, processors and destinations)
+	PipelineRate uint64
+	BytesPerSec  string
 
 	// Processor related
 	Goroutines float64
@@ -55,7 +63,7 @@ type Metrics struct {
 }
 
 func (m Metrics) msPerRecStr() string {
-	return strconv.FormatFloat(m.MsPerRec, 'f', 10, 64)
+	return strconv.FormatFloat(m.InternalMsPerRec, 'f', 10, 64)
 }
 
 var printerTypes = []string{"csv", "console"}
@@ -74,12 +82,15 @@ func newPrinter(printerType string, workload string) (printer, error) {
 	case "csv":
 		p = &csvPrinter{workload: workload}
 	default:
-		return nil, fmt.Errorf("unknown printer type %q, possible values: %v", printerType, printerTypes)
+		//nolint:err113 // error type is not checked, we only look if there's an error or not
+		return nil, fmt.Errorf("unknown printer type %q (possible values: %v)", printerType, printerTypes)
 	}
+
 	err := p.init()
 	if err != nil {
 		return nil, fmt.Errorf("failed initializing printer: %w", err)
 	}
+
 	return p, nil
 }
 
@@ -103,24 +114,39 @@ func (c *csvPrinter) init() error {
 	c.file = file
 	str, err := gocsv.MarshalString([]Metrics{})
 	if err != nil {
-		return err
+		return fmt.Errorf("failed marshaling metrics: %w", err)
 	}
+
 	_, err = c.file.WriteString(str)
-	return err
+	if err != nil {
+		return fmt.Errorf("failed writing metrics: %w", err)
+	}
+
+	return nil
 }
 
 func (c *csvPrinter) print(m Metrics) error {
 	m.Workload = c.workload
 	str, err := gocsv.MarshalStringWithoutHeaders([]Metrics{m})
 	if err != nil {
-		return err
+		return fmt.Errorf("failed marshaling metrics: %w", err)
 	}
+
 	_, err = c.file.WriteString(str)
-	return err
+	if err != nil {
+		return fmt.Errorf("failed writing file: %w", err)
+	}
+
+	return nil
 }
 
 func (c *csvPrinter) close() error {
-	return c.file.Close()
+	err := c.file.Close()
+	if err != nil {
+		return fmt.Errorf("failed closing file: %w", err)
+	}
+
+	return nil
 }
 
 type consolePrinter struct {
@@ -150,7 +176,7 @@ func (c *consolePrinter) print(m Metrics) error {
 		in,
 		c.workload,
 		m.Count,
-		m.RecordsPerSec,
+		m.InternalRecordsPerSec,
 		m.msPerRecStr(),
 		m.PipelineRate,
 		m.BytesPerSec,
@@ -169,8 +195,8 @@ func (c *consolePrinter) close() error {
 }
 
 type collector struct {
-	first      Metrics
-	metricsURL string
+	lastMetrics Metrics
+	metricsURL  string
 }
 
 func newCollector(baseURL string) (collector, error) {
@@ -193,28 +219,29 @@ func (c *collector) init() error {
 	if err != nil {
 		return err
 	}
-	c.first = first
+	c.lastMetrics = first
 	return nil
 }
 
 func (c *collector) collect() (Metrics, error) {
 	metricFamilies, err := c.getMetrics()
 	if err != nil {
-		return Metrics{}, fmt.Errorf("failed getting metrics: %v", err)
+		return Metrics{}, fmt.Errorf("failed getting metrics: %w", err)
 	}
 
 	m := Metrics{}
-	count, totalTime, err := c.getPipelineMetrics(metricFamilies)
+	count, totalInternalTime, err := c.getPipelineMetrics(metricFamilies)
 	if err != nil {
-		fmt.Printf("failed getting pipeline metrics: %v", err)
-		os.Exit(1)
+		return Metrics{}, fmt.Errorf("failed getting pipeline metrics: %w", err)
 	}
 	m.Count = count
-	m.RecordsPerSec = float64(count) / totalTime
-	m.MsPerRec = (totalTime / float64(count)) * 1000
+	m.InternalRecordsPerSec = math.Round(float64(count) / totalInternalTime)
+	m.InternalMsPerRec = (totalInternalTime / float64(count)) * 1000
+
+	timeSinceFirstMetric := uint64(time.Since(c.lastMetrics.MeasuredAt).Seconds())
+	m.PipelineRate = (count - c.lastMetrics.Count) / timeSinceFirstMetric
 	m.bytes = c.getSourceByteMetrics(metricFamilies)
-	m.BytesPerSec = units.HumanSize(m.bytes / totalTime)
-	m.PipelineRate = (count - c.first.Count) / uint64(time.Since(c.first.MeasuredAt).Seconds())
+	m.BytesPerSec = units.HumanSize(m.bytes / float64(timeSinceFirstMetric))
 	m.MeasuredAt = time.Now()
 
 	m.Goroutines = c.getGauge(metricFamilies, "go_goroutines")
@@ -236,25 +263,31 @@ func (c *collector) getCounter(families map[string]*promclient.MetricFamily, nam
 	return families[name].GetMetric()[0].GetCounter().GetValue()
 }
 
-// getMetrics returns all the metrics which Conduit exposes
+// getMetrics returns all the metrics which Conduit exposes.
 func (c *collector) getMetrics() (map[string]*promclient.MetricFamily, error) {
 	metrics, err := http.Get(c.metricsURL) //nolint:noctx // contexts generally not used here
 	if err != nil {
-		fmt.Printf("failed getting metrics: %v", err)
-		os.Exit(1)
+		return nil, fmt.Errorf("failed getting metrics: %w", err)
 	}
 	defer metrics.Body.Close()
 
 	var parser expfmt.TextParser
-	return parser.TextToMetricFamilies(metrics.Body)
+	metricFamilies, err := parser.TextToMetricFamilies(metrics.Body)
+	if err != nil {
+		return nil, fmt.Errorf("failed parsing metrics: %w", err)
+	}
+
+	return metricFamilies, nil
 }
 
 // getPipelineMetrics extract the test pipeline's metrics
-// (total number of records, time records spent in pipeline)
+// (total number of records, time records spent in pipeline).
 func (c *collector) getPipelineMetrics(families map[string]*promclient.MetricFamily) (uint64, float64, error) {
-	family, ok := families["conduit_pipeline_execution_duration_seconds"]
+	metricFamilyName := "conduit_pipeline_execution_duration_seconds"
+	family, ok := families[metricFamilyName]
 	if !ok {
-		return 0, 0, errors.New("metric family conduit_pipeline_execution_duration_seconds not available")
+		//nolint:err113 // error type is not checked, we only look if there's an error or not
+		return 0, 0, fmt.Errorf("metric family %v not found", metricFamilyName)
 	}
 
 	for _, m := range family.Metric {
@@ -263,10 +296,11 @@ func (c *collector) getPipelineMetrics(families map[string]*promclient.MetricFam
 		}
 	}
 
+	//nolint:err113 // error type is not checked, we only look if there's an error or not
 	return 0, 0, fmt.Errorf("metrics for pipeline %q not found", pipelineName)
 }
 
-// getSourceByteMetrics returns the amount of bytes the sources in the test pipeline produced
+// getSourceByteMetrics returns the amount of bytes the sources in the test pipeline produced.
 func (c *collector) getSourceByteMetrics(families map[string]*promclient.MetricFamily) float64 {
 	for _, m := range families["conduit_connector_bytes"].Metric {
 		if c.hasLabel(m, "pipeline_name", pipelineName) && c.hasLabel(m, "type", "source") {
@@ -277,7 +311,7 @@ func (c *collector) getSourceByteMetrics(families map[string]*promclient.MetricF
 	return 0
 }
 
-// hasLabel returns true, if the input metrics has a label with the given name and value
+// hasLabel returns true, if the input metrics has a label with the given name and value.
 func (c *collector) hasLabel(m *promclient.Metric, name string, value string) bool {
 	for _, labelPair := range m.GetLabel() {
 		if labelPair.GetName() == name && labelPair.GetValue() == value {
@@ -330,19 +364,28 @@ func main() {
 
 	for {
 		time.Sleep(*interval)
+
 		metrics, err := c.collect()
 		if err != nil {
 			fmt.Printf("couldn't collect metrics: %v", err)
 			os.Exit(1)
 		}
+
 		err = p.print(metrics)
 		if err != nil {
 			fmt.Printf("couldn't print metrics: %v", err)
 			os.Exit(1)
 		}
+
+		c.lastMetrics = metrics
+
 		if time.Now().After(until) {
 			break
 		}
 	}
-	p.close()
+
+	err = p.close()
+	if err != nil {
+		fmt.Printf("couldn't close printer: %v", err)
+	}
 }

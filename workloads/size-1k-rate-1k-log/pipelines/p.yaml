@@ -1,0 +1,18 @@
+version: "2.2"
+pipelines:
+  - id: perf-test
+    status: running
+    name: perf-test
+
+    connectors:
+      - id: source1
+        type: source
+        plugin: builtin:generator
+        name: source1
+        settings:
+          format.type: file
+          format.options.path: "/app/data/conduit-test-file"
+          rate: 1000
+      - id: destination1
+        type: destination
+        plugin: builtin:log

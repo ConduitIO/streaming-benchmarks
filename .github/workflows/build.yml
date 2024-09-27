@@ -16,8 +16,5 @@ jobs:
         with:
           go-version-file: 'go.mod'
 
-      - name: Build NoOp destination plugin
-        run: make plugins/noop-dest
-
       - name: Build tool
         run: make build
