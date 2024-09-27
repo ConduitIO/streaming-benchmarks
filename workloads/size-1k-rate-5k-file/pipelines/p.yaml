@@ -11,7 +11,7 @@ pipelines:
         name: source1
         settings:
           format.type: file
-          format.options.path: "/home/haris/projects/conduitio/streaming-benchmarks/workloads/size-1k-rate-5k-file/data/conduit-test-file"
+          format.options.path: "/app/data/conduit-test-file"
           rate: 5000
       - id: destination1
         type: destination
