@@ -10,10 +10,3 @@ updates:
     commit-message:
       prefix: ".github:"
 
-  # Maintain dependencies for Go
-  - package-ecosystem: "gomod"
-    directory: "/"
-    schedule:
-      interval: "daily"
-    commit-message:
-      prefix: "go.mod:"
