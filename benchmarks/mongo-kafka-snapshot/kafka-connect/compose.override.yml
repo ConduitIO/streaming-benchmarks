@@ -1,0 +1,5 @@
+services:
+  benchi-kafka-connect:
+    volumes:
+      # mount path is relative to the location of the original docker-compose file
+      - ../../benchmarks/mongo-kafka-snapshot/kafka-connect/data:/benchi/data

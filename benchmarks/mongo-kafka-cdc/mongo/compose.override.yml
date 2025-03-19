@@ -1,0 +1,5 @@
+services:
+  benchi-mongo1:
+    volumes:
+      # mount path is relative to the location of the original docker-compose file (/shared/mongo/compose.yml)
+      - ../../benchmarks/mongo-kafka-cdc/mongo/data:/benchi/data

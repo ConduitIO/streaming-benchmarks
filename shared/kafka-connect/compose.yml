@@ -1,5 +1,6 @@
 services:
   benchi-kafka-connect:
+    container_name: benchi-kafka-connect
     image: confluentinc/cp-kafka-connect:7.8.1
     networks:
       - benchi
@@ -25,11 +26,12 @@ services:
       CONNECT_VALUE_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
       CONNECT_LOG4J_LOGGERS: org.apache.zookeeper=ERROR,org.I0Itec.zkclient=ERROR,org.reflections=ERROR
     volumes:
-      - ./scripts:/scripts
+      - ./scripts:/benchi/scripts
     user: root  # Switch to root to install packages
     command:
       - bash
-      - /scripts/entrypoint.sh $BENCHI_CONNECT_COMPONENTS
+      - /scripts/entrypoint.sh $${BENCHI_CONNECT_COMPONENTS}
+
 networks:
   benchi:
     external: true

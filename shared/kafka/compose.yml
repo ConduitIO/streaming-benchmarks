@@ -1,6 +1,7 @@
 services:
   benchi-kafka:
     image: apache/kafka:3.9.0
+    container_name: benchi-kafka
     platform: linux/amd64 # does not support arm64
     networks:
       - benchi
@@ -20,7 +21,7 @@ services:
     ports:
       - "7071:7071"
     volumes:
-      - ./kafka/jmx:/opt/kafka/jmx  # Mount JMX files
+      - ./jmx:/opt/kafka/jmx  # Mount JMX files
     environment:
       KAFKA_PROCESS_ROLES: 'broker,controller'
       KAFKA_NODE_ID: 1

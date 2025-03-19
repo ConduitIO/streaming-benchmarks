@@ -1,6 +1,7 @@
 services:
   benchi-conduit:
     image: ghcr.io/conduitio/conduit:v0.13.2
+    container_name: benchi-conduit
     networks:
       - benchi
     ports:
@@ -8,7 +9,7 @@ services:
     environment:
       CONDUIT_LOG_FORMAT: json
     volumes:
-      - ./conduit/scripts:/scripts
+      - ./scripts:/benchi/scripts
 
 networks:
   benchi:

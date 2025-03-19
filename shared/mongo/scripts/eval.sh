@@ -16,12 +16,7 @@
 
 set -eu
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-
-# Start timer
-SECONDS=0
+echo "Evaluating statement in Mongo: $1"
 
 mongosh "mongodb://benchi-mongo1:30001,benchi-mongo2:30002,benchi-mongo3:30003/test?replicaSet=test-replica-set" \
-    --eval "load(\"$SCRIPT_DIR/insert-test-users.js\")"
-
-echo "Completed in $SECONDS seconds."
+  --eval "$1"
