@@ -2,7 +2,6 @@ version: "2.2"
 pipelines:
     - id: mongo-to-kafka
       status: stopped
-      name: ""
       description: MongoDB to Kafka
       connectors:
         - id: mongo-source

@@ -19,76 +19,61 @@ tools:
 metrics:
   conduit_metrics:
     collector: conduit
-    tools:
-      - conduit
+    tools: conduit
     settings:
       url: http://localhost:8080/metrics
   kafka_metrics:
     collector: kafka
     settings:
       url: http://localhost:7071/metrics
-      topics: [ "mongo.test.users" ]
+      topics: "mongo.test.users"
   docker_metrics:
     collector: docker
     settings:
       containers:
-        - "benchi-conduit"
-        - "benchi-kafka-connect"
+        - benchi-conduit
+        - benchi-kafka-connect
 
 tests:
-  - name: mongo-to-kafka-cdc
+  - name: mongo-kafka-cdc
     duration: 2m
 
     steps:
       pre-infrastructure:
       post-infrastructure:    
         - name: "Create database"
-          container: "benchi-mongo1"
-          run: |-
-            /benchi/scripts/eval.sh 'load("/benchi/data/init-db.js")'
+          container: benchi-mongo1
+          run: /benchi/scripts/eval.sh 'load("/benchi/data/init-db.js")'
 
       pre-tool:
       post-tool:
-        - name: "Conduit: Install tools"
-          tools: 
-            - conduit
-          container: "benchi-conduit"
-          run: |-
-            /benchi/scripts/install_tools.sh
-
         - name: "Conduit: Set up CDC"
-          tools: 
-            - conduit
-          container: "benchi-conduit"
-          run: |-
-            /benchi/scripts/start_pipeline.sh && /benchi/scripts/stop_pipeline.sh
+          tools: conduit
+          container: benchi-conduit
+          run: |
+            /benchi/scripts/install_tools.sh
+            /benchi/scripts/start_pipeline.sh mongo-to-kafka
+            /benchi/scripts/stop_pipeline.sh mongo-to-kafka
 
         - name: "Kafka Connect: Set up CDC"
-          tools:
-            - kafka-connect
-          container: "benchi-kafka-connect"
-          run: |-
-            /benchi/scripts/create_stopped_pipeline.sh
+          tools: kafka-connect
+          container: benchi-kafka-connect
+          run: /benchi/scripts/create_stopped_pipeline.sh
 
       pre-test:
-        - name: "Insert test data"
-          container: "benchi-mongo1"
-          run: |
-            /benchi/scripts/eval.sh 'load("/benchi/data/insert-test-users.js")'
+        - name: "Mongo: Insert test data"
+          container: benchi-mongo1
+          run: /benchi/scripts/eval.sh 'load("/benchi/data/insert-test-users.js")'
 
         - name: "Conduit: start pipeline"
-          tools:
-            - conduit
-          container: "benchi-conduit"
-          run: |-
-            /benchi/scripts/start_pipeline.sh
+          tools: conduit
+          container: benchi-conduit
+          run: /benchi/scripts/start_pipeline.sh mongo-to-kafka
 
         - name: "Kafka Connect: start pipeline"
-          tools:
-            - kafka-connect
-          container: "benchi-kafka-connect"
-          run: |-
-            /benchi/scripts/start_cdc_pipeline.sh
+          tools: kafka-connect
+          container: benchi-kafka-connect
+          run: /benchi/scripts/start_cdc_pipeline.sh
 
       during:
       post-test:
