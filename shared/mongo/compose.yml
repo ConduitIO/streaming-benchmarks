@@ -1,7 +1,10 @@
 services:
   benchi-mongo1:
-    image: 'mongo:5'
     container_name: benchi-mongo1
+    networks:
+      - benchi
+
+    image: 'mongo:5'
     command:
       - '--replSet'
       - test-replica-set
@@ -14,32 +17,32 @@ services:
       start_period: 30s
     volumes:
       - ./scripts:/benchi/scripts
+
+  benchi-mongo2:
+    container_name: benchi-mongo2
     networks:
       - benchi
 
-  benchi-mongo2:
     image: 'mongo:5'
-    container_name: benchi-mongo2
     command:
       - '--replSet'
       - test-replica-set
       - '--bind_ip_all'
       - '--port'
       - '30002'
+
+  benchi-mongo3:
+    container_name: benchi-mongo3
     networks:
       - benchi
 
-  benchi-mongo3:
     image: 'mongo:5'
-    container_name: benchi-mongo3
     command:
       - '--replSet'
       - test-replica-set
       - '--bind_ip_all'
       - '--port'
       - '30003'
-    networks:
-      - benchi
 
 networks:
   benchi:

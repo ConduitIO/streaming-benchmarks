@@ -22,6 +22,7 @@ metrics:
     tools: conduit
     settings:
       url: http://localhost:8080/metrics
+      pipelines: mongo-to-kafka
   kafka_metrics:
     collector: kafka
     settings:

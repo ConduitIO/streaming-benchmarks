@@ -1,10 +1,11 @@
 services:
   benchi-kafka:
-    image: apache/kafka:3.9.0
     container_name: benchi-kafka
-    platform: linux/amd64 # does not support arm64
     networks:
       - benchi
+
+    image: apache/kafka:3.9.0
+    platform: linux/amd64 # does not support arm64
     # Configure JMX exporter in command, so that the env var is not
     # set in the container, making it possible to execute kafka cli
     # tools without the JMX exporter.
