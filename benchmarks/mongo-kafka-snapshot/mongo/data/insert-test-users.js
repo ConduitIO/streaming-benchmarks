@@ -1,5 +1,3 @@
-// create_users_batch.js
-
 // Create arrays of possible values for random selection
 const statuses = ['active', 'inactive', 'pending'];
 const subscriptionTypes = ['free', 'basic', 'premium', 'enterprise'];
@@ -9,7 +7,7 @@ const browsers = ['Chrome', 'Firefox', 'Safari', 'Edge'];
 
 
 // Total number of documents and batch size
-const totalDocs = 200_000;
+const totalDocs = 1_000_000;
 const batchSize = 20_000;
 let batch = [];
 

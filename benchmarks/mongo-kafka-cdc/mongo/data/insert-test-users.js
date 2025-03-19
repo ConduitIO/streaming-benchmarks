@@ -8,7 +8,7 @@ const browsers = ['Chrome', 'Firefox', 'Safari', 'Edge'];
 
 // Total number of documents and batch size
 const totalDocs = 1_000_000;
-const batchSize = 100_000;
+const batchSize = 20_000;
 let batch = [];
 
 // Loop through and generate documents

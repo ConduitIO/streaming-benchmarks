@@ -15,22 +15,22 @@
 # limitations under the License.
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+. "$SCRIPT_DIR/common.sh"
 
-http_code=$(curl --silent --output /tmp/curl_response --write-out "%{http_code}" -X POST -H "Content-Type: application/json" -d @"$SCRIPT_DIR/cdc-connector.json" localhost:8083/connectors)
+CONNECTOR_JSON_PATH=$1
+check_connector_json_path "$CONNECTOR_JSON_PATH"
+
+http_code=$(curl --silent --output /tmp/curl_response --write-out "%{http_code}" -X POST -H "Content-Type: application/json" -d @"$CONNECTOR_JSON_PATH" localhost:8083/connectors)
 
 if [ $? -ne 0 ]; then
-    echo "curl command failed"
+    echoerr "curl command failed with exit code $?"
     exit 1
 fi
 
-if [ "$http_code" != "200" ]; then
-    echo "Create pipeline request failed with HTTP code: $http_code"
-    echo "Response: $(cat /tmp/curl_response)"
+if [ "$http_code" != "201" ]; then
+    echoerr "Create pipeline request failed with HTTP code: $http_code"
+    echoerr "Response: $(cat /tmp/curl_response)"
     exit 1
 fi
 
 echo "Create pipeline request succeeded"
-
-"$SCRIPT_DIR/await_connector_status.sh" "RUNNING"
-
-"$SCRIPT_DIR/stop_cdc_pipeline.sh"

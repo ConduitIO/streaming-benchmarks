@@ -27,7 +27,7 @@ metrics:
     collector: kafka
     settings:
       url: http://localhost:7071/metrics
-      topics: "mongo.test.users"
+      topics: mongo.test.users
   docker_metrics:
     collector: docker
     settings:
@@ -41,7 +41,7 @@ tests:
 
     steps:
       pre-infrastructure:
-      post-infrastructure:    
+      post-infrastructure:
         - name: "Create database"
           container: benchi-mongo1
           run: /benchi/scripts/eval.sh 'load("/benchi/data/init-db.js")'
@@ -59,13 +59,16 @@ tests:
         - name: "Kafka Connect: Set up CDC"
           tools: kafka-connect
           container: benchi-kafka-connect
-          run: /benchi/scripts/create_stopped_pipeline.sh
+          run: |
+            /benchi/scripts/create_pipeline.sh /benchi/data/connector.json
+            /benchi/scripts/await_connector_status.sh /benchi/data/connector.json RUNNING
+            /benchi/scripts/stop_pipeline.sh /benchi/data/connector.json
 
-      pre-test:
         - name: "Mongo: Insert test data"
           container: benchi-mongo1
           run: /benchi/scripts/eval.sh 'load("/benchi/data/insert-test-users.js")'
 
+      pre-test:
         - name: "Conduit: start pipeline"
           tools: conduit
           container: benchi-conduit
@@ -74,7 +77,7 @@ tests:
         - name: "Kafka Connect: start pipeline"
           tools: kafka-connect
           container: benchi-kafka-connect
-          run: /benchi/scripts/start_cdc_pipeline.sh
+          run: /benchi/scripts/start_pipeline.sh /benchi/data/connector.json
 
       during:
       post-test:

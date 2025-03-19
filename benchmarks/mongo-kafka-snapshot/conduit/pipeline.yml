@@ -11,7 +11,7 @@ pipelines:
         settings:
           collection: users
           db: test
-          uri: "mongodb://mongo1:30001,mongo2:30002,mongo3:30003/test?replicaSet=test-replica-set"
+          uri: "mongodb://benchi-mongo1:30001,benchi-mongo2:30002,benchi-mongo3:30003/test?replicaSet=test-replica-set"
           sdk.batch.size: 10000
           sdk.batch.delay: "1s"
           sdk.schema.extract.key.enabled: false
@@ -22,5 +22,5 @@ pipelines:
         name: kafka-destination
         settings:
           servers: "benchi-kafka:9092"
-          topic: conduit.test.users
+          topic: mongo.test.users
           compression: "none"

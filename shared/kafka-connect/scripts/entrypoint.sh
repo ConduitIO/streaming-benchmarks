@@ -18,13 +18,15 @@
 
 yum install -y jq curl wget
 
-# Take the first parameter and split it on the comma separator.
-IFS=',' read -ra connectors <<< "$1"
-
-# Loop through connectors and install each one.
-for connector in "${connectors[@]}"; do
-  confluent-hub install --no-prompt "$connector"
-done
+# Evaluate all files in the folder specified by BENCHI_INIT_PATH
+if [ -n "$BENCHI_INIT_PATH" ]; then
+  for file in "$BENCHI_INIT_PATH"/*; do
+    if [ -f "$file" ]; then
+      echo "Sourcing $file"
+      source "$file"
+    fi
+  done
+fi
 
 # Run the original entrypoint script as the confluent user.
 su -c "/etc/confluent/docker/run" appuser

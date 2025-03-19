@@ -14,21 +14,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+echoerr() { echo "$@" 1>&2; }
 
-http_code=$(curl --silent --output /tmp/curl_response --write-out "%{http_code}" -X PUT http://localhost:8083/connectors/$(jq -r '.name' "$SCRIPT_DIR/cdc-connector.json")/resume)
-
-if [ $? -ne 0 ]; then
-    echo "curl command failed"
+check_connector_json_path() {
+  if [ -z "$1" ]; then
+    echoerr "Error: Connector JSON path is required."
     exit 1
-fi
+  fi
+}
 
-if [ "$http_code" != "200" ]; then
-    echo "Pipeline start request failed with HTTP code: $http_code"
-    echo "Response: $(cat /tmp/curl_response)"
+get_connector_name() {
+  jq -r '.name' "$1"
+}
+
+check_curl_exit_code() {
+  if [ $? -ne 0 ]; then
+    echoerr "curl command failed with exit code $?"
     exit 1
-fi
+  fi
+}
 
-echo "Pipeline start request succeeded"
-
-"$SCRIPT_DIR/await_connector_status.sh" "RUNNING"
+check_http_code() {
+  if [ "$1" != "$2" ]; then
+    echoerr "Request failed with HTTP code: $1"
+    echoerr "Response: $(cat /tmp/curl_response)"
+    exit 1
+  fi
+}

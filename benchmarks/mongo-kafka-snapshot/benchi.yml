@@ -1,94 +1,72 @@
 infrastructure:
   kafka:
-    compose: ../infra/compose-kafka.yml
+    compose: ../../shared/kafka/compose.yml
   mongo:
-    compose: ../infra/compose-mongo.yml
+    compose:
+      - ../../shared/mongo/compose.yml
+      - ./mongo/compose.override.yml
 
 tools:
   kafka-connect:
-    compose: ../tools/compose-kafka-connect.yml
+    compose:
+      - ../../shared/kafka-connect/compose.yml
+      - ./kafka-connect/compose.override.yml
   conduit:
-    compose: ../tools/compose-conduit.yml
+    compose:
+      - ../../shared/conduit/compose.yml
+      - ./conduit/compose.override.yml
 
 metrics:
   conduit_metrics:
-    collector: conduit # type of the collector, one of: conduit, prometheus, kafka, docker
-    tools:
-      - conduit
+    collector: conduit
+    tools: conduit
     settings:
       url: http://localhost:8080/metrics
-  kafka_metrics_for_conduit:
+      pipelines: mongo-to-kafka
+  kafka_metrics:
     collector: kafka
-    tools:
-      - conduit
     settings:
       url: http://localhost:7071/metrics
-      topics: [ "conduit.test.users" ]
-  kafka_metrics_for_kafka_connect:
-    collector: kafka
-    tools:
-      - kafka-connect
-    settings:
-      url: http://localhost:7071/metrics
-      topics: [ "kafkaconnect.test.users" ]
-  docker_metrics_for_conduit:
+      topics: mongo.test.users
+  docker_metrics:
     collector: docker
-    tools:
-      - conduit
     settings:
       containers:
-        - "benchi-conduit"
-  docker_metrics_for_kafka_connect:
-    collector: docker
-    tools:
-      - kafka-connect
-    settings:
-      containers:
-        - "benchi-kafka-connect"
+        - benchi-conduit
+        - benchi-kafka-connect
 
 tests:
-  - name: mongo-to-kafka-snapshot
+  - name: mongo-kafka-snapshot
     duration: 1m
-
-    tools:
-      conduit:
-        compose: ./conduit/compose-conduit.override.yml
 
     steps:
       pre-infrastructure:
       post-infrastructure:
         - name: "Create database"
-          container: "mongo1"
-          run: |-
-            /scripts/init_db.sh
+          container: benchi-mongo1
+          run: /benchi/scripts/eval.sh 'load("/benchi/data/init-db.js")'
+
       pre-tool:
       post-tool:
-        - name: "Conduit: Install tools"
-          tools:
-            - conduit
-          container: "benchi-conduit"
-          run: |-
-            /scripts/install_tools.sh
+        - name: "Mongo: Insert test data"
+          container: benchi-mongo1
+          run: /benchi/scripts/eval.sh 'load("/benchi/data/insert-test-users.js")'
 
-        - name: "Insert test data"
-          container: "mongo1"
-          run: |
-            /scripts/insert_test_data.sh
-
-        - name: "Conduit: start pipeline"
-          tools:
-            - conduit
-          container: "benchi-conduit"
-          run: |-
-            /scripts/start_pipeline.sh
-
-        - name: "KC: start pipeline"
-          tools:
-            - kafka-connect
-          container: "benchi-kafka-connect"
-          run: |-
-            /scripts/create_snapshot_pipeline.sh
       pre-test:
+        - name: "Conduit: start pipeline"
+          tools: conduit
+          container: benchi-conduit
+          run: |
+            /benchi/scripts/install_tools.sh
+            /benchi/scripts/start_pipeline.sh mongo-to-kafka
+
+        - name: "Kafka Connect: start pipeline"
+          tools: kafka-connect
+          container: benchi-kafka-connect
+          run: |
+            /benchi/scripts/create_pipeline.sh /benchi/data/connector.json
+            /benchi/scripts/await_connector_status.sh /benchi/data/connector.json RUNNING
+
       during:
       post-test:
       pre-cleanup:

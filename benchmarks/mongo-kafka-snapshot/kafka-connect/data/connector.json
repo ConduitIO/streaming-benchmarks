@@ -1,10 +1,9 @@
-
 {
     "name": "kafka-connect-mongo",
     "config":
     {
         "connector.class": "com.mongodb.kafka.connect.MongoSourceConnector",
-        "connection.uri": "mongodb://mongo1:30001,mongo2:30002,mongo3:30003/test?replicaSet=test-replica-set",
+        "connection.uri": "mongodb://benchi-mongo1:30001,benchi-mongo2:30002,benchi-mongo3:30003/test?replicaSet=test-replica-set",
         "database": "test",
         "collection": "users",
 
@@ -18,7 +17,7 @@
         "key.converter": "org.apache.kafka.connect.json.JsonConverter",
         "value.converter": "org.apache.kafka.connect.json.JsonConverter",
 
-        "topic.prefix": "kafkaconnect",
+        "topic.prefix": "mongo",
         "poll.await.time.ms": 5000,
         "poll.max.batch.size": 1000,
         "producer.override.batch.size": 1000000

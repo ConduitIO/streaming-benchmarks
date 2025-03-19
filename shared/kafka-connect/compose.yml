@@ -26,12 +26,14 @@ services:
       CONNECT_KEY_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
       CONNECT_VALUE_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
       CONNECT_LOG4J_LOGGERS: org.apache.zookeeper=ERROR,org.I0Itec.zkclient=ERROR,org.reflections=ERROR
+
+      BENCHI_INIT_PATH: "/benchi/init"
     volumes:
       - ./scripts:/benchi/scripts
     user: root  # Switch to root to install packages
     command:
       - bash
-      - /scripts/entrypoint.sh $${BENCHI_CONNECT_COMPONENTS}
+      - /benchi/scripts/entrypoint.sh
 
 networks:
   benchi:

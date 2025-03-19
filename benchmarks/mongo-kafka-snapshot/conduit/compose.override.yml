@@ -1,5 +1,7 @@
 services:
-  conduit:
+  benchi-conduit:
+    environment:
+      CONDUIT_PREVIEW_PIPELINE_ARCH_V2: true
     volumes:
-      # mount path is relative to the location of the original docker-compose file
-      - ../bench-mongo-kafka-snapshot/conduit/pipeline.yml:/app/pipelines/pipeline.yml
+      # mount path is relative to the location of the original docker-compose file (/shared/conduit/compose.yml)
+      - ../../benchmarks/mongo-kafka-snapshot/conduit/pipeline.yml:/app/pipelines/pipeline.yml

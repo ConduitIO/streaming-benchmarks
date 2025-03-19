@@ -15,20 +15,26 @@
 # limitations under the License.
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+. "$SCRIPT_DIR/common.sh"
 
-http_code=$(curl --silent --output /tmp/curl_response --write-out "%{http_code}" -X PUT http://localhost:8083/connectors/$(jq -r '.name' "$SCRIPT_DIR/cdc-connector.json")/pause)
+CONNECTOR_JSON_PATH=$1
+check_connector_json_path "$CONNECTOR_JSON_PATH"
+
+CONNECTOR_NAME=$(get_connector_name "$CONNECTOR_JSON_PATH")
+
+http_code=$(curl --silent --output /tmp/curl_response --write-out "%{http_code}" -X PUT "http://localhost:8083/connectors/$CONNECTOR_NAME/pause")
 
 if [ $? -ne 0 ]; then
-    echo "curl command failed"
+    echoerr "curl command failed with exit code $?"
     exit 1
 fi
 
-if [ "$http_code" != "200" ]; then
-    echo "Pipeline stop request failed with HTTP code: $http_code"
-    echo "Response: $(cat /tmp/curl_response)"
+if [ "$http_code" != "202" ]; then
+    echoerr "Pipeline stop request failed with HTTP code: $http_code"
+    echoerr "Response: $(cat /tmp/curl_response)"
     exit 1
 fi
 
 echo "Pipeline stop request succeeded"
 
-"$SCRIPT_DIR/await_connector_status.sh" "PAUSED"
+"$SCRIPT_DIR/await_connector_status.sh" "$CONNECTOR_JSON_PATH" "PAUSED"

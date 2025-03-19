@@ -16,19 +16,22 @@
 
 # This script waits for a connector to be in the given state.
 
-# Script directory for relative paths
-SCRIPT_DIR=$(dirname "$0")
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+. "$SCRIPT_DIR/common.sh"
 
-CONNECTOR_NAME=$(jq -r '.name' "$SCRIPT_DIR/cdc-connector.json")
+CONNECTOR_JSON_PATH=$1
+check_connector_json_path "$CONNECTOR_JSON_PATH"
+
+CONNECTOR_NAME=$(get_connector_name "$CONNECTOR_JSON_PATH")
 
 KAFKA_CONNECT_URL="http://localhost:8083"
 MAX_RETRIES=5
 RETRY_INTERVAL=5
 
-DESIRED_STATUS="${1:-RUNNING}"
+DESIRED_STATUS="${2:-RUNNING}"
 
 if [ "$DESIRED_STATUS" != "RUNNING" ] && [ "$DESIRED_STATUS" != "PAUSED" ]; then
-  echo "Error: Invalid desired status. Must be 'running' or 'paused'."
+  echoerr "Error: Invalid desired status. Must be 'RUNNING' or 'PAUSED'."
   exit 1
 fi
 
@@ -42,7 +45,7 @@ while [ $i -le $MAX_RETRIES ]; do
 
   # Check if curl failed
   if [ $? -ne 0 ]; then
-    echo "Failed to connect to Kafka Connect REST API. Retrying in $RETRY_INTERVAL seconds..."
+    echoerr "Failed to connect to Kafka Connect REST API. Retrying in $RETRY_INTERVAL seconds..."
     sleep $RETRY_INTERVAL
     i=$((i+1))
     continue
@@ -63,7 +66,7 @@ while [ $i -le $MAX_RETRIES ]; do
     echo "Success! Connector '$CONNECTOR_NAME' is now in $DESIRED_STATUS state."
     exit 0
   elif [ "$STATUS" = "FAILED" ] && [ "$DESIRED_STATUS" != "FAILED" ]; then
-    echo "Error: Connector entered FAILED state."
+    echoerr "Error: Connector entered FAILED state."
     # Get more details about the failure
     curl -s "$KAFKA_CONNECT_URL/connectors/$CONNECTOR_NAME/status"
     exit 1
@@ -74,5 +77,5 @@ while [ $i -le $MAX_RETRIES ]; do
   i=$((i+1))
 done
 
-echo "Timeout waiting for connector '$CONNECTOR_NAME' to reach $DESIRED_STATUS state."
+echoerr "Timeout waiting for connector '$CONNECTOR_NAME' to reach $DESIRED_STATUS state."
 exit 1
