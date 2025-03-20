@@ -44,4 +44,5 @@ install-csvtk   Install csvtk for processing CSV files.
 list            List all benchmarks.
 run-all         Run all benchmarks. Optionally add "run-<benchmark-name>" to run a specific benchmark.
 run-%           Run a specific benchmark.
+rmi-conduit     Remove the Conduit docker image (use when built-in connectors get added or upgraded).
 ```

@@ -29,3 +29,7 @@ run-all: ## Run all benchmarks. Optionally add "run-<benchmark-name>" to run a s
 
 run-%: ## Run a specific benchmark.
 	@find ${BENCHMARKS_PATH}/$* -name benchi.yml | xargs -I {} benchi -config {}
+
+.PHONY: rmi-conduit
+rmi-conduit: ## Remove the Conduit docker image (use when built-in connectors get added or upgraded).
+	docker rmi benchi/conduit
