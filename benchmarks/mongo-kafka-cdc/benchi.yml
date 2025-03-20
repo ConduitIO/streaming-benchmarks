@@ -67,12 +67,12 @@ tests:
           run: /benchi/scripts/insert_test_users.sh "users" 1_000_000
 
       pre-test:
-        - name: "Conduit: start pipeline"
+        - name: "Conduit: Start pipeline"
           tools: conduit
           container: benchi-conduit
           run: /benchi/scripts/start_pipeline.sh mongo-to-kafka
 
-        - name: "Kafka Connect: start pipeline"
+        - name: "Kafka Connect: Start pipeline"
           tools: kafka-connect
           container: benchi-kafka-connect
           run: /benchi/scripts/start_pipeline.sh /benchi/data/connector.json
