@@ -9,12 +9,11 @@ install-tools: install-benchi install-csvtk ## Install all tools required for be
 
 .PHONY: install-benchi
 install-benchi: ## Install latest version of benchi.
-	# TODO check if already installed
-	curl https://raw.githubusercontent.com/ConduitIO/benchi/main/install.sh | sh
+	go install github.com/conduitio/benchi/cmd/benchi@latest
 
 .PHONY: install-csvtk
 install-csvtk: ## Install csvtk for processing CSV files.
-	# TODO
+	go install github.com/shenwei356/csvtk/csvtk@latest
 
 .PHONY: list
 list: ## List all benchmarks.
