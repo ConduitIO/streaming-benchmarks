@@ -27,8 +27,14 @@ MongoDB source and writing to a Kafka destination.
 To run the benchmarks yourself, you need to have Docker and Docker Compose
 installed on your machine (see [Docker Desktop](https://docs.docker.com/desktop/)).
 
-The [`Makefile`](./Makefile) contains a set of targets to make it easy to work
-with the benchmarks. Use `make help` to see the available targets.
+Run all benchmarks using:
+
+```sh
+make install-tools run-all
+```
+
+The [`Makefile`](./Makefile) contains a number of useful targets to make it easy
+to work with the benchmarks. Use `make help` to see the available targets.
 
 ```sh
 $ make help
