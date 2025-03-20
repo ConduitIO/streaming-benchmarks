@@ -15,7 +15,6 @@ directory. Here we are just posting the aggregated results.
 
 ### Benchmark: MongoDB to Kafka
 
-> [!NOTE]
 > [Click here](./results/TODO) to see the full results.
 
 This benchmark tests the performance of the data pipeline when reading from a
@@ -33,10 +32,10 @@ with the benchmarks. Use `make help` to see the available targets.
 
 ```sh
 $ make help
-install-tools                  Install all tools required for benchmarking.
-install-benchi                 Install latest version of benchi.
-install-csvtk                  Install csvtk for processing CSV files.
-list                           List all benchmarks.
-run-all                        Run all benchmarks. Optionally add "run-<benchmark-name>" to run a specific benchmark.
-run-%                          Run a specific benchmark.
+install-tools   Install all tools required for benchmarking.
+install-benchi  Install latest version of benchi.
+install-csvtk   Install csvtk for processing CSV files.
+list            List all benchmarks.
+run-all         Run all benchmarks. Optionally add "run-<benchmark-name>" to run a specific benchmark.
+run-%           Run a specific benchmark.
 ```
