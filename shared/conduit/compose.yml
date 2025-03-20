@@ -9,9 +9,6 @@ services:
     pull_policy: never
     ports:
       - '8080:8080'
-    environment:
-      CONDUIT_LOG_FORMAT: json
-      CONDUIT_LOG_LEVEL: debug
     volumes:
       - ./scripts:/benchi/scripts
       - ./conduit.yaml:/app/conduit.yaml
