@@ -1,28 +1,35 @@
-.PHONY: build-local build-noop-dest run-local run-latest run-latest-nightly print-results
+BENCHMARKS_PATH := ./benchmarks
 
-build:
-	go build main.go
+.PHONY: help
+help:
+	@grep -E '^[a-zA-Z_-]+%?:.*?## .*$$' $(MAKEFILE_LIST) | sed 's/^*://g' | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}'
 
-scripts/benchmark:
-	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o scripts/benchmark main.go
+.PHONY: install-tools
+install-tools: install-benchi install-csvtk ## Install all tools required for benchmarking.
 
-# Builds a fresh Docker image, so we're not limited on the GA and nightly builds
-build-local:
-	@cd ../conduit && docker build -t conduit:local .
+.PHONY: install-benchi
+install-benchi: ## Install latest version of benchi.
+	go install github.com/conduitio/benchi/cmd/benchi@latest
 
-plugins/noop-dest:
-	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o plugins/noop-dest noopdest/main.go
+.PHONY: install-csvtk
+install-csvtk: ## Install csvtk for processing CSV files.
+	# TODO move to latest version once v0.34.0 is released
+	go install github.com/shenwei356/csvtk/csvtk@398ca9a473d7304792bdbaa2edfb9070dd6e5fac
 
-run-local: plugins/noop-dest
-	scripts/run-docker-all.sh conduit:local
+.PHONY: list
+list: ## List all benchmarks.
+	@find ${BENCHMARKS_PATH} -name benchi.yml | xargs -I {} dirname {} | xargs -I {} basename {}
 
-run-latest: plugins/conduit-connector-noop-dest
-	docker pull ghcr.io/conduitio/conduit:latest
-	scripts/run-docker-all.sh ghcr.io/conduitio/conduit:latest
+.PHONY: ls
+ls: list
 
-run-latest-nightly: plugins/conduit-connector-noop-dest
-	docker pull ghcr.io/conduitio/conduit:latest-nightly
-	scripts/run-docker-all.sh ghcr.io/conduitio/conduit:latest-nightly
+.PHONY: run-all
+run-all: ## Run all benchmarks. Optionally add "run-<benchmark-name>" to run a specific benchmark.
+	@find ${BENCHMARKS_PATH} -name benchi.yml | xargs -I {} benchi -config {}
 
-lint:
-	golangci-lint run
+run-%: ## Run a specific benchmark.
+	@find ${BENCHMARKS_PATH}/$* -name benchi.yml | xargs -I {} benchi -config {}
+
+.PHONY: rmi-conduit
+rmi-conduit: ## Remove the Conduit docker image (use when built-in connectors get added or upgraded).
+	docker rmi benchi/conduit

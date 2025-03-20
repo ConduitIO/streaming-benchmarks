@@ -19,8 +19,4 @@
 ### VisualStudioCode ###
 .vscode
 
-scripts/benchmark
-plugins/
-workloads-*.csv
 .DS_Store
-conduit-test-file

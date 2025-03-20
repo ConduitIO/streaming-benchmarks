@@ -1,0 +1,49 @@
+services:
+  benchi-mongo1:
+    container_name: benchi-mongo1
+    networks:
+      - benchi
+
+    image: 'mongo:5'
+    command:
+      - '--replSet'
+      - test-replica-set
+      - '--bind_ip_all'
+      - '--port'
+      - '30001'
+    healthcheck:
+      test: 'test $$(echo "rs.initiate({_id:''test-replica-set'',members:[{_id:0,host:\"benchi-mongo1:30001\"},{_id:1,host:\"benchi-mongo2:30002\"},{_id:2,host:\"benchi-mongo3:30003\"}]}).ok || rs.status().ok" | mongo --port 30001 --quiet) -eq 1'
+      interval: 10s
+      start_period: 30s
+    volumes:
+      - ./scripts:/benchi/scripts
+
+  benchi-mongo2:
+    container_name: benchi-mongo2
+    networks:
+      - benchi
+
+    image: 'mongo:5'
+    command:
+      - '--replSet'
+      - test-replica-set
+      - '--bind_ip_all'
+      - '--port'
+      - '30002'
+
+  benchi-mongo3:
+    container_name: benchi-mongo3
+    networks:
+      - benchi
+
+    image: 'mongo:5'
+    command:
+      - '--replSet'
+      - test-replica-set
+      - '--bind_ip_all'
+      - '--port'
+      - '30003'
+
+networks:
+  benchi:
+    external: true

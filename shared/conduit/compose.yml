@@ -1,0 +1,18 @@
+services:
+  benchi-conduit:
+    container_name: benchi-conduit
+    networks:
+      - benchi
+
+    image: benchi/conduit
+    build: ./benchmark-conduit
+    pull_policy: never
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./scripts:/benchi/scripts
+      - ./conduit.yaml:/app/conduit.yaml
+
+networks:
+  benchi:
+    external: true
