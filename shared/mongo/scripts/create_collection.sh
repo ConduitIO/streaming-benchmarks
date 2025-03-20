@@ -24,4 +24,4 @@ if [ -z "$COLLECTION_NAME" ]; then
   exit 1
 fi
 
-"$SCRIPT_DIR/eval.sh" "db.createCollection('$COLLECTION_NAME')"
+mongosh_local --eval "db.createCollection('$COLLECTION_NAME')"
