@@ -2,9 +2,7 @@ infrastructure:
   kafka:
     compose: ../../shared/kafka/compose.yml
   mongo:
-    compose:
-      - ../../shared/mongo/compose.yml
-      - ./mongo/compose.override.yml
+    compose: ../../shared/mongo/compose.yml
 
 tools:
   kafka-connect:
@@ -42,9 +40,9 @@ tests:
     steps:
       pre-infrastructure:
       post-infrastructure:
-        - name: "Create database"
+        - name: "Mongo: Create collection"
           container: benchi-mongo1
-          run: /benchi/scripts/eval.sh 'load("/benchi/data/init-db.js")'
+          run: /benchi/scripts/create_collection.sh "users"
 
       pre-tool:
       post-tool:
@@ -66,7 +64,7 @@ tests:
 
         - name: "Mongo: Insert test data"
           container: benchi-mongo1
-          run: /benchi/scripts/eval.sh 'load("/benchi/data/insert-test-users.js")'
+          run: /benchi/scripts/insert_test_users.sh "users" 1_000_000
 
       pre-test:
         - name: "Conduit: start pipeline"

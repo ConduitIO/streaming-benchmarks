@@ -17,4 +17,17 @@
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 . "$SCRIPT_DIR/common.sh"
 
-mongosh_local --eval "$@"
+COLLECTION_NAME=$1
+COUNT=$2
+
+if [ -z "$COLLECTION_NAME" ]; then
+  echoerr "Error: Collection name is required."
+  exit 1
+fi
+
+if [ -z "$COUNT" ]; then
+  echoerr "Error: Count is required."
+  exit 1
+fi
+
+"$SCRIPT_DIR/eval.sh" "var collection='$COLLECTION_NAME', totalDocs=$COUNT" "$SCRIPT_DIR/insert_test_users.js"

@@ -17,4 +17,11 @@
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 . "$SCRIPT_DIR/common.sh"
 
-mongosh_local --eval "$@"
+COLLECTION_NAME=$1
+
+if [ -z "$COLLECTION_NAME" ]; then
+  echoerr "Error: Collection name is required."
+  exit 1
+fi
+
+"$SCRIPT_DIR/eval.sh" "db.createCollection('$COLLECTION_NAME')"

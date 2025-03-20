@@ -14,7 +14,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-. "$SCRIPT_DIR/common.sh"
+echoerr() { echo "$@" 1>&2; }
 
-mongosh_local --eval "$@"
+mongosh_local() {
+  local connection_string="mongodb://benchi-mongo1:30001,benchi-mongo2:30002,benchi-mongo3:30003/test?replicaSet=test-replica-set"
+  echo "Running: mongosh $connection_string $*"
+  mongosh "$connection_string" "$@"
+}

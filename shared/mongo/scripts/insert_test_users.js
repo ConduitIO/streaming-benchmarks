@@ -1,3 +1,16 @@
+if (typeof totalDocs === 'undefined') {
+  print('Please define the "totalDocs" variable before running this script');
+  quit();
+}
+if (typeof collection === 'undefined') {
+  print('Please define the "collection" variable before running this script');
+  quit();
+}
+
+print(`Inserting ${totalDocs} documents into the "${collection}" collection...`);
+
+const batchSize = 20_000;
+
 // Create arrays of possible values for random selection
 const statuses = ['active', 'inactive', 'pending'];
 const subscriptionTypes = ['free', 'basic', 'premium', 'enterprise'];
@@ -6,9 +19,6 @@ const devices = ['mobile', 'desktop', 'tablet'];
 const browsers = ['Chrome', 'Firefox', 'Safari', 'Edge'];
 
 
-// Total number of documents and batch size
-const totalDocs = 1_000_000;
-const batchSize = 20_000;
 let batch = [];
 
 // Loop through and generate documents
@@ -46,7 +56,7 @@ for (let i = 0; i < totalDocs; i++) {
 
   // If the batch is full, insert it and reset the batch array
   if (batch.length === batchSize) {
-    db.users.insertMany(batch);
+    db[collection].insertMany(batch);
     print(`Inserted batch ${Math.floor(i / batchSize) + 1}: ${batch.length} documents`);
     batch = [];
   }
@@ -54,10 +64,10 @@ for (let i = 0; i < totalDocs; i++) {
 
 // Insert any remaining documents in the final (incomplete) batch
 if (batch.length > 0) {
-  db.users.insertMany(batch);
+  db[collection].insertMany(batch);
   print(`Inserted final batch: ${batch.length} documents`);
 }
 
 print(`Finished inserting ${totalDocs} documents.`);
 print('\nSample document:');
-printjson(db.users.findOne());
+printjson(db[collection].findOne());
