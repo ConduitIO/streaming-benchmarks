@@ -13,7 +13,8 @@ install-benchi: ## Install latest version of benchi.
 
 .PHONY: install-csvtk
 install-csvtk: ## Install csvtk for processing CSV files.
-	go install github.com/shenwei356/csvtk/csvtk@latest
+	# TODO move to latest version once v0.34.0 is released
+	go install github.com/shenwei356/csvtk/csvtk@398ca9a473d7304792bdbaa2edfb9070dd6e5fac
 
 .PHONY: list
 list: ## List all benchmarks.
