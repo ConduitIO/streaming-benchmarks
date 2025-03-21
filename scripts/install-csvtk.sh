@@ -9,7 +9,7 @@ UNAME_M=$(uname -m)
 if [ "$UNAME_S" = "Linux" ]; then
     OS="linux"
 elif [ "$UNAME_S" = "Darwin" ]; then
-    OS="macOS"
+    OS="darwin"
 else
     echo "Error: Unsupported operating system: $UNAME_S"
     exit 1
