@@ -1,22 +1,7 @@
 #!/bin/sh
 
-# Copyright © 2025 Meroxa, Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+# Script to install the latest version of shenwei356/csvtk
 
-# Script to install shenwei356/csvtk
-
-CSVTK_VERSION="0.29.0"
 UNAME_S=$(uname -s)
 UNAME_M=$(uname -m)
 
@@ -40,21 +25,45 @@ else
     exit 1
 fi
 
-echo "Installing csvtk $CSVTK_VERSION for $OS/$ARCH..."
+# Get the latest version from GitHub API
+echo "Fetching the latest version of csvtk..."
+if command -v curl >/dev/null 2>&1; then
+    LATEST_VERSION=$(curl -s https://api.github.com/repos/shenwei356/csvtk/releases/latest | grep -o '"tag_name": "v[^"]*' | grep -o '[0-9.]*')
+elif command -v wget >/dev/null 2>&1; then
+    LATEST_VERSION=$(wget -qO- https://api.github.com/repos/shenwei356/csvtk/releases/latest | grep -o '"tag_name": "v[^"]*' | grep -o '[0-9.]*')
+else
+    echo "Error: Neither curl nor wget found. Please install one of them and try again."
+    exit 1
+fi
+
+if [ -z "$LATEST_VERSION" ]; then
+    echo "Error: Could not determine the latest version. Please check your internet connection and try again."
+    exit 1
+fi
+
+echo "Latest version: $LATEST_VERSION"
+echo "Installing csvtk $LATEST_VERSION for $OS/$ARCH..."
 
 # Create temporary directory
 mkdir -p ./tmp
 
 # Download csvtk
-curl -s -L -o ./tmp/csvtk.tar.gz "https://github.com/shenwei356/csvtk/releases/download/v${CSVTK_VERSION}/csvtk_${OS}_${ARCH}.tar.gz"
+echo "Downloading csvtk..."
+if command -v curl >/dev/null 2>&1; then
+    curl -s -L -o ./tmp/csvtk.tar.gz "https://github.com/shenwei356/csvtk/releases/download/v${LATEST_VERSION}/csvtk_${OS}_${ARCH}.tar.gz"
+else
+    wget -O ./tmp/csvtk.tar.gz "https://github.com/shenwei356/csvtk/releases/download/v${LATEST_VERSION}/csvtk_${OS}_${ARCH}.tar.gz"
+fi
 
 # Extract archive
+echo "Extracting archive..."
 tar -xzf ./tmp/csvtk.tar.gz -C ./tmp
 
 # Make binary executable
 chmod +x ./tmp/csvtk
 
 # Install to /usr/local/bin/ (try without sudo first, then with sudo if needed)
+echo "Installing to /usr/local/bin/..."
 if mv ./tmp/csvtk /usr/local/bin/ 2>/dev/null; then
     echo "Installed csvtk to /usr/local/bin/"
 else
@@ -66,5 +75,5 @@ fi
 # Clean up
 rm -rf ./tmp
 
-echo "csvtk $CSVTK_VERSION installed successfully"
+echo "csvtk $LATEST_VERSION installed successfully"
 csvtk version
