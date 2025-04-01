@@ -35,7 +35,7 @@ metrics:
 
 tests:
   - name: mongo-kafka-snapshot
-    duration: 1m
+    duration: 2m
 
     steps:
       pre-infrastructure:
@@ -48,7 +48,7 @@ tests:
       post-tool:
         - name: "Mongo: Insert test data"
           container: benchi-mongo1
-          run: /benchi/scripts/insert_test_users.sh "users" 1_000_000
+          run: /benchi/scripts/insert_test_users.sh "users" 2_000_000
 
       pre-test:
         - name: "Conduit: Start pipeline"
