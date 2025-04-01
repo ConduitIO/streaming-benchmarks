@@ -61,6 +61,7 @@ tests:
             /benchi/scripts/create_pipeline.sh /benchi/data/connector.json
             /benchi/scripts/await_connector_status.sh /benchi/data/connector.json RUNNING
             /benchi/scripts/stop_pipeline.sh /benchi/data/connector.json
+            /benchi/scripts/await_connector_status.sh /benchi/data/connector.json PAUSED
 
         - name: "Mongo: Insert test data"
           container: benchi-mongo1
