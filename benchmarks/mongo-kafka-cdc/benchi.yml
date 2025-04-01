@@ -76,9 +76,7 @@ tests:
         - name: "Kafka Connect: Start pipeline"
           tools: kafka-connect
           container: benchi-kafka-connect
-          run: |
-            /benchi/scripts/start_pipeline.sh /benchi/data/connector.json
-            /benchi/scripts/await_connector_status.sh /benchi/data/connector.json RUNNING
+          run: /benchi/scripts/start_pipeline.sh /benchi/data/connector.json
 
       during:
       post-test:
