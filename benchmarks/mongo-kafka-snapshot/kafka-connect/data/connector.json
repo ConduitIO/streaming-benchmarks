@@ -7,7 +7,7 @@
         "database": "test",
         "collection": "users",
 
-        "copy.existing": "true",
+        "startup.mode": "copy_existing",
         "change.stream.full.document": "updateLookup",
 
         "output.schema.infer.value": "false",

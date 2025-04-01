@@ -35,7 +35,7 @@ metrics:
 
 tests:
   - name: mongo-kafka-snapshot
-    duration: 2m
+    duration: 2m30s
 
     steps:
       pre-infrastructure:
