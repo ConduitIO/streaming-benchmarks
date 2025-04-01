@@ -1,0 +1,19 @@
+{
+    "name": "benchi-source-connector",
+    "config": {
+        "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+        "tasks.max": "1",
+        "database.hostname": "benchi-postgres",
+        "database.port": "5432",
+        "database.user": "meroxauser",
+        "database.password": "meroxapass",
+        "database.dbname": "meroxadb",
+        "database.server.name": "postgres_server",
+        "table.whitelist": "employees",
+        "plugin.name": "pgoutput",
+        "slot.name": "debezium_slot",
+        "database.history.kafka.bootstrap.servers": "benchi-kafka-connect:9092",
+        "database.history.kafka.topic": "schema-changes.postgres",
+        "topic.prefix": "kafkaconnect"
+    }
+}
