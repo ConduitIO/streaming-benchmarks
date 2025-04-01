@@ -36,14 +36,6 @@ tests:
   - name: pg-to-kafka-cdc
     duration: 2m
 
-    infrastructure:
-      postgres:
-        compose: "./postgres/compose-postgres.override.yml"
-
-    tools:
-      conduit:
-        compose: ./conduit/compose-conduit.override.yml
-
     steps:
       pre-infrastructure:
       post-infrastructure:
