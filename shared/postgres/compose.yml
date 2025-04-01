@@ -1,0 +1,26 @@
+services:
+  benchi-postgres:
+    container_name: benchi-postgres
+    networks:
+      - benchi
+
+    image: debezium/postgres:16
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: meroxauser
+      POSTGRES_PASSWORD: meroxapass
+      POSTGRES_DB: meroxadb
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-d", "meroxadb", "-U", "meroxauser"]
+      interval: 10s
+      timeout: 30s
+      retries: 5
+    volumes:
+      - ./scripts:/benchi/scripts
+      - "./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql"
+    restart: unless-stopped
+
+networks:
+  benchi:
+    external: true

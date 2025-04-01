@@ -1,0 +1,24 @@
+version: "2.2"
+pipelines:
+    - id: postgres-to-kafka
+      status: stopped
+      description: Postgres to Kafka
+      connectors:
+        - id: postgres-source
+          type: source
+          plugin: builtin:postgres@latest
+          settings:
+            tables: employees
+            url: postgresql://meroxauser:meroxapass@benchi-postgres:5432/meroxadb
+            sdk.batch.size: 10000
+            sdk.batch.delay: "1s"
+            sdk.schema.extract.key.enabled: false
+            sdk.schema.extract.payload.enabled: false
+        - id: kafka-destination
+          type: destination
+          plugin: builtin:kafka
+          name: kafka-destination
+          settings:
+            servers: "benchi-kafka:9092"
+            topic: postgres.public.employees
+            compression: "none"
