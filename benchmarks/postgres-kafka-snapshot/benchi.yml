@@ -1,0 +1,66 @@
+infrastructure:
+  postgres:
+    compose: ../../shared/postgres/compose.yml
+  kafka:
+    compose: ../../shared/kafka/compose.yml
+
+tools:
+  kafka-connect:
+    compose:
+      - ../../shared/kafka-connect/compose.yml
+      - ./kafka-connect/compose.override.yml
+  conduit:
+    compose:
+      - ../../shared/conduit/compose.yml
+      - ./conduit/compose.override.yml
+
+metrics:
+  conduit_metrics:
+    collector: conduit
+    tools: conduit
+    settings:
+      url: http://localhost:8080/metrics
+      pipelines: postgres-to-kafka
+  kafka_metrics:
+    collector: kafka      
+    settings:
+      url: http://localhost:7071/metrics
+      topics: postgres.public.employees
+  docker_metrics:
+    collector: docker
+    settings:
+      containers:
+        - benchi-conduit
+        - benchi-kafka-connect
+tests:
+  - name: pg-to-kafka-snapshot
+    duration: 2m
+
+    steps:
+      pre-infrastructure:
+      post-infrastructure:
+      
+      pre-tool:
+      post-tool:
+        - name: "Postgres: Insert test data"
+          container: benchi-postgres
+          run: /benchi/scripts/insert_data.sh
+      pre-test:
+        - name: "Conduit: Start pipeline"
+          tools: conduit
+          container: benchi-conduit
+          run: |
+            /benchi/scripts/install_tools.sh
+            /benchi/scripts/start_pipeline.sh postgres-to-kafka
+
+        - name: "Kafka Connect: Start pipeline"
+          tools: kafka-connect
+          container: benchi-kafka-connect
+          run: |
+            /benchi/scripts/create_pipeline.sh /benchi/data/connector.json
+            /benchi/scripts/await_connector_status.sh /benchi/data/connector.json RUNNING
+
+      during:
+      post-test:
+      pre-cleanup:
+      post-cleanup:
