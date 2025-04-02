@@ -24,11 +24,11 @@ cleanup() {
 
 trap cleanup SIGINT
 
-# Number of records per batch
-BATCH_SIZE=$1
-
 # Number of batches
-BATCHES=$2
+BATCHES=$1
+
+# Number of records per batch
+BATCH_SIZE=$2
 
 if [ -z "$BATCH_SIZE" ]; then
   echoerr "Error: Batch size is required as first argument."
