@@ -22,4 +22,3 @@ pipelines:
           settings:
             servers: "benchi-kafka:9092"
             topic: mongo.test.users
-            compression: "none"
