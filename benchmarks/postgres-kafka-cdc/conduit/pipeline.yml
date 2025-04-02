@@ -21,3 +21,4 @@ pipelines:
         settings:
           servers: "benchi-kafka:9092"
           topic: postgres.public.employees
+
