@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cleanup() {
-  echo "Interrupted. Exiting..."
+  echoerr "Interrupted. Exiting..."
   exit
 }
 
