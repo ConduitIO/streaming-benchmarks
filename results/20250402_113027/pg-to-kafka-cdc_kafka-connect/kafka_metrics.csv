@@ -1,1 +1,0 @@
-time,msg-rate-in-per-second[postgres.public.employees],msg-megabytes-in-per-second[postgres.public.employees],msg-megabytes-out-per-second[postgres.public.employees]
