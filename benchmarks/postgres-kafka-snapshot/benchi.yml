@@ -44,7 +44,7 @@ tests:
       post-tool:
         - name: "Postgres: Insert test data"
           container: benchi-postgres
-          run: /benchi/scripts/insert_data.sh
+          run: /benchi/scripts/insert_test_employees.sh
       pre-test:
         - name: "Conduit: Start pipeline"
           tools: conduit
