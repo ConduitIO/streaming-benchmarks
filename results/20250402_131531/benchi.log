@@ -1,0 +1,202 @@
+time=2025-04-02T13:15:31.463+02:00 level=INFO msg="Results directory" path=/Users/raulbarroso/code/conduitio/streaming-benchmarks/results/20250402_131531
+time=2025-04-02T13:15:31.463+02:00 level=INFO msg="Config file" path=/Users/raulbarroso/code/conduitio/streaming-benchmarks/benchmarks/postgres-kafka-snapshot/benchi.yml
+time=2025-04-02T13:15:31.465+02:00 level=INFO msg="Parsed config" path=/Users/raulbarroso/code/conduitio/streaming-benchmarks/benchmarks/postgres-kafka-snapshot/benchi.yml
+time=2025-04-02T13:15:31.465+02:00 level=INFO msg="Creating docker client"
+time=2025-04-02T13:15:31.471+02:00 level=INFO msg="Creating docker network" network=benchi
+time=2025-04-02T13:15:31.474+02:00 level=INFO msg="Docker network not found, creating it" network=benchi
+time=2025-04-02T13:15:32.508+02:00 level=INFO msg="Network created" network-id=f5ccc743efcf837b993b5c30046542420c21933bba0302297f22c06c77899e62
+time=2025-04-02T13:15:32.519+02:00 level=INFO msg="Using network" network=benchi network-id=f5ccc743efcf837b993b5c30046542420c21933bba0302297f22c06c77899e62
+time=2025-04-02T13:15:32.520+02:00 level=DEBUG msg="Executing command" command="/usr/local/bin/docker compose -f ../../shared/kafka/compose.yml config --format json"
+time=2025-04-02T13:15:32.691+02:00 level=DEBUG msg="Executing command" command="/usr/local/bin/docker compose -f ../../shared/postgres/compose.yml config --format json"
+time=2025-04-02T13:15:32.745+02:00 level=DEBUG msg="Executing command" command="/usr/local/bin/docker compose -f ../../shared/conduit/compose.yml -f ./conduit/compose.override.yml config --format json"
+time=2025-04-02T13:15:32.803+02:00 level=INFO msg="Replaying on-disk memory mappable chunks if any" test=pg-to-kafka-snapshot tool=conduit collector=conduit_metrics type=conduit collector=conduit_metrics type=conduit collector.prometheus=tsdb
+time=2025-04-02T13:15:32.803+02:00 level=INFO msg="On-disk memory mappable chunks replay completed" test=pg-to-kafka-snapshot tool=conduit collector=conduit_metrics type=conduit collector=conduit_metrics type=conduit collector.prometheus=tsdb duration=13.083µs
+time=2025-04-02T13:15:32.803+02:00 level=INFO msg="Replaying WAL, this may take a while" test=pg-to-kafka-snapshot tool=conduit collector=conduit_metrics type=conduit collector=conduit_metrics type=conduit collector.prometheus=tsdb
+time=2025-04-02T13:15:32.804+02:00 level=INFO msg="WAL segment loaded" test=pg-to-kafka-snapshot tool=conduit collector=conduit_metrics type=conduit collector=conduit_metrics type=conduit collector.prometheus=tsdb segment=0 maxSegment=0
+time=2025-04-02T13:15:32.804+02:00 level=INFO msg="WAL replay completed" test=pg-to-kafka-snapshot tool=conduit collector=conduit_metrics type=conduit collector=conduit_metrics type=conduit collector.prometheus=tsdb checkpoint_replay_duration=249.875µs wal_replay_duration=928.125µs wbl_replay_duration=42ns chunk_snapshot_load_duration=0s mmap_chunk_replay_duration=13.083µs total_replay_duration=1.234917ms
+time=2025-04-02T13:15:32.812+02:00 level=DEBUG msg="Lookback delta is zero, setting to default value" test=pg-to-kafka-snapshot tool=conduit collector=conduit_metrics type=conduit collector=conduit_metrics type=conduit collector.prometheus="query engine" value=5m0s
+time=2025-04-02T13:15:32.814+02:00 level=INFO msg="Replaying on-disk memory mappable chunks if any" test=pg-to-kafka-snapshot tool=conduit collector=kafka_metrics type=kafka collector=kafka_metrics type=kafka collector.prometheus=tsdb
+time=2025-04-02T13:15:32.814+02:00 level=INFO msg="On-disk memory mappable chunks replay completed" test=pg-to-kafka-snapshot tool=conduit collector=kafka_metrics type=kafka collector=kafka_metrics type=kafka collector.prometheus=tsdb duration=4.792µs
+time=2025-04-02T13:15:32.814+02:00 level=INFO msg="Replaying WAL, this may take a while" test=pg-to-kafka-snapshot tool=conduit collector=kafka_metrics type=kafka collector=kafka_metrics type=kafka collector.prometheus=tsdb
+time=2025-04-02T13:15:32.815+02:00 level=INFO msg="WAL segment loaded" test=pg-to-kafka-snapshot tool=conduit collector=kafka_metrics type=kafka collector=kafka_metrics type=kafka collector.prometheus=tsdb segment=0 maxSegment=0
+time=2025-04-02T13:15:32.815+02:00 level=INFO msg="WAL replay completed" test=pg-to-kafka-snapshot tool=conduit collector=kafka_metrics type=kafka collector=kafka_metrics type=kafka collector.prometheus=tsdb checkpoint_replay_duration=47.042µs wal_replay_duration=340.125µs wbl_replay_duration=42ns chunk_snapshot_load_duration=0s mmap_chunk_replay_duration=4.792µs total_replay_duration=564.334µs
+time=2025-04-02T13:15:32.817+02:00 level=DEBUG msg="Lookback delta is zero, setting to default value" test=pg-to-kafka-snapshot tool=conduit collector=kafka_metrics type=kafka collector=kafka_metrics type=kafka collector.prometheus="query engine" value=5m0s
+time=2025-04-02T13:15:32.817+02:00 level=DEBUG msg="Executing command" command="/usr/local/bin/docker compose -f ../../shared/kafka-connect/compose.yml -f ./kafka-connect/compose.override.yml config --format json"
+time=2025-04-02T13:15:32.881+02:00 level=DEBUG msg="Skipping collector" test=pg-to-kafka-snapshot tool=kafka-connect collector=conduit_metrics
+time=2025-04-02T13:15:32.882+02:00 level=INFO msg="Replaying on-disk memory mappable chunks if any" test=pg-to-kafka-snapshot tool=kafka-connect collector=kafka_metrics type=kafka collector=kafka_metrics type=kafka collector.prometheus=tsdb
+time=2025-04-02T13:15:32.882+02:00 level=INFO msg="On-disk memory mappable chunks replay completed" test=pg-to-kafka-snapshot tool=kafka-connect collector=kafka_metrics type=kafka collector=kafka_metrics type=kafka collector.prometheus=tsdb duration=3.416µs
+time=2025-04-02T13:15:32.882+02:00 level=INFO msg="Replaying WAL, this may take a while" test=pg-to-kafka-snapshot tool=kafka-connect collector=kafka_metrics type=kafka collector=kafka_metrics type=kafka collector.prometheus=tsdb
+time=2025-04-02T13:15:32.883+02:00 level=INFO msg="WAL segment loaded" test=pg-to-kafka-snapshot tool=kafka-connect collector=kafka_metrics type=kafka collector=kafka_metrics type=kafka collector.prometheus=tsdb segment=0 maxSegment=0
+time=2025-04-02T13:15:32.883+02:00 level=INFO msg="WAL replay completed" test=pg-to-kafka-snapshot tool=kafka-connect collector=kafka_metrics type=kafka collector=kafka_metrics type=kafka collector.prometheus=tsdb checkpoint_replay_duration=41.625µs wal_replay_duration=226.958µs wbl_replay_duration=83ns chunk_snapshot_load_duration=0s mmap_chunk_replay_duration=3.416µs total_replay_duration=314.375µs
+time=2025-04-02T13:15:32.885+02:00 level=DEBUG msg="Lookback delta is zero, setting to default value" test=pg-to-kafka-snapshot tool=kafka-connect collector=kafka_metrics type=kafka collector=kafka_metrics type=kafka collector.prometheus="query engine" value=5m0s
+time=2025-04-02T13:15:32.885+02:00 level=INFO msg="Running step" test=pg-to-kafka-snapshot tool=conduit step=pre-infrastructure
+time=2025-04-02T13:15:32.885+02:00 level=INFO msg="Pulling docker images for infrastructure containers" test=pg-to-kafka-snapshot tool=conduit step=pre-infrastructure containers="map[kafka:[benchi-kafka] postgres:[benchi-postgres]]"
+time=2025-04-02T13:15:32.886+02:00 level=DEBUG msg="Executing command" command="/usr/local/bin/docker compose -f ../../shared/postgres/compose.yml -f ../../shared/kafka/compose.yml pull"
+time=2025-04-02T13:15:33.386+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:33.386+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:33.392+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:33.392+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-postgres
+time=2025-04-02T13:15:33.392+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:33.394+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-postgres
+time=2025-04-02T13:15:33.892+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:33.894+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:33.898+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:33.899+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:33.899+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-postgres
+time=2025-04-02T13:15:33.902+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-postgres
+time=2025-04-02T13:15:34.049+02:00 level=INFO msg="Pulling docker images for tool containers" test=pg-to-kafka-snapshot tool=conduit step=pre-infrastructure containers=[benchi-conduit]
+time=2025-04-02T13:15:34.049+02:00 level=DEBUG msg="Executing command" command="/usr/local/bin/docker compose -f ../../shared/conduit/compose.yml -f ./conduit/compose.override.yml pull"
+time=2025-04-02T13:15:34.116+02:00 level=INFO msg="Pulling docker images for hooks" test=pg-to-kafka-snapshot tool=conduit step=pre-infrastructure images=[alpine:latest]
+time=2025-04-02T13:15:34.398+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:34.400+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:34.402+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:34.404+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:34.404+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-postgres
+time=2025-04-02T13:15:34.404+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-postgres
+time=2025-04-02T13:15:34.719+02:00 level=INFO msg="image pull response" test=pg-to-kafka-snapshot tool=conduit step=pre-infrastructure status="Pulling from library/alpine" id=latest
+time=2025-04-02T13:15:34.758+02:00 level=INFO msg="image pull response" test=pg-to-kafka-snapshot tool=conduit step=pre-infrastructure status="Digest: sha256:a8560b36e8b8210634f77d9f7f9efd7ffa463e380b75e2e74aff4511df3ef88c"
+time=2025-04-02T13:15:34.758+02:00 level=INFO msg="image pull response" test=pg-to-kafka-snapshot tool=conduit step=pre-infrastructure status="Status: Image is up to date for alpine:latest"
+time=2025-04-02T13:15:34.760+02:00 level=DEBUG msg="Running hooks" test=pg-to-kafka-snapshot tool=conduit step=pre-infrastructure count=0
+time=2025-04-02T13:15:34.760+02:00 level=INFO msg="Step successful" test=pg-to-kafka-snapshot tool=conduit step=pre-infrastructure
+time=2025-04-02T13:15:34.760+02:00 level=INFO msg="Running step" test=pg-to-kafka-snapshot tool=conduit step=infrastructure
+time=2025-04-02T13:15:34.760+02:00 level=INFO msg="Running infrastructure" test=pg-to-kafka-snapshot tool=conduit step=infrastructure name=postgres log-path=/Users/raulbarroso/code/conduitio/streaming-benchmarks/results/20250402_131531/pg-to-kafka-snapshot_conduit/infra_postgres.log
+time=2025-04-02T13:15:34.762+02:00 level=DEBUG msg="Executing command" command="/usr/local/bin/docker compose -f ../../shared/postgres/compose.yml up"
+time=2025-04-02T13:15:34.762+02:00 level=INFO msg="Waiting for container status to be healthy" test=pg-to-kafka-snapshot tool=conduit step=infrastructure container=benchi-postgres status=N/A
+time=2025-04-02T13:15:34.901+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:34.902+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:34.905+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:34.906+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:34.906+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-postgres
+time=2025-04-02T13:15:35.402+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:35.403+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:35.410+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:35.411+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:35.411+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-postgres
+time=2025-04-02T13:15:35.765+02:00 level=DEBUG msg="Inspected container" test=pg-to-kafka-snapshot tool=conduit step=infrastructure container=benchi-postgres response="{ContainerJSONBase:0x14001466160 Mounts:[{Type:bind Name: Source:/Users/raulbarroso/code/conduitio/streaming-benchmarks/shared/postgres/scripts Destination:/benchi/scripts Driver: Mode:rw RW:true Propagation:rprivate} {Type:bind Name: Source:/Users/raulbarroso/code/conduitio/streaming-benchmarks/shared/postgres/scripts/init.sql Destination:/docker-entrypoint-initdb.d/init.sql Driver: Mode:rw RW:true Propagation:rprivate} {Type:volume Name:fcb6c5001fa0284d0c0185e249c61aab5ff25e4deb408727e622d4a630f82ddc Source:/var/lib/docker/volumes/fcb6c5001fa0284d0c0185e249c61aab5ff25e4deb408727e622d4a630f82ddc/_data Destination:/var/lib/postgresql/data Driver:local Mode: RW:true Propagation:}] Config:0x1400144ea00 NetworkSettings:0x14000e03500 ImageManifestDescriptor:<nil>}" state="{Status:running Running:true Paused:false Restarting:false OOMKilled:false Dead:false Pid:16472 ExitCode:0 Error: StartedAt:2025-04-02T11:15:34.983148053Z FinishedAt:0001-01-01T00:00:00Z Health:0x14001445a70}"
+time=2025-04-02T13:15:35.765+02:00 level=INFO msg="Waiting for container status to be healthy" test=pg-to-kafka-snapshot tool=conduit step=infrastructure container=benchi-postgres status=starting
+time=2025-04-02T13:15:35.903+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:35.905+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:35.912+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:35.913+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:35.913+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-postgres
+time=2025-04-02T13:15:36.406+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:36.416+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:36.418+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:36.419+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:36.420+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-postgres
+time=2025-04-02T13:15:36.778+02:00 level=DEBUG msg="Inspected container" test=pg-to-kafka-snapshot tool=conduit step=infrastructure container=benchi-postgres response="{ContainerJSONBase:0x14000752dc0 Mounts:[{Type:bind Name: Source:/Users/raulbarroso/code/conduitio/streaming-benchmarks/shared/postgres/scripts Destination:/benchi/scripts Driver: Mode:rw RW:true Propagation:rprivate} {Type:bind Name: Source:/Users/raulbarroso/code/conduitio/streaming-benchmarks/shared/postgres/scripts/init.sql Destination:/docker-entrypoint-initdb.d/init.sql Driver: Mode:rw RW:true Propagation:rprivate} {Type:volume Name:fcb6c5001fa0284d0c0185e249c61aab5ff25e4deb408727e622d4a630f82ddc Source:/var/lib/docker/volumes/fcb6c5001fa0284d0c0185e249c61aab5ff25e4deb408727e622d4a630f82ddc/_data Destination:/var/lib/postgresql/data Driver:local Mode: RW:true Propagation:}] Config:0x14000280f00 NetworkSettings:0x14000e03100 ImageManifestDescriptor:<nil>}" state="{Status:running Running:true Paused:false Restarting:false OOMKilled:false Dead:false Pid:16472 ExitCode:0 Error: StartedAt:2025-04-02T11:15:34.983148053Z FinishedAt:0001-01-01T00:00:00Z Health:0x140013869f0}"
+time=2025-04-02T13:15:36.779+02:00 level=INFO msg="Waiting for container status to be healthy" test=pg-to-kafka-snapshot tool=conduit step=infrastructure container=benchi-postgres status=starting
+time=2025-04-02T13:15:36.919+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:36.922+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:36.923+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:36.925+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:36.925+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-postgres
+time=2025-04-02T13:15:37.424+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:37.428+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:37.430+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:37.431+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:37.432+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-postgres
+time=2025-04-02T13:15:37.788+02:00 level=DEBUG msg="Inspected container" test=pg-to-kafka-snapshot tool=conduit step=infrastructure container=benchi-postgres response="{ContainerJSONBase:0x1400046ef20 Mounts:[{Type:bind Name: Source:/Users/raulbarroso/code/conduitio/streaming-benchmarks/shared/postgres/scripts Destination:/benchi/scripts Driver: Mode:rw RW:true Propagation:rprivate} {Type:bind Name: Source:/Users/raulbarroso/code/conduitio/streaming-benchmarks/shared/postgres/scripts/init.sql Destination:/docker-entrypoint-initdb.d/init.sql Driver: Mode:rw RW:true Propagation:rprivate} {Type:volume Name:fcb6c5001fa0284d0c0185e249c61aab5ff25e4deb408727e622d4a630f82ddc Source:/var/lib/docker/volumes/fcb6c5001fa0284d0c0185e249c61aab5ff25e4deb408727e622d4a630f82ddc/_data Destination:/var/lib/postgresql/data Driver:local Mode: RW:true Propagation:}] Config:0x14000281b80 NetworkSettings:0x14000e03700 ImageManifestDescriptor:<nil>}" state="{Status:running Running:true Paused:false Restarting:false OOMKilled:false Dead:false Pid:16472 ExitCode:0 Error: StartedAt:2025-04-02T11:15:34.983148053Z FinishedAt:0001-01-01T00:00:00Z Health:0x14001387bc0}"
+time=2025-04-02T13:15:37.788+02:00 level=INFO msg="Waiting for container status to be healthy" test=pg-to-kafka-snapshot tool=conduit step=infrastructure container=benchi-postgres status=starting
+time=2025-04-02T13:15:37.930+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:37.935+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:37.937+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:37.939+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:37.939+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-postgres
+time=2025-04-02T13:15:38.438+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:38.443+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:38.444+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:38.448+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:38.448+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-postgres
+time=2025-04-02T13:15:38.797+02:00 level=DEBUG msg="Inspected container" test=pg-to-kafka-snapshot tool=conduit step=infrastructure container=benchi-postgres response="{ContainerJSONBase:0x14000d8a6e0 Mounts:[{Type:bind Name: Source:/Users/raulbarroso/code/conduitio/streaming-benchmarks/shared/postgres/scripts Destination:/benchi/scripts Driver: Mode:rw RW:true Propagation:rprivate} {Type:bind Name: Source:/Users/raulbarroso/code/conduitio/streaming-benchmarks/shared/postgres/scripts/init.sql Destination:/docker-entrypoint-initdb.d/init.sql Driver: Mode:rw RW:true Propagation:rprivate} {Type:volume Name:fcb6c5001fa0284d0c0185e249c61aab5ff25e4deb408727e622d4a630f82ddc Source:/var/lib/docker/volumes/fcb6c5001fa0284d0c0185e249c61aab5ff25e4deb408727e622d4a630f82ddc/_data Destination:/var/lib/postgresql/data Driver:local Mode: RW:true Propagation:}] Config:0x140005acb40 NetworkSettings:0x140005a4200 ImageManifestDescriptor:<nil>}" state="{Status:running Running:true Paused:false Restarting:false OOMKilled:false Dead:false Pid:16472 ExitCode:0 Error: StartedAt:2025-04-02T11:15:34.983148053Z FinishedAt:0001-01-01T00:00:00Z Health:0x140010bc7b0}"
+time=2025-04-02T13:15:38.797+02:00 level=INFO msg="Waiting for container status to be healthy" test=pg-to-kafka-snapshot tool=conduit step=infrastructure container=benchi-postgres status=starting
+time=2025-04-02T13:15:38.945+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:38.951+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:38.952+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:38.955+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:38.955+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-postgres
+time=2025-04-02T13:15:39.453+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:39.459+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:39.459+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:39.462+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:39.462+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-postgres
+time=2025-04-02T13:15:39.803+02:00 level=DEBUG msg="Inspected container" test=pg-to-kafka-snapshot tool=conduit step=infrastructure container=benchi-postgres response="{ContainerJSONBase:0x140000d1a20 Mounts:[{Type:bind Name: Source:/Users/raulbarroso/code/conduitio/streaming-benchmarks/shared/postgres/scripts Destination:/benchi/scripts Driver: Mode:rw RW:true Propagation:rprivate} {Type:bind Name: Source:/Users/raulbarroso/code/conduitio/streaming-benchmarks/shared/postgres/scripts/init.sql Destination:/docker-entrypoint-initdb.d/init.sql Driver: Mode:rw RW:true Propagation:rprivate} {Type:volume Name:fcb6c5001fa0284d0c0185e249c61aab5ff25e4deb408727e622d4a630f82ddc Source:/var/lib/docker/volumes/fcb6c5001fa0284d0c0185e249c61aab5ff25e4deb408727e622d4a630f82ddc/_data Destination:/var/lib/postgresql/data Driver:local Mode: RW:true Propagation:}] Config:0x14000767b80 NetworkSettings:0x140001fe600 ImageManifestDescriptor:<nil>}" state="{Status:running Running:true Paused:false Restarting:false OOMKilled:false Dead:false Pid:16472 ExitCode:0 Error: StartedAt:2025-04-02T11:15:34.983148053Z FinishedAt:0001-01-01T00:00:00Z Health:0x14001080d80}"
+time=2025-04-02T13:15:39.803+02:00 level=INFO msg="Waiting for container status to be healthy" test=pg-to-kafka-snapshot tool=conduit step=infrastructure container=benchi-postgres status=starting
+time=2025-04-02T13:15:39.960+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:39.965+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:39.967+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:39.970+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:39.970+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-postgres
+time=2025-04-02T13:15:40.468+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:40.474+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:40.476+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:40.479+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:40.479+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-postgres
+time=2025-04-02T13:15:40.813+02:00 level=DEBUG msg="Inspected container" test=pg-to-kafka-snapshot tool=conduit step=infrastructure container=benchi-postgres response="{ContainerJSONBase:0x14001138580 Mounts:[{Type:bind Name: Source:/Users/raulbarroso/code/conduitio/streaming-benchmarks/shared/postgres/scripts Destination:/benchi/scripts Driver: Mode:rw RW:true Propagation:rprivate} {Type:bind Name: Source:/Users/raulbarroso/code/conduitio/streaming-benchmarks/shared/postgres/scripts/init.sql Destination:/docker-entrypoint-initdb.d/init.sql Driver: Mode:rw RW:true Propagation:rprivate} {Type:volume Name:fcb6c5001fa0284d0c0185e249c61aab5ff25e4deb408727e622d4a630f82ddc Source:/var/lib/docker/volumes/fcb6c5001fa0284d0c0185e249c61aab5ff25e4deb408727e622d4a630f82ddc/_data Destination:/var/lib/postgresql/data Driver:local Mode: RW:true Propagation:}] Config:0x1400115c140 NetworkSettings:0x140001fe900 ImageManifestDescriptor:<nil>}" state="{Status:running Running:true Paused:false Restarting:false OOMKilled:false Dead:false Pid:16472 ExitCode:0 Error: StartedAt:2025-04-02T11:15:34.983148053Z FinishedAt:0001-01-01T00:00:00Z Health:0x140011b4240}"
+time=2025-04-02T13:15:40.814+02:00 level=INFO msg="Waiting for container status to be healthy" test=pg-to-kafka-snapshot tool=conduit step=infrastructure container=benchi-postgres status=starting
+time=2025-04-02T13:15:40.977+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:40.982+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:40.983+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:40.986+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:40.987+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-postgres
+time=2025-04-02T13:15:41.483+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:41.489+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:41.489+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:41.493+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:41.493+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-postgres
+time=2025-04-02T13:15:41.820+02:00 level=DEBUG msg="Inspected container" test=pg-to-kafka-snapshot tool=conduit step=infrastructure container=benchi-postgres response="{ContainerJSONBase:0x140011a0840 Mounts:[{Type:bind Name: Source:/Users/raulbarroso/code/conduitio/streaming-benchmarks/shared/postgres/scripts Destination:/benchi/scripts Driver: Mode:rw RW:true Propagation:rprivate} {Type:bind Name: Source:/Users/raulbarroso/code/conduitio/streaming-benchmarks/shared/postgres/scripts/init.sql Destination:/docker-entrypoint-initdb.d/init.sql Driver: Mode:rw RW:true Propagation:rprivate} {Type:volume Name:fcb6c5001fa0284d0c0185e249c61aab5ff25e4deb408727e622d4a630f82ddc Source:/var/lib/docker/volumes/fcb6c5001fa0284d0c0185e249c61aab5ff25e4deb408727e622d4a630f82ddc/_data Destination:/var/lib/postgresql/data Driver:local Mode: RW:true Propagation:}] Config:0x140011ac8c0 NetworkSettings:0x140005a4700 ImageManifestDescriptor:<nil>}" state="{Status:running Running:true Paused:false Restarting:false OOMKilled:false Dead:false Pid:16472 ExitCode:0 Error: StartedAt:2025-04-02T11:15:34.983148053Z FinishedAt:0001-01-01T00:00:00Z Health:0x14000e2fc20}"
+time=2025-04-02T13:15:41.820+02:00 level=INFO msg="Waiting for container status to be healthy" test=pg-to-kafka-snapshot tool=conduit step=infrastructure container=benchi-postgres status=starting
+time=2025-04-02T13:15:41.990+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:41.996+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:41.997+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:41.999+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:42.000+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-postgres
+time=2025-04-02T13:15:42.497+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:42.503+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:42.503+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:42.507+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:42.507+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-postgres
+time=2025-04-02T13:15:42.829+02:00 level=DEBUG msg="Inspected container" test=pg-to-kafka-snapshot tool=conduit step=infrastructure container=benchi-postgres response="{ContainerJSONBase:0x14000e6af20 Mounts:[{Type:bind Name: Source:/Users/raulbarroso/code/conduitio/streaming-benchmarks/shared/postgres/scripts Destination:/benchi/scripts Driver: Mode:rw RW:true Propagation:rprivate} {Type:bind Name: Source:/Users/raulbarroso/code/conduitio/streaming-benchmarks/shared/postgres/scripts/init.sql Destination:/docker-entrypoint-initdb.d/init.sql Driver: Mode:rw RW:true Propagation:rprivate} {Type:volume Name:fcb6c5001fa0284d0c0185e249c61aab5ff25e4deb408727e622d4a630f82ddc Source:/var/lib/docker/volumes/fcb6c5001fa0284d0c0185e249c61aab5ff25e4deb408727e622d4a630f82ddc/_data Destination:/var/lib/postgresql/data Driver:local Mode: RW:true Propagation:}] Config:0x140013a8dc0 NetworkSettings:0x140013f0100 ImageManifestDescriptor:<nil>}" state="{Status:running Running:true Paused:false Restarting:false OOMKilled:false Dead:false Pid:16472 ExitCode:0 Error: StartedAt:2025-04-02T11:15:34.983148053Z FinishedAt:0001-01-01T00:00:00Z Health:0x1400143e4b0}"
+time=2025-04-02T13:15:42.830+02:00 level=INFO msg="Waiting for container status to be healthy" test=pg-to-kafka-snapshot tool=conduit step=infrastructure container=benchi-postgres status=starting
+time=2025-04-02T13:15:43.005+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:43.010+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:43.010+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:43.013+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:43.013+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-postgres
+time=2025-04-02T13:15:43.511+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:43.516+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:43.517+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:43.520+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:43.520+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-postgres
+time=2025-04-02T13:15:43.836+02:00 level=DEBUG msg="Inspected container" test=pg-to-kafka-snapshot tool=conduit step=infrastructure container=benchi-postgres response="{ContainerJSONBase:0x14001377600 Mounts:[{Type:bind Name: Source:/Users/raulbarroso/code/conduitio/streaming-benchmarks/shared/postgres/scripts Destination:/benchi/scripts Driver: Mode:rw RW:true Propagation:rprivate} {Type:bind Name: Source:/Users/raulbarroso/code/conduitio/streaming-benchmarks/shared/postgres/scripts/init.sql Destination:/docker-entrypoint-initdb.d/init.sql Driver: Mode:rw RW:true Propagation:rprivate} {Type:volume Name:fcb6c5001fa0284d0c0185e249c61aab5ff25e4deb408727e622d4a630f82ddc Source:/var/lib/docker/volumes/fcb6c5001fa0284d0c0185e249c61aab5ff25e4deb408727e622d4a630f82ddc/_data Destination:/var/lib/postgresql/data Driver:local Mode: RW:true Propagation:}] Config:0x14001490dc0 NetworkSettings:0x14001366900 ImageManifestDescriptor:<nil>}" state="{Status:running Running:true Paused:false Restarting:false OOMKilled:false Dead:false Pid:16472 ExitCode:0 Error: StartedAt:2025-04-02T11:15:34.983148053Z FinishedAt:0001-01-01T00:00:00Z Health:0x14001365470}"
+time=2025-04-02T13:15:43.836+02:00 level=INFO msg="Waiting for container status to be healthy" test=pg-to-kafka-snapshot tool=conduit step=infrastructure container=benchi-postgres status=starting
+time=2025-04-02T13:15:44.018+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:44.022+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:44.024+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:44.027+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:44.027+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-postgres
+time=2025-04-02T13:15:44.523+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:44.529+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:44.532+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:44.535+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:44.536+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-postgres
+time=2025-04-02T13:15:44.844+02:00 level=DEBUG msg="Inspected container" test=pg-to-kafka-snapshot tool=conduit step=infrastructure container=benchi-postgres response="{ContainerJSONBase:0x140016229a0 Mounts:[{Type:volume Name:fcb6c5001fa0284d0c0185e249c61aab5ff25e4deb408727e622d4a630f82ddc Source:/var/lib/docker/volumes/fcb6c5001fa0284d0c0185e249c61aab5ff25e4deb408727e622d4a630f82ddc/_data Destination:/var/lib/postgresql/data Driver:local Mode: RW:true Propagation:} {Type:bind Name: Source:/Users/raulbarroso/code/conduitio/streaming-benchmarks/shared/postgres/scripts Destination:/benchi/scripts Driver: Mode:rw RW:true Propagation:rprivate} {Type:bind Name: Source:/Users/raulbarroso/code/conduitio/streaming-benchmarks/shared/postgres/scripts/init.sql Destination:/docker-entrypoint-initdb.d/init.sql Driver: Mode:rw RW:true Propagation:rprivate}] Config:0x14001491a40 NetworkSettings:0x14001366c00 ImageManifestDescriptor:<nil>}" state="{Status:running Running:true Paused:false Restarting:false OOMKilled:false Dead:false Pid:16472 ExitCode:0 Error: StartedAt:2025-04-02T11:15:34.983148053Z FinishedAt:0001-01-01T00:00:00Z Health:0x14001638690}"
+time=2025-04-02T13:15:44.844+02:00 level=INFO msg="Waiting for container status to be healthy" test=pg-to-kafka-snapshot tool=conduit step=infrastructure container=benchi-postgres status=starting
+time=2025-04-02T13:15:45.030+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:45.035+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:45.041+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:45.044+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:45.044+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-postgres
+time=2025-04-02T13:15:45.536+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:45.541+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:45.548+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:45.552+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-kafka
+time=2025-04-02T13:15:45.552+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-postgres
+time=2025-04-02T13:15:45.851+02:00 level=DEBUG msg="Inspected container" test=pg-to-kafka-snapshot tool=conduit step=infrastructure container=benchi-postgres response="{ContainerJSONBase:0x1400170e000 Mounts:[{Type:bind Name: Source:/Users/raulbarroso/code/conduitio/streaming-benchmarks/shared/postgres/scripts Destination:/benchi/scripts Driver: Mode:rw RW:true Propagation:rprivate} {Type:bind Name: Source:/Users/raulbarroso/code/conduitio/streaming-benchmarks/shared/postgres/scripts/init.sql Destination:/docker-entrypoint-initdb.d/init.sql Driver: Mode:rw RW:true Propagation:rprivate} {Type:volume Name:fcb6c5001fa0284d0c0185e249c61aab5ff25e4deb408727e622d4a630f82ddc Source:/var/lib/docker/volumes/fcb6c5001fa0284d0c0185e249c61aab5ff25e4deb408727e622d4a630f82ddc/_data Destination:/var/lib/postgresql/data Driver:local Mode: RW:true Propagation:}] Config:0x1400154adc0 NetworkSettings:0x140005a5000 ImageManifestDescriptor:<nil>}" state="{Status:running Running:true Paused:false Restarting:false OOMKilled:false Dead:false Pid:16472 ExitCode:0 Error: StartedAt:2025-04-02T11:15:34.983148053Z FinishedAt:0001-01-01T00:00:00Z Health:0x1400154d2c0}"
+time=2025-04-02T13:15:45.851+02:00 level=INFO msg="Container is healthy" test=pg-to-kafka-snapshot tool=conduit step=infrastructure container=/benchi-postgres
+time=2025-04-02T13:15:45.851+02:00 level=INFO msg="Running infrastructure" test=pg-to-kafka-snapshot tool=conduit step=infrastructure name=kafka log-path=/Users/raulbarroso/code/conduitio/streaming-benchmarks/results/20250402_131531/pg-to-kafka-snapshot_conduit/infra_kafka.log
+time=2025-04-02T13:15:45.852+02:00 level=INFO msg="Waiting for container status to be healthy" test=pg-to-kafka-snapshot tool=conduit step=infrastructure container=benchi-kafka status=N/A
+time=2025-04-02T13:15:45.852+02:00 level=DEBUG msg="Executing command" command="/usr/local/bin/docker compose -f ../../shared/kafka/compose.yml up"
+time=2025-04-02T13:15:46.042+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:46.044+02:00 level=DEBUG msg="Container not found" model=container-monitor name=benchi-conduit
+time=2025-04-02T13:15:46.056+02:00 level=DEBUG msg="Inspecting container" model=container-monitor name=benchi-kafka
