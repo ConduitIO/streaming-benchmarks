@@ -18,7 +18,7 @@ services:
       retries: 5
     volumes:
       - ./scripts:/benchi/scripts
-      - "./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql"
+      - "./docker-entrypoint-initdb.d/init.sql:/docker-entrypoint-initdb.d/init.sql"
     restart: unless-stopped
 
 networks:
