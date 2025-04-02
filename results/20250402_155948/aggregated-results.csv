@@ -1,0 +1,3 @@
+test,tool,cpu-percentage[benchi-conduit],memory-usage[benchi-conduit],cpu-percentage[benchi-kafka-connect],memory-usage[benchi-kafka-connect],msg-rate-per-second[postgres-to-kafka],msg-megabytes-in-per-second[postgres-to-kafka],msg-megabytes-out-per-second[postgres-to-kafka],msg-rate-in-per-second[postgres.public.employees],msg-megabytes-in-per-second[postgres.public.employees],msg-megabytes-out-per-second[postgres.public.employees]
+pg-to-kafka-snapshot,conduit,136.46,293.07,,,57155.17,1.40,1.40,57147.92,38.50,
+pg-to-kafka-snapshot,kafka-connect,,,108.40,1405.89,,,,32705.79,83.80,

@@ -34,7 +34,7 @@ metrics:
         - benchi-kafka-connect
 tests:
   - name: pg-to-kafka-snapshot
-    duration: 2m
+    duration: 1m
 
     steps:
       pre-infrastructure:
@@ -44,7 +44,7 @@ tests:
       post-tool:
         - name: "Postgres: Insert test data"
           container: benchi-postgres
-          run: /benchi/scripts/insert_test_employees.sh
+          run: /benchi/scripts/insert_test_employees.sh "80000" "200"
       pre-test:
         - name: "Conduit: Start pipeline"
           tools: conduit
