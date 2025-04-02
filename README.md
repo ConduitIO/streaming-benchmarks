@@ -30,7 +30,7 @@ installed on your machine (see [Docker Desktop](https://docs.docker.com/desktop/
 Run all benchmarks using:
 
 ```sh
-make install-tools run-all
+make install-benchi run-all
 ```
 
 The [`Makefile`](./Makefile) contains a number of useful targets to make it easy
@@ -38,9 +38,7 @@ to work with the benchmarks. Use `make help` to see the available targets.
 
 ```sh
 $ make help
-install-tools   Install all tools required for benchmarking.
 install-benchi  Install latest version of benchi.
-install-csvtk   Install csvtk for processing CSV files.
 list            List all benchmarks.
 run-all         Run all benchmarks. Optionally add "run-<benchmark-name>" to run a specific benchmark.
 run-%           Run a specific benchmark.
