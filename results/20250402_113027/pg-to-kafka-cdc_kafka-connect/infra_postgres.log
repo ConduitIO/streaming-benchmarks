@@ -1,0 +1,112 @@
+ Container benchi-postgres  Creating
+ Container benchi-postgres  Created
+Attaching to benchi-postgres
+benchi-postgres  | The files belonging to this database system will be owned by user "postgres".
+benchi-postgres  | This user must also own the server process.
+benchi-postgres  | 
+benchi-postgres  | The database cluster will be initialized with locale "en_US.utf8".
+benchi-postgres  | The default database encoding has accordingly been set to "UTF8".
+benchi-postgres  | The default text search configuration will be set to "english".
+benchi-postgres  | 
+benchi-postgres  | Data page checksums are disabled.
+benchi-postgres  | 
+benchi-postgres  | fixing permissions on existing directory /var/lib/postgresql/data ... ok
+benchi-postgres  | creating subdirectories ... ok
+benchi-postgres  | selecting dynamic shared memory implementation ... posix
+benchi-postgres  | selecting default max_connections ... 100
+benchi-postgres  | selecting default shared_buffers ... 128MB
+benchi-postgres  | selecting default time zone ... Etc/UTC
+benchi-postgres  | creating configuration files ... ok
+benchi-postgres  | running bootstrap script ... ok
+benchi-postgres  | performing post-bootstrap initialization ... ok
+benchi-postgres  | initdb: warning: enabling "trust" authentication for local connections
+benchi-postgres  | initdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.
+benchi-postgres  | syncing data to disk ... ok
+benchi-postgres  | 
+benchi-postgres  | 
+benchi-postgres  | Success. You can now start the database server using:
+benchi-postgres  | 
+benchi-postgres  |     pg_ctl -D /var/lib/postgresql/data -l logfile start
+benchi-postgres  | 
+benchi-postgres  | waiting for server to start....2025-04-02 09:33:17.653 UTC [48] LOG:  starting PostgreSQL 16.4 (Debian 16.4-1.pgdg110+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 10.2.1-6) 10.2.1 20210110, 64-bit
+benchi-postgres  | 2025-04-02 09:33:17.654 UTC [48] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+benchi-postgres  | 2025-04-02 09:33:17.655 UTC [51] LOG:  database system was shut down at 2025-04-02 09:33:17 UTC
+benchi-postgres  | 2025-04-02 09:33:17.657 UTC [48] LOG:  database system is ready to accept connections
+benchi-postgres  |  done
+benchi-postgres  | server started
+benchi-postgres  | CREATE DATABASE
+benchi-postgres  | 
+benchi-postgres  | 
+benchi-postgres  | /usr/local/bin/docker-entrypoint.sh: sourcing /docker-entrypoint-initdb.d/init-permissions.sh
+benchi-postgres  | 
+benchi-postgres  | /usr/local/bin/docker-entrypoint.sh: running /docker-entrypoint-initdb.d/init.sql
+benchi-postgres  | DROP TABLE
+benchi-postgres  | psql:/docker-entrypoint-initdb.d/init.sql:1: NOTICE:  table "employees" does not exist, skipping
+benchi-postgres  | psql:/docker-entrypoint-initdb.d/init.sql:2: NOTICE:  sequence "employees_id_seq" does not exist, skipping
+benchi-postgres  | DROP SEQUENCE
+benchi-postgres  | CREATE TABLE
+benchi-postgres  | CREATE SEQUENCE
+benchi-postgres  | ALTER TABLE
+benchi-postgres  | ALTER TABLE
+benchi-postgres  | 
+benchi-postgres  | 
+benchi-postgres  | 2025-04-02 09:33:17.825 UTC [48] LOG:  received fast shutdown request
+benchi-postgres  | waiting for server to shut down....2025-04-02 09:33:17.825 UTC [48] LOG:  aborting any active transactions
+benchi-postgres  | 2025-04-02 09:33:17.826 UTC [48] LOG:  background worker "logical replication launcher" (PID 54) exited with exit code 1
+benchi-postgres  | 2025-04-02 09:33:17.826 UTC [49] LOG:  shutting down
+benchi-postgres  | 2025-04-02 09:33:17.826 UTC [49] LOG:  checkpoint starting: shutdown immediate
+benchi-postgres  | 2025-04-02 09:33:17.850 UTC [49] LOG:  checkpoint complete: wrote 928 buffers (5.7%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.006 s, sync=0.017 s, total=0.025 s; sync files=304, longest=0.003 s, average=0.001 s; distance=4267 kB, estimate=4267 kB; lsn=0/19D91E8, redo lsn=0/19D91E8
+benchi-postgres  | 2025-04-02 09:33:17.852 UTC [48] LOG:  database system is shut down
+benchi-postgres  |  done
+benchi-postgres  | server stopped
+benchi-postgres  | 
+benchi-postgres  | PostgreSQL init process complete; ready for start up.
+benchi-postgres  | 
+benchi-postgres  | 2025-04-02 09:33:17.937 UTC [1] LOG:  starting PostgreSQL 16.4 (Debian 16.4-1.pgdg110+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 10.2.1-6) 10.2.1 20210110, 64-bit
+benchi-postgres  | 2025-04-02 09:33:17.937 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+benchi-postgres  | 2025-04-02 09:33:17.938 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+benchi-postgres  | 2025-04-02 09:33:17.939 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+benchi-postgres  | 2025-04-02 09:33:17.940 UTC [66] LOG:  database system was shut down at 2025-04-02 09:33:17 UTC
+benchi-postgres  | 2025-04-02 09:33:17.942 UTC [1] LOG:  database system is ready to accept connections
+benchi-postgres  | 2025-04-02 09:33:58.827 UTC [104] LOG:  logical decoding found consistent point at 0/1A1B1B0
+benchi-postgres  | 2025-04-02 09:33:58.827 UTC [104] DETAIL:  There are no running transactions.
+benchi-postgres  | 2025-04-02 09:33:58.827 UTC [104] STATEMENT:  CREATE_REPLICATION_SLOT "debezium_slot"  LOGICAL pgoutput
+benchi-postgres  | 2025-04-02 09:33:58.827 UTC [104] LOG:  exported logical decoding snapshot: "00000005-00000003-1" with 0 transaction IDs
+benchi-postgres  | 2025-04-02 09:33:58.827 UTC [104] STATEMENT:  CREATE_REPLICATION_SLOT "debezium_slot"  LOGICAL pgoutput
+benchi-postgres  | 2025-04-02 09:33:58.919 UTC [104] LOG:  starting logical decoding for slot "debezium_slot"
+benchi-postgres  | 2025-04-02 09:33:58.919 UTC [104] DETAIL:  Streaming transactions committing after 0/1A1B1E8, reading WAL from 0/1A1B1B0.
+benchi-postgres  | 2025-04-02 09:33:58.919 UTC [104] STATEMENT:  START_REPLICATION SLOT "debezium_slot" LOGICAL 0/1A1B1E8 ("proto_version" '1', "publication_names" 'dbz_publication', "messages" 'true')
+benchi-postgres  | 2025-04-02 09:33:58.919 UTC [104] LOG:  logical decoding found consistent point at 0/1A1B1B0
+benchi-postgres  | 2025-04-02 09:33:58.919 UTC [104] DETAIL:  There are no running transactions.
+benchi-postgres  | 2025-04-02 09:33:58.919 UTC [104] STATEMENT:  START_REPLICATION SLOT "debezium_slot" LOGICAL 0/1A1B1E8 ("proto_version" '1', "publication_names" 'dbz_publication', "messages" 'true')
+benchi-postgres  | 2025-04-02 09:33:59.969 UTC [122] LOG:  starting logical decoding for slot "debezium_slot"
+benchi-postgres  | 2025-04-02 09:33:59.969 UTC [122] DETAIL:  Streaming transactions committing after 0/1A1B1E8, reading WAL from 0/1A1B1B0.
+benchi-postgres  | 2025-04-02 09:33:59.969 UTC [122] STATEMENT:  START_REPLICATION SLOT "debezium_slot" LOGICAL 0/1A1B1E8 ("proto_version" '1', "publication_names" 'dbz_publication', "messages" 'true')
+benchi-postgres  | 2025-04-02 09:33:59.969 UTC [122] LOG:  logical decoding found consistent point at 0/1A1B1B0
+benchi-postgres  | 2025-04-02 09:33:59.969 UTC [122] DETAIL:  There are no running transactions.
+benchi-postgres  | 2025-04-02 09:33:59.969 UTC [122] STATEMENT:  START_REPLICATION SLOT "debezium_slot" LOGICAL 0/1A1B1E8 ("proto_version" '1', "publication_names" 'dbz_publication', "messages" 'true')
+benchi-postgres  | 2025-04-02 09:34:03.606 UTC [64] LOG:  checkpoint starting: wal
+benchi-postgres  | 2025-04-02 09:34:07.456 UTC [64] LOG:  checkpoint complete: wrote 43 buffers (0.3%); 0 WAL file(s) added, 0 removed, 0 recycled; write=3.669 s, sync=0.174 s, total=3.850 s; sync files=22, longest=0.093 s, average=0.008 s; distance=534683 kB, estimate=534683 kB; lsn=0/41284AA8, redo lsn=0/223FFF20
+benchi-postgres  | 2025-04-02 09:34:07.705 UTC [64] LOG:  checkpoints are occurring too frequently (4 seconds apart)
+benchi-postgres  | 2025-04-02 09:34:07.705 UTC [64] HINT:  Consider increasing the configuration parameter "max_wal_size".
+benchi-postgres  | 2025-04-02 09:34:07.716 UTC [64] LOG:  checkpoint starting: wal
+benchi-postgres  | 2025-04-02 09:34:11.445 UTC [64] LOG:  checkpoint complete: wrote 47 buffers (0.3%); 1 WAL file(s) added, 0 removed, 0 recycled; write=3.554 s, sync=0.133 s, total=3.740 s; sync files=5, longest=0.099 s, average=0.027 s; distance=540672 kB, estimate=540672 kB; lsn=0/61CDF980, redo lsn=0/434000A0
+benchi-postgres  | 2025-04-02 09:34:11.757 UTC [64] LOG:  checkpoints are occurring too frequently (4 seconds apart)
+benchi-postgres  | 2025-04-02 09:34:11.757 UTC [64] HINT:  Consider increasing the configuration parameter "max_wal_size".
+benchi-postgres  | 2025-04-02 09:34:11.757 UTC [64] LOG:  checkpoint starting: wal
+benchi-postgres  | 2025-04-02 09:34:15.610 UTC [64] LOG:  checkpoint complete: wrote 51 buffers (0.3%); 1 WAL file(s) added, 0 removed, 0 recycled; write=3.656 s, sync=0.154 s, total=3.854 s; sync files=5, longest=0.120 s, average=0.031 s; distance=538744 kB, estimate=540479 kB; lsn=0/82CDA8C8, redo lsn=0/6421E2A0
+benchi-postgres  | 2025-04-02 09:34:15.898 UTC [64] LOG:  checkpoints are occurring too frequently (4 seconds apart)
+benchi-postgres  | 2025-04-02 09:34:15.898 UTC [64] HINT:  Consider increasing the configuration parameter "max_wal_size".
+benchi-postgres  | 2025-04-02 09:34:15.912 UTC [64] LOG:  checkpoint starting: wal
+benchi-postgres  | 2025-04-02 09:36:28.002 UTC [122] LOG:  could not send data to client: Connection reset by peer
+benchi-postgres  | 2025-04-02 09:36:28.002 UTC [122] CONTEXT:  slot "debezium_slot", output plugin "pgoutput", in the change callback, associated LSN 0/24CFC0A0
+benchi-postgres  | 2025-04-02 09:36:28.002 UTC [122] STATEMENT:  START_REPLICATION SLOT "debezium_slot" LOGICAL 0/1A1B1E8 ("proto_version" '1', "publication_names" 'dbz_publication', "messages" 'true')
+benchi-postgres  | 2025-04-02 09:36:29.797 UTC [1] LOG:  received fast shutdown request
+benchi-postgres  | 2025-04-02 09:36:29.824 UTC [1] LOG:  aborting any active transactions
+benchi-postgres  | 2025-04-02 09:36:29.825 UTC [1] LOG:  background worker "logical replication launcher" (PID 69) exited with exit code 1
+benchi-postgres  | 2025-04-02 09:36:29.903 UTC [64] LOG:  checkpoint complete: wrote 4572 buffers (27.9%); 1 WAL file(s) added, 0 removed, 0 recycled; write=133.925 s, sync=0.029 s, total=134.006 s; sync files=9, longest=0.009 s, average=0.004 s; distance=542599 kB, estimate=542599 kB; lsn=0/90C9DBF8, redo lsn=0/854000E8
+benchi-postgres  | 2025-04-02 09:36:29.903 UTC [64] LOG:  shutting down
+benchi-postgres  | 2025-04-02 09:36:29.904 UTC [64] LOG:  checkpoint starting: shutdown immediate
+benchi-postgres  | 2025-04-02 09:36:29.984 UTC [64] LOG:  checkpoint complete: wrote 11338 buffers (69.2%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.048 s, sync=0.022 s, total=0.081 s; sync files=12, longest=0.021 s, average=0.002 s; distance=189046 kB, estimate=507244 kB; lsn=0/90C9DC70, redo lsn=0/90C9DC70
+benchi-postgres  | 2025-04-02 09:36:29.993 UTC [1] LOG:  database system is shut down
+[Kbenchi-postgres exited with code 0
