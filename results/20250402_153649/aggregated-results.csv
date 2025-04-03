@@ -1,3 +1,0 @@
-test,tool,msg-rate-in-per-second[postgres.public.employees],msg-megabytes-in-per-second[postgres.public.employees],msg-megabytes-out-per-second[postgres.public.employees],cpu-percentage[benchi-conduit],memory-usage[benchi-conduit],cpu-percentage[benchi-kafka-connect],memory-usage[benchi-kafka-connect],msg-rate-per-second[postgres-to-kafka],msg-megabytes-in-per-second[postgres-to-kafka],msg-megabytes-out-per-second[postgres-to-kafka]
-postgres-to-kafka-cdc,conduit,55636.43,37.80,,135.64,220.16,,,55862.07,1.37,1.37
-postgres-to-kafka-cdc,kafka-connect,32356.20,83.09,,,,102.94,1554.56,,,
