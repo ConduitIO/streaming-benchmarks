@@ -35,7 +35,7 @@ metrics:
 
 tests:
   - name: mongo-kafka-cdc
-    duration: 2m
+    duration: 1m
 
     steps:
       pre-infrastructure:

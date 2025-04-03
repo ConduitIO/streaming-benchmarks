@@ -25,8 +25,14 @@ check_connector_json_path "$CONNECTOR_JSON_PATH"
 CONNECTOR_NAME=$(get_connector_name "$CONNECTOR_JSON_PATH")
 
 KAFKA_CONNECT_URL="http://localhost:8083"
-MAX_RETRIES=5
-RETRY_INTERVAL=5
+# The script is usually run before a test, to make sure that a pipeline started.
+# However, metrics are started just before a test runs.
+# The connector might start just after we checked its status, which means
+# that if the retry interval is too large, the connector might read a lot of
+# or all the data.
+# Because of that, the retry interval should be kept small.
+MAX_RETRIES=20
+RETRY_INTERVAL=0.5
 
 DESIRED_STATUS="${2:-RUNNING}"
 
