@@ -1,0 +1,86 @@
+infrastructure:
+  kafka:
+    compose: ../../shared/kafka/compose.yml
+  mysql:
+    compose: ../../shared/mysql/compose.yml
+
+tools:
+  kafka-connect:
+    compose:
+      - ../../shared/kafka-connect/compose.yml
+      - ./kafka-connect/compose.override.yml
+  conduit:
+    compose:
+      - ../../shared/conduit/compose.yml
+      - ./conduit/compose.override.yml
+
+metrics:
+  conduit_metrics:
+    collector: conduit
+    tools: conduit
+    settings:
+      url: http://localhost:8080/metrics
+      pipelines: mysql-to-kafka
+  kafka_metrics_for_conduit:
+    collector: kafka
+    tools:
+      - conduit
+    settings:
+      url: http://localhost:7071/metrics
+      topics: conduit.users
+  kafka_metrics_for_kafka_connect:
+    collector: kafka
+    tools:
+      - kafka-connect
+    settings:
+      url: http://localhost:7071/metrics
+      topics: conduit.conduit.users
+  docker_metrics_for_conduit:
+    collector: docker
+    tools:
+      - conduit
+    settings:
+      containers:
+        - "benchi-conduit"
+  docker_metrics_for_kafka_connect:
+    collector: docker
+    tools:
+      - kafka-connect
+    settings:
+      containers:
+        - "benchi-kafka-connect"
+
+tests:
+  - name: mysql-to-kafka-snapshot
+    duration: 1m
+
+    steps:
+      pre-infrastructure:
+      post-infrastructure:
+        - name: "MySQL: Create database"
+          container: mysql1
+          run: |-
+            /benchi/scripts/init_db.sh
+      pre-tool:
+      post-tool:
+        - name: "Insert test data"
+          container: mysql1
+          run: |
+            /benchi/scripts/insert_test_data.sh
+
+      pre-test:
+        - name: "Conduit: Start pipeline"
+          tools: conduit
+          container: benchi-conduit
+          run: |
+            /benchi/scripts/install_tools.sh
+            /benchi/scripts/start_pipeline.sh mysql-to-kafka
+        - name: "Kafka Connect: Start pipeline"
+          tools: kafka-connect
+          container: benchi-kafka-connect
+          run: |
+            /benchi/scripts/create_pipeline.sh /benchi/data/connector.json
+      during:
+      post-test:
+      pre-cleanup:
+      post-cleanup:
