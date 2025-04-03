@@ -24,19 +24,14 @@ cleanup() {
 
 trap cleanup SIGINT
 
-# Number of batches
-BATCHES=$1
+# Number of records to insert
+TOTAL_RECORDS=$1
 
-# Number of records per batch
-BATCH_SIZE=$2
+# Batch size
+BATCH_SIZE=10000
 
-if [ -z "$BATCH_SIZE" ]; then
-  echoerr "Error: Batch size is required as first argument."
-  exit 1
-fi
-
-if [ -z "$BATCHES" ]; then
-  echoerr "Error: # of batches is required as second argument."
+if [ -z "$TOTAL_RECORDS" ]; then
+  echoerr "Error: Number of records to insert is required as the first argument."
   exit 1
 fi
 
@@ -52,6 +47,8 @@ insert_batch() {
 # Record start time
 start_time=$(date +%s)
 
+BATCHES=$(( (TOTAL_RECORDS + BATCH_SIZE - 1) / BATCH_SIZE ))
+
 # Insert records in multiple batches
 for ((i=1; i<=$BATCHES; i++)); do
   echo "Inserting batch $i..."
@@ -64,4 +61,4 @@ end_time=$(date +%s)
 # Calculate duration
 duration=$((end_time - start_time))
 
-echo "Inserted $(($BATCH_SIZE * $BATCHES)) records in $duration seconds."
+echo "Inserted $TOTAL_RECORDS records in $duration seconds."
