@@ -38,8 +38,8 @@ fi
 # Function to insert a batch of records
 insert_batch() {
   psql -U meroxauser -d meroxadb -c "
-  INSERT INTO employees (name, full_time, updated_at)
-  SELECT 'John Doe', true, NOW()
+  INSERT INTO employees (name, email, full_time, position, hire_date, salary, updated_at, created_at)
+  SELECT 'John Doe', 'john.doe@example.com', true, 'Software Engineer', CURRENT_DATE, 60000.00, NOW(), NOW()
   FROM generate_series(1, $BATCH_SIZE);
   "
 }
