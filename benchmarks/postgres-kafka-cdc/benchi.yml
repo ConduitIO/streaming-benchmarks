@@ -33,7 +33,7 @@ metrics:
         - benchi-conduit
         - benchi-kafka-connect
 tests:
-  - name: postgres-to-kafka-cdc
+  - name: postgres-to-kafka
     duration: 2m
 
     steps:

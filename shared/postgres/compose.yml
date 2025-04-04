@@ -4,7 +4,7 @@ services:
     networks:
       - benchi
 
-    image: quay.io/debezium/postgres:16
+    image: quay.io/debezium/postgres:17
     ports:
       - "5432:5432"
     environment:
