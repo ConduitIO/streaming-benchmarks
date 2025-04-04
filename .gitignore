@@ -20,3 +20,7 @@
 .vscode
 
 .DS_Store
+
+# Secrets
+/benchmarks/kafka-snowflake-cdc/conduit/.env
+/benchmarks/kafka-snowflake-cdc/kafka-connect/.env

@@ -1,0 +1,81 @@
+infrastructure:
+  kafka:
+    compose: ../../shared/kafka/compose.yml
+
+tools:
+#  kafka-connect:
+#    compose:
+#      - ../../shared/kafka-connect/compose.yml
+#      - ./kafka-connect/compose.override.yml
+  conduit:
+    compose:
+      - ../../shared/conduit/compose.yml
+      - ./conduit/compose.override.yml
+
+metrics:
+  conduit_metrics:
+    collector: conduit
+    tools: conduit
+    settings:
+      url: http://localhost:8080/metrics
+      pipelines: kafka-to-snowflake
+  kafka_metrics:
+    collector: kafka
+    settings:
+      url: http://localhost:7071/metrics
+      topics: snowflake.test.users
+  docker_metrics:
+    collector: docker
+    settings:
+      containers:
+        - benchi-conduit
+        - benchi-kafka-connect
+
+tests:
+  - name: kafka-snowflake-cdc
+    duration: 1m
+
+    steps:
+      pre-infrastructure:
+      post-infrastructure:
+        - name: "Kafka: Create topic"
+          container: benchi-kafka
+          run: /opt/kafka/bin/kafka-topics.sh --create --topic "snowflake.test.users" --partitions 1 --replication-factor 1 --bootstrap-server benchi-kafka:9092
+
+      pre-tool:
+      post-tool:
+        - name: "Conduit: Set up CDC"
+          tools: conduit
+          container: benchi-conduit
+          run: |
+            /benchi/scripts/install_tools.sh
+            /benchi/scripts/start_pipeline.sh kafka-to-snowflake
+            /benchi/scripts/stop_pipeline.sh kafka-to-snowflake
+
+        - name: "Kafka Connect: Set up CDC"
+          tools: kafka-connect
+          container: benchi-kafka-connect
+          run: |
+            /benchi/scripts/create_pipeline.sh /benchi/data/connector.json
+            /benchi/scripts/await_connector_status.sh /benchi/data/connector.json RUNNING
+            /benchi/scripts/stop_pipeline.sh /benchi/data/connector.json
+
+        - name: "Kafka: Insert test data"
+          container: benchi-kafka
+          run: /benchi/scripts/insert_test_users.sh "snowflake.test.users" 1000000
+
+      pre-test:
+        - name: "Conduit: Start pipeline"
+          tools: conduit
+          container: benchi-conduit
+          run: /benchi/scripts/start_pipeline.sh kafka-to-snowflake
+
+        - name: "Kafka Connect: Start pipeline"
+          tools: kafka-connect
+          container: benchi-kafka-connect
+          run: /benchi/scripts/start_pipeline.sh /benchi/data/connector.json
+
+      during:
+      post-test:
+      pre-cleanup:
+      post-cleanup:
