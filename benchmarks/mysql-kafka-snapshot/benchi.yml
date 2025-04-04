@@ -35,7 +35,7 @@ metrics:
 
 tests:
   - name: mysql-to-kafka-snapshot
-    duration: 1m
+    duration: 2m
 
     steps:
       pre-infrastructure:

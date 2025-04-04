@@ -1,4 +1,4 @@
-SET SESSION cte_max_recursion_depth = 1000000;
+SET SESSION cte_max_recursion_depth = 2000000;
 
 INSERT INTO testdb.users (
     username, email, first_name, last_name, phone, street, city, state, zip_code, country,
@@ -8,7 +8,7 @@ INSERT INTO testdb.users (
 WITH RECURSIVE cte (n) AS (
     SELECT 1
     UNION ALL
-    SELECT n + 1 FROM cte WHERE n < 1000000
+    SELECT n + 1 FROM cte WHERE n < 2000000
 )
 SELECT
     CONCAT('user', n),

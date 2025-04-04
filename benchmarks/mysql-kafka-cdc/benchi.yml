@@ -35,7 +35,7 @@ metrics:
 
 tests:
   - name: mysql-to-kafka-cdc
-    duration: 1m
+    duration: 2m
 
     tools:
       conduit:

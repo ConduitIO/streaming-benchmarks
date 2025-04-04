@@ -20,7 +20,6 @@
         "topic.prefix": "mysql",
         "poll.await.time.ms": 1000,
         "poll.max.batch.size": 1000,
-        "producer.override.batch.size": 1000000,
         "topic.creation.default.replication.factor": 1,
         "topic.creation.default.partitions": 1
     }
