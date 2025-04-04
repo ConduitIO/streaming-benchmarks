@@ -1,0 +1,5 @@
+services:
+  benchi-conduit:
+    volumes:
+      # mount path is relative to the location of the original docker-compose file
+      - ../../benchmarks/mysql-kafka-snapshot/conduit/pipeline.yml:/app/pipelines/pipeline.yml
