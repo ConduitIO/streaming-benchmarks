@@ -1,8 +1,8 @@
 -- Create the database (if not exists)
-CREATE DATABASE IF NOT EXISTS conduit;
+CREATE DATABASE IF NOT EXISTS testdb;
 
 -- Use the database
-USE conduit;
+USE testdb;
 
 -- Drop the table if it already exists
 DROP TABLE IF EXISTS users;

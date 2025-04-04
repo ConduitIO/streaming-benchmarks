@@ -1,7 +1,7 @@
 services:
-  mysql1:
+  benchi-mysql:
     image: mysql:8.0
-    container_name: mysql1
+    container_name: benchi-mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: conduit

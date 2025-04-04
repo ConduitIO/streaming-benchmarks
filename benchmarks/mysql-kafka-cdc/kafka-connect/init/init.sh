@@ -18,7 +18,7 @@
 
 yum install -y jq curl wget
 
-confluent-hub install --no-prompt --verbose debezium/debezium-connector-mysql:latest
+confluent-hub install --no-prompt --verbose debezium/debezium-connector-mysql:2.4.2
 
 # Run the original entrypoint script as the confluent user
 su -c "/etc/confluent/docker/run" appuser

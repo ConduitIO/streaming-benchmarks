@@ -9,9 +9,9 @@ pipelines:
         type: source
         plugin: builtin:mysql
         settings:
-          dsn: root:root@tcp(mysql1:3306)/conduit
+          dsn: root:root@tcp(benchi-mysql:3306)/testdb
           tables: users
-          sdk.batch.size: 10000
+          sdk.batch.size: 20000
           sdk.batch.delay: "1s"
           sdk.schema.extract.key.enabled: false
           sdk.schema.extract.payload.enabled: false
@@ -21,7 +21,5 @@ pipelines:
         name: kafka-destination
         settings:
           servers: "benchi-kafka:9092"
-          topic: conduit.users
+          topic: mysql.testdb.users
           compression: "none"
-#            sdk.record.format: "opencdc/json"
-#            sdk.record.format.options: "position.excluded=true"
