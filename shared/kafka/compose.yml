@@ -23,6 +23,7 @@ services:
       - "7071:7071"
     volumes:
       - ./jmx:/opt/kafka/jmx  # Mount JMX files
+      - ./scripts:/benchi/scripts
     environment:
       KAFKA_PROCESS_ROLES: 'broker,controller'
       KAFKA_NODE_ID: 1

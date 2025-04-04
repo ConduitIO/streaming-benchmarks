@@ -1,0 +1,56 @@
+version: "2.2"
+pipelines:
+  - id: kafka-to-snowflake
+    status: stopped
+    processors:
+      - id: parsingpayload
+        plugin: "json.decode"
+        settings:
+          field: .Payload.After
+      - id: fieldset
+        plugin: "field.set"
+        settings:
+          field: .Key
+          value: '{"id":"{{ .Payload.After.id }}"}'
+      - id: parsingkey
+        plugin: "json.decode"
+        settings:
+          field: .Key
+
+    connectors:
+      - id: kafka
+        type: source
+        plugin: kafka
+        settings:
+          servers: "benchi-kafka:9092"
+          topics: "snowflake.test.users"
+          readFromBeginning: "true"
+          sdk.batch.delay: "1s"
+          sdk.batch.size: 10000
+
+          sdk.schema.context.enabled: "true"
+          sdk.schema.context.name: ""
+          sdk.schema.extract.key.enabled: "false"
+          sdk.schema.extract.key.subject: "key"
+          sdk.schema.extract.payload.enabled: "false"
+          sdk.schema.extract.payload.subject: "payload"
+          sdk.schema.extract.type: "avro"
+      - id: snowflake
+        type: destination
+        plugin: "snowflake"
+        settings:
+          snowflake.host: ${SNOWFLAKE_HOST}
+          snowflake.username: ${SNOWFLAKE_USERNAME}
+          snowflake.password: ${SNOWFLAKE_PASSWORD}
+
+          snowflake.schema: "public"
+          snowflake.table: "conduit_test"
+          snowflake.primaryKey: "id"
+
+          snowflake.compression: "zstd"
+          snowflake.format: "csv"
+          snowflake.namingPrefix: "meroxa"
+          snowflake.port: "0"
+          snowflake.stage: "stage"
+          snowflake.database: "BENCHI"
+          snowflake.warehouse: "COMPUTE_WH"
