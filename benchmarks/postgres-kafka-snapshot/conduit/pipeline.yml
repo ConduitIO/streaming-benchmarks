@@ -2,23 +2,30 @@ version: "2.2"
 pipelines:
   - id: postgres-to-kafka
     status: stopped
-    description: Postgres to Kafka
+    description: Postgres to Kafka (Snapshot)
     connectors:
       - id: postgres-source
         type: source
         plugin: builtin:postgres
         settings:
-          tables: employees
-          url: postgresql://meroxauser:meroxapass@benchi-postgres:5432/meroxadb
+          tables: "employees"
+          url: "postgresql://meroxauser:meroxapass@benchi-postgres:5432/meroxadb"
+          snapshotMode: "initial"
+          snapshot.fetchSize: 50000
           sdk.batch.size: 10000
-          sdk.batch.delay: "1s"
+          sdk.batch.delay: "500ms"
           sdk.schema.extract.key.enabled: false
           sdk.schema.extract.payload.enabled: false
+          cdcMode: "none"
       - id: kafka-destination
         type: destination
         plugin: builtin:kafka
         name: kafka-destination
         settings:
           servers: "benchi-kafka:9092"
-          topic: postgres.public.employees
-          compression: "none"
+          topic: "postgres.public.employees"
+          compression: "snappy"
+          batchBytes: "1000000"
+          acks: "one"
+          sdk.batch.size: 10000
+          sdk.record.format: "opencdc/json"
