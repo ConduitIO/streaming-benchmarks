@@ -33,7 +33,7 @@ metrics:
         - benchi-conduit
         - benchi-kafka-connect
 tests:
-  - name: pg-to-kafka-snapshot
+  - name: postgres-to-kafka-snapshot
     duration: 1m
 
     steps:
