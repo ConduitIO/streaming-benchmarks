@@ -3,14 +3,23 @@ services:
     container_name: benchi-postgres
     networks:
       - benchi
-
-    image: quay.io/debezium/postgres:17
+    image: postgres:17
     ports:
       - "5432:5432"
     environment:
       POSTGRES_USER: meroxauser
       POSTGRES_PASSWORD: meroxapass
       POSTGRES_DB: meroxadb
+      POSTGRES_INITDB_ARGS: "--data-checksums"
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+    command:
+      - "postgres"
+      - "-c"
+      - "wal_level=logical"
+      - "-c"
+      - "max_wal_senders=10"
+      - "-c"
+      - "max_replication_slots=10"
     healthcheck:
       test: ["CMD", "pg_isready", "-q", "-d", "meroxadb", "-U", "meroxauser"]
       interval: 10s

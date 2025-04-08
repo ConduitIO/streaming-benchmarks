@@ -45,5 +45,4 @@
         "producer.override.compression.type": "lz4",
         "topic.prefix": "postgres"
     }
-
 }
