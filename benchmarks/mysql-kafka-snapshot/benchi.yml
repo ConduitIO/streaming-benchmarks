@@ -1,0 +1,69 @@
+infrastructure:
+  kafka:
+    compose: ../../shared/kafka/compose.yml
+  mysql:
+    compose: ../../shared/mysql/compose.yml
+
+tools:
+  kafka-connect:
+    compose:
+      - ../../shared/kafka-connect/compose.yml
+      - ./kafka-connect/compose.override.yml
+  conduit:
+    compose:
+      - ../../shared/conduit/compose.yml
+      - ./conduit/compose.override.yml
+
+metrics:
+  conduit_metrics:
+    collector: conduit
+    tools: conduit
+    settings:
+      url: http://localhost:8080/metrics
+      pipelines: mysql-to-kafka
+  kafka_metrics:
+    collector: kafka
+    settings:
+      url: http://localhost:7071/metrics
+      topics: mysql.testdb.users
+  docker_metrics:
+    collector: docker
+    settings:
+      containers:
+        - benchi-conduit
+        - benchi-kafka-connect
+
+tests:
+  - name: mysql-to-kafka-snapshot
+    duration: 2m
+
+    steps:
+      pre-infrastructure:
+      post-infrastructure:
+        - name: "MySQL: Create database"
+          container: benchi-mysql
+          run: |-
+            /benchi/scripts/init_db.sh
+      pre-tool:
+      post-tool:
+        - name: "Insert test data"
+          container: benchi-mysql
+          run: |
+            /benchi/scripts/insert_test_data.sh
+
+      pre-test:
+        - name: "Conduit: Start pipeline"
+          tools: conduit
+          container: benchi-conduit
+          run: |
+            /benchi/scripts/install_tools.sh
+            /benchi/scripts/start_pipeline.sh mysql-to-kafka
+        - name: "Kafka Connect: Start pipeline"
+          tools: kafka-connect
+          container: benchi-kafka-connect
+          run: |
+            /benchi/scripts/create_pipeline.sh /benchi/data/connector.json
+      during:
+      post-test:
+      pre-cleanup:
+      post-cleanup:

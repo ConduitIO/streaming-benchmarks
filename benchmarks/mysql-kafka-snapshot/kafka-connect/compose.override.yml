@@ -1,0 +1,6 @@
+services:
+  benchi-kafka-connect:
+    volumes:
+      # mount path is relative to the location of the original docker-compose file (/shared/kafka-connect/compose.yml)
+      - ../../benchmarks/mysql-kafka-snapshot/kafka-connect/data:/benchi/data
+      - ../../benchmarks/mysql-kafka-snapshot/kafka-connect/init:/benchi/init
