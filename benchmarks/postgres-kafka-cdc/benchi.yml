@@ -33,7 +33,7 @@ metrics:
         - benchi-conduit
         - benchi-kafka-connect
 tests:
-  - name: postgres-to-kafka-cdc
+  - name: postgres-to-kafka
     duration: 2m
 
     steps:
@@ -59,7 +59,7 @@ tests:
 
         - name: "Postgres: Insert test data"
           container: benchi-postgres
-          run: /benchi/scripts/insert_test_employees.sh "16000000"
+          run: /benchi/scripts/insert_test_employees.sh "10000000"
       pre-test:
         - name: "Conduit: Start pipeline"
           tools: conduit
