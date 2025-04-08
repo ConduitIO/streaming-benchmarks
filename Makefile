@@ -34,5 +34,5 @@ rmi-conduit: ## Remove the Conduit docker image (use when built-in connectors ge
 	docker rmi benchi/conduit
 
 .PHONY:
-lint:
+lint: ## Lint all benchmarks.
 	@./scripts/lint-paths.sh

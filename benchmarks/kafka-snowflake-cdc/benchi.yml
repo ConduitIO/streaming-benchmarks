@@ -3,10 +3,10 @@ infrastructure:
     compose: ../../shared/kafka/compose.yml
 
 tools:
-#  kafka-connect:
-#    compose:
-#      - ../../shared/kafka-connect/compose.yml
-#      - ./kafka-connect/compose.override.yml
+  kafka-connect:
+    compose:
+      - ../../shared/kafka-connect/compose.yml
+      - ./kafka-connect/compose.override.yml
   conduit:
     compose:
       - ../../shared/conduit/compose.yml

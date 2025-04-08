@@ -24,3 +24,5 @@
 # Secrets
 /benchmarks/kafka-snowflake-cdc/conduit/.env
 /benchmarks/kafka-snowflake-cdc/kafka-connect/.env
+/benchmarks/kafka-snowflake-cdc/snowflake_key.pem
+/benchmarks/kafka-snowflake-cdc/snowflake_key.pub
