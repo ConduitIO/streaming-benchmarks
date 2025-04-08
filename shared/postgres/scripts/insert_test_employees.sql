@@ -1,13 +1,8 @@
--- For parameterization
 \set total_records :TOTAL_RECORDS
-
--- Set higher work_mem for better performance
-SET work_mem = '1GB';  -- Adjust based on your system
 
 -- Disable triggers and indices temporarily for faster inserts
 ALTER TABLE employees DISABLE TRIGGER ALL;
 
--- The actual insert
 INSERT INTO employees (name, email, full_time, position, hire_date, salary, updated_at, created_at)
 SELECT 
     'John Doe', 
