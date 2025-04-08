@@ -32,3 +32,7 @@ run-%: ## Run a specific benchmark.
 .PHONY: rmi-conduit
 rmi-conduit: ## Remove the Conduit docker image (use when built-in connectors get added or upgraded).
 	docker rmi benchi/conduit
+
+.PHONY:
+lint:
+	@./scripts/lint-paths.sh
