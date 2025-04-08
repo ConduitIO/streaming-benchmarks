@@ -16,7 +16,7 @@ pipelines:
           sdk.batch.delay: "500ms"
           sdk.schema.extract.key.enabled: false
           sdk.schema.extract.payload.enabled: false
-          cdcMode: "none"
+          cdcMode: "auto"
       - id: kafka-destination
         type: destination
         plugin: builtin:kafka
