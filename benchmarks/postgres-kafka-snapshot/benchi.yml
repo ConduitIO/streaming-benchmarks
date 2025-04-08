@@ -44,7 +44,7 @@ tests:
       post-tool:
         - name: "Postgres: Insert test data"
           container: benchi-postgres
-          run: psql -U meroxauser -d meroxadb -v TOTAL_RECORDS=16000000 -f /benchi/scripts/insert_test_employees.sql
+          run: /benchi/scripts/insert_test_employees.sh "20000000"
       pre-test:
         - name: "Conduit: Start pipeline"
           tools: conduit
