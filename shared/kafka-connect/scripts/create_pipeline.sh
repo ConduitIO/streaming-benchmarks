@@ -20,7 +20,22 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 CONNECTOR_JSON_PATH=$1
 check_connector_json_path "$CONNECTOR_JSON_PATH"
 
-http_code=$(curl --silent --output /tmp/curl_response --write-out "%{http_code}" -X POST -H "Content-Type: application/json" -d @"$CONNECTOR_JSON_PATH" localhost:8083/connectors)
+# Create a temporary file
+temp_file=$(mktemp)
+
+# Replace environment variables
+# TODO make this applicable for all connectors
+cat "$CONNECTOR_JSON_PATH" | sed \
+  -e "s|\${SNOWFLAKE_HOST}|$SNOWFLAKE_HOST|g" \
+  -e "s|\${SNOWFLAKE_USERNAME}|$SNOWFLAKE_USERNAME|g" \
+  -e "s|\${SNOWFLAKE_PRIVATE_KEY}|$SNOWFLAKE_PRIVATE_KEY|g" \
+  -e "s|\${SNOWFLAKE_PRIVATE_KEY_PASSPHRASE}|$SNOWFLAKE_PRIVATE_KEY_PASSPHRASE|g" \
+  > "$temp_file"
+
+# Send the request
+http_code=$(curl --silent --output /tmp/curl_response --write-out "%{http_code}" \
+  -X POST -H "Content-Type: application/json" \
+  -d @"$temp_file" localhost:8083/connectors)
 
 if [ $? -ne 0 ]; then
     echoerr "curl command failed with exit code $?"
