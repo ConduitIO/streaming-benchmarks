@@ -2,4 +2,4 @@ services:
   benchi-conduit:
     volumes:
       # mount path is relative to the location of the original docker-compose file (/shared/conduit/compose.yml)
-      - ../../benchmarks/mongo-kafka-cdc/conduit/pipeline.yml:/app/pipelines/pipeline.yml
+      - ../../benchmarks/mongo-kafka-snapshot/conduit/pipeline.yml:/app/pipelines/pipeline.yml
