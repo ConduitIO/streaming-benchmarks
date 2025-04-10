@@ -1,0 +1,18 @@
+version: "2.2"
+pipelines:
+  - id: baseline
+    status: running
+    connectors:
+    - id: generator
+      type: source
+      plugin: builtin:generator
+      settings:
+        format.type: file # take payload from file, to skip generation overhead
+        format.options.path: ${PAYLOAD_PATH} # different payload sizes - 25B, 1kB, 10kB
+        sdk.batch.size: 10000
+        sdk.batch.delay: 0s
+    - id: log
+      type: destination
+      plugin: builtin:log
+      settings:
+        level: trace
