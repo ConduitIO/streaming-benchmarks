@@ -5,6 +5,10 @@ infrastructure:
     compose: ../../shared/mongo/compose.yml
 
 tools:
+  kafka-connect-dbz:
+    compose:
+      - ../../shared/kafka-connect/compose.yml
+      - ./kafka-connect-dbz/compose.override.yml
   kafka-connect:
     compose:
       - ../../shared/kafka-connect/compose.yml
@@ -35,7 +39,7 @@ metrics:
 
 tests:
   - name: mongo-kafka-cdc
-    duration: 1m
+    duration: 30s
 
     steps:
       pre-infrastructure:
@@ -55,7 +59,7 @@ tests:
             /benchi/scripts/stop_pipeline.sh mongo-to-kafka
 
         - name: "Kafka Connect: Set up CDC"
-          tools: kafka-connect
+          tools: [kafka-connect, kafka-connect-dbz]
           container: benchi-kafka-connect
           run: |
             /benchi/scripts/create_pipeline.sh /benchi/data/connector.json
@@ -73,7 +77,7 @@ tests:
           run: /benchi/scripts/start_pipeline.sh mongo-to-kafka
 
         - name: "Kafka Connect: Start pipeline"
-          tools: kafka-connect
+          tools: [kafka-connect, kafka-connect-dbz]
           container: benchi-kafka-connect
           run: /benchi/scripts/start_pipeline.sh /benchi/data/connector.json
 

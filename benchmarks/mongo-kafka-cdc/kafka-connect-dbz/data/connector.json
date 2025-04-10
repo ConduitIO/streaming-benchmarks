@@ -1,0 +1,10 @@
+{
+    "name": "dbz-mongo",
+    "config": {
+        "connector.class": "io.debezium.connector.mongodb.MongoDbConnector",
+        "mongodb.connection.string": "mongodb://benchi-mongo1:30001,benchi-mongo2:30002,benchi-mongo3:30003/test?replicaSet=test-replica-set",
+        "topic.prefix": "mongo",
+        "database.include.list": "test",
+        "collection.include.list": "test.*"
+    }
+}
