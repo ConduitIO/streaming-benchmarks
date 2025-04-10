@@ -1,6 +1,6 @@
 version: "2.2"
 pipelines:
-  - id: baseline
+  - id: generator-chaos
     status: running
     connectors:
     - id: generator
@@ -11,8 +11,11 @@ pipelines:
         format.options.path: ${PAYLOAD_PATH} # different payload sizes - 25B, 1kB, 10kB
         sdk.batch.size: 10000
         sdk.batch.delay: 0s
-    - id: log
+        sdk.schema.extract.key.enabled: false
+        sdk.schema.extract.payload.enabled: false
+    - id: chaos
       type: destination
-      plugin: builtin:log
+      plugin: builtin:chaos
       settings:
-        level: trace
+        sdk.schema.extract.key.enabled: false
+        sdk.schema.extract.payload.enabled: false
