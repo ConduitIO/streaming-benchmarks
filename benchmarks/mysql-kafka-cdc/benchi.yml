@@ -54,6 +54,7 @@ tests:
           tools: conduit
           container: benchi-conduit
           run: |
+            set -e
             /benchi/scripts/install_tools.sh
             /benchi/scripts/start_pipeline.sh mysql-to-kafka
             /benchi/scripts/stop_pipeline.sh mysql-to-kafka
@@ -62,6 +63,7 @@ tests:
           tools: kafka-connect
           container: benchi-kafka-connect
           run: |
+            set -e
             /benchi/scripts/create_pipeline.sh /benchi/data/connector.json
             /benchi/scripts/await_connector_status.sh /benchi/data/connector.json RUNNING
             /benchi/scripts/stop_pipeline.sh /benchi/data/connector.json
