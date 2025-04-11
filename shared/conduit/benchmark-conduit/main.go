@@ -19,6 +19,7 @@ import (
 	mongo "github.com/conduitio-labs/conduit-connector-mongo"
 	mysql "github.com/conduitio-labs/conduit-connector-mysql"
 	snowflake "github.com/conduitio-labs/conduit-connector-snowflake"
+	pg "github.com/conduitio/conduit-connector-postgres"
 	"github.com/conduitio/conduit/cmd/conduit/cli"
 	"github.com/conduitio/conduit/pkg/conduit"
 )
@@ -31,6 +32,9 @@ func main() {
 	cfg.ConnectorPlugins["chaos"] = chaos.Connector
 	cfg.ConnectorPlugins["mysql"] = mysql.Connector
 	cfg.ConnectorPlugins["snowflake"] = snowflake.Connector
+
+	// Overwrite with custom postgres (even though it's already a built-in connector)
+	cfg.ConnectorPlugins["postgres"] = pg.Connector
 
 	cli.Run(cfg)
 }
