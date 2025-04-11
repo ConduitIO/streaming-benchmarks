@@ -10,13 +10,15 @@ pipelines:
         settings:
           tables: "employees"
           url: "postgresql://meroxauser:meroxapass@benchi-postgres:5432/meroxadb"
-          snapshotMode: "initial"
-          snapshot.fetchSize: 50000
+          cdcMode: "auto"
+          logrepl.slotName: "conduit_slot"
+          logrepl.publicationName: "conduit_pub"
+          logrepl.autoCleanup: "true"
+          logrepl.withAvroSchema: "false"
           sdk.batch.size: 10000
-          sdk.batch.delay: "500ms"
+          sdk.batch.delay: "0s"
           sdk.schema.extract.key.enabled: false
           sdk.schema.extract.payload.enabled: false
-          cdcMode: "auto"
       - id: kafka-destination
         type: destination
         plugin: builtin:kafka
@@ -24,8 +26,4 @@ pipelines:
         settings:
           servers: "benchi-kafka:9092"
           topic: "postgres.public.employees"
-          compression: "snappy"
-          batchBytes: "1000000"
-          acks: "one"
-          sdk.batch.size: 10000
-          sdk.record.format: "opencdc/json"
+          compression: "none"

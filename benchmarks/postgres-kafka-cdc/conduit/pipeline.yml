@@ -27,9 +27,4 @@ pipelines:
         settings:
           servers: "benchi-kafka:9092"
           topic: "postgres.public.employees"
-          compression: "snappy"
-          batchBytes: "1000000"
-          acks: "one"
-          sdk.batch.size: 10000
-          sdk.batch.delay: "500ms"
-          sdk.record.format: "opencdc/json"
+          compression: "none"
