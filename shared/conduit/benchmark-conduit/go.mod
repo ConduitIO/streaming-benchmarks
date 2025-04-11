@@ -1,6 +1,6 @@
 module github.com/conduitio/streaming-benchmarks/shared/conduit/benchmark-conduit
 
-go 1.24.0
+go 1.24.2
 
 require (
 	github.com/conduitio-labs/conduit-connector-chaos v0.2.0
@@ -8,6 +8,7 @@ require (
 	github.com/conduitio-labs/conduit-connector-mysql v0.1.3
 	github.com/conduitio-labs/conduit-connector-snowflake v0.4.0
 	github.com/conduitio/conduit v0.13.3
+	github.com/conduitio/conduit-connector-postgres v0.11.2
 )
 
 require (
@@ -105,7 +106,6 @@ require (
 	github.com/conduitio/conduit-connector-generator v0.10.2 // indirect
 	github.com/conduitio/conduit-connector-kafka v0.12.1 // indirect
 	github.com/conduitio/conduit-connector-log v0.7.1 // indirect
-	github.com/conduitio/conduit-connector-postgres v0.11.2 // indirect
 	github.com/conduitio/conduit-connector-protocol v0.9.2 // indirect
 	github.com/conduitio/conduit-connector-s3 v0.9.1 // indirect
 	github.com/conduitio/conduit-connector-sdk v0.13.3 // indirect
@@ -119,7 +119,7 @@ require (
 	github.com/containerd/stargz-snapshotter/estargz v0.16.3 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.6 // indirect
 	github.com/curioswitch/go-reassign v0.3.0 // indirect
-	github.com/daixiang0/gci v0.13.5 // indirect
+	github.com/daixiang0/gci v0.13.6 // indirect
 	github.com/danieljoos/wincred v1.2.1 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/denis-tingaikin/go-header v0.5.0 // indirect
@@ -216,7 +216,7 @@ require (
 	github.com/jackc/pglogrepl v0.0.0-20240307033717-828fbfe908e9 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761 // indirect
-	github.com/jackc/pgx/v5 v5.7.2 // indirect
+	github.com/jackc/pgx/v5 v5.7.4 // indirect
 	github.com/jackc/puddle/v2 v2.2.2 // indirect
 	github.com/jdx/go-netrc v1.0.0 // indirect
 	github.com/jgautheron/goconst v1.7.1 // indirect
@@ -314,7 +314,7 @@ require (
 	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/rogpeppe/go-internal v1.14.1 // indirect
 	github.com/rs/cors v1.11.1 // indirect
-	github.com/rs/zerolog v1.33.0 // indirect
+	github.com/rs/zerolog v1.34.0 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/ryancurrah/gomodguard v1.3.5 // indirect
 	github.com/ryanrolds/sqlclosecheck v0.5.1 // indirect
@@ -430,3 +430,5 @@ require (
 	mvdan.cc/unparam v0.0.0-20240528143540-8a5130ca722f // indirect
 	pluginrpc.com/pluginrpc v0.5.0 // indirect
 )
+
+replace github.com/conduitio/conduit-connector-postgres => ../../../../conduit-connector-postgres
