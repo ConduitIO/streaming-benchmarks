@@ -5,6 +5,20 @@
         "mongodb.connection.string": "mongodb://benchi-mongo1:30001,benchi-mongo2:30002,benchi-mongo3:30003/test?replicaSet=test-replica-set",
         "topic.prefix": "mongo",
         "database.include.list": "test",
-        "collection.include.list": "test.*"
+        "collection.include.list": "test.*",
+
+        "capture.mode": "change_streams_update_full",
+        "tombstones.on.delete": "true",
+        "capture.mode.full.update.type": "lookup",
+        "max.batch.size": 4096,
+        "max.queue.size": 8192,
+        "max.queue.size.in.bytes": 0,
+        "poll.interval.ms": 1000,
+        "source.struct.version": "v2",
+        "skipped.operations": "t",
+        "snapshot.mode": "no_data",
+        "mongodb.poll.interval.ms": 30000,
+        "cursor.pipeline": "",
+        "cursor.pipeline.order": "internal_first"
     }
 }
