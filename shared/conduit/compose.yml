@@ -6,7 +6,7 @@ services:
 
     image: benchi/conduit
     build: ./benchmark-conduit
-    pull_policy: never
+    pull_policy: build
     ports:
       - '8080:8080'
     volumes:
