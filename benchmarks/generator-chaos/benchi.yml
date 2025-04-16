@@ -1,0 +1,37 @@
+tools:
+  conduit:
+    compose: ../../shared/conduit/compose.yml
+
+metrics:
+  conduit_metrics:
+    collector: conduit
+    tools: conduit
+    settings:
+      url: http://localhost:8080/metrics
+      pipelines: generator-chaos
+  docker_metrics:
+    collector: docker
+    settings:
+      containers: benchi-conduit
+
+tests:
+  - name: generator-chaos-25b
+    duration: 1m
+
+    tools:
+      conduit:
+        compose: ./conduit/compose.override-25b.yml
+
+  - name: generator-chaos-1kb
+    duration: 1m
+
+    tools:
+      conduit:
+        compose: ./conduit/compose.override-1kb.yml
+
+  - name: generator-chaos-10kb
+    duration: 1m
+
+    tools:
+      conduit:
+        compose: ./conduit/compose.override-10kb.yml
