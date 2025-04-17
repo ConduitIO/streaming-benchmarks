@@ -1,6 +1,6 @@
-# Kafka -> Snowflake CDC Benchmark
+# Kafka -> Snowflake Benchmark
 
-The Kafka -> Snowflake CDC benchmark requires a few manual steps before it can
+The Kafka -> Snowflake benchmark requires a few manual steps before it can
 run.
 
 ## Steps

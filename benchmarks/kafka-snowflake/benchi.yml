@@ -32,7 +32,7 @@ metrics:
         - benchi-kafka-connect
 
 tests:
-  - name: kafka-snowflake-cdc
+  - name: kafka-snowflake
     duration: 1m
 
     steps:
@@ -44,38 +44,26 @@ tests:
 
       pre-tool:
       post-tool:
-        - name: "Conduit: Set up CDC"
+      pre-test:
+        - name: "Conduit: Start pipeline"
           tools: conduit
           container: benchi-conduit
           run: |
             /benchi/scripts/install_tools.sh
             /benchi/scripts/start_pipeline.sh kafka-to-snowflake
-            /benchi/scripts/stop_pipeline.sh kafka-to-snowflake
 
-        - name: "Kafka Connect: Set up CDC"
+        - name: "Kafka Connect: Start pipeline"
           tools: kafka-connect
           container: benchi-kafka-connect
           run: |
             /benchi/scripts/create_pipeline.sh /benchi/data/connector.json
             /benchi/scripts/await_connector_status.sh /benchi/data/connector.json RUNNING
-            /benchi/scripts/stop_pipeline.sh /benchi/data/connector.json
 
+      during:
         - name: "Kafka: Insert test data"
           container: benchi-kafka
           run: /benchi/scripts/insert_test_users.sh "snowflake.test.users" 1000000
 
-      pre-test:
-        - name: "Conduit: Start pipeline"
-          tools: conduit
-          container: benchi-conduit
-          run: /benchi/scripts/start_pipeline.sh kafka-to-snowflake
-
-        - name: "Kafka Connect: Start pipeline"
-          tools: kafka-connect
-          container: benchi-kafka-connect
-          run: /benchi/scripts/start_pipeline.sh /benchi/data/connector.json
-
-      during:
       post-test:
       pre-cleanup:
       post-cleanup:
