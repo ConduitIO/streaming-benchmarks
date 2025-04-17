@@ -41,6 +41,7 @@ $ make help
 install-tools   Install all tools required for benchmarking.
 install-benchi  Install latest version of benchi.
 install-csvtk   Install csvtk for processing CSV files.
+lint            Lint all benchmarks.
 list            List all benchmarks.
 run-all         Run all benchmarks. Optionally add "run-<benchmark-name>" to run a specific benchmark.
 run-%           Run a specific benchmark.
