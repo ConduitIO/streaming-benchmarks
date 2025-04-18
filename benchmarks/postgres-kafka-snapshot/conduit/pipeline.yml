@@ -15,6 +15,7 @@ pipelines:
           logrepl.publicationName: "conduit_pub"
           logrepl.autoCleanup: "true"
           logrepl.withAvroSchema: "false"
+          snapshot.fetchSize: 10000
           sdk.batch.size: 10000
           sdk.batch.delay: "1s"
           sdk.schema.extract.key.enabled: false
