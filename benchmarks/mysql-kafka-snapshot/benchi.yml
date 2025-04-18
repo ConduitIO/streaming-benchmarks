@@ -35,7 +35,7 @@ metrics:
 
 tests:
   - name: mysql-to-kafka-snapshot
-    duration: 2m
+    duration: 1m
 
     steps:
       pre-infrastructure:
@@ -63,6 +63,8 @@ tests:
           container: benchi-kafka-connect
           run: |
             /benchi/scripts/create_pipeline.sh /benchi/data/connector.json
+            /benchi/scripts/await_connector_status.sh /benchi/data/connector.json RUNNING
+
       during:
       post-test:
       pre-cleanup:
