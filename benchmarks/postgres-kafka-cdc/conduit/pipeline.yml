@@ -16,8 +16,8 @@ pipelines:
           logrepl.autoCleanup: "true"
           logrepl.withAvroSchema: "false"
           snapshotMode: "never"
-          sdk.batch.size: 1000
-          sdk.batch.delay: "0s"
+          sdk.batch.size: 10000
+          sdk.batch.delay: "1s"
           sdk.schema.extract.key.enabled: false
           sdk.schema.extract.payload.enabled: false
       - id: kafka-destination
