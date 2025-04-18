@@ -58,7 +58,7 @@ tests:
             /benchi/scripts/stop_pipeline.sh /benchi/data/connector.json
         - name: "Postgres: Insert test data"
           container: benchi-postgres
-          run: /benchi/scripts/insert_test_employees.sh "5000000"
+          run: /benchi/scripts/insert_test_employees.sh "20000000"
       pre-test:
         - name: "Conduit: Start pipeline"
           tools: conduit

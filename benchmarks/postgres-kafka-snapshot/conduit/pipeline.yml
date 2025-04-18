@@ -16,7 +16,7 @@ pipelines:
           logrepl.autoCleanup: "true"
           logrepl.withAvroSchema: "false"
           sdk.batch.size: 10000
-          sdk.batch.delay: "0s"
+          sdk.batch.delay: "1s"
           sdk.schema.extract.key.enabled: false
           sdk.schema.extract.payload.enabled: false
       - id: kafka-destination
@@ -27,3 +27,5 @@ pipelines:
           servers: "benchi-kafka:9092"
           topic: "postgres.public.employees"
           compression: "none"
+          sdk.schema.extract.key.enabled: false
+          sdk.schema.extract.payload.enabled: false
