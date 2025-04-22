@@ -1,0 +1,21 @@
+version: "2.2"
+pipelines:
+  - id: generator-chaos
+    status: running
+    connectors:
+    - id: generator
+      type: source
+      plugin: builtin:generator
+      settings:
+        format.type: file # take payload from file, to skip generation overhead
+        format.options.path: ${PAYLOAD_PATH} # different payload sizes - 25B, 1kB, 10kB
+        sdk.batch.size: 10000
+        sdk.batch.delay: 0s
+        sdk.schema.extract.key.enabled: false
+        sdk.schema.extract.payload.enabled: false
+    - id: chaos
+      type: destination
+      plugin: builtin:chaos
+      settings:
+        sdk.schema.extract.key.enabled: false
+        sdk.schema.extract.payload.enabled: false
