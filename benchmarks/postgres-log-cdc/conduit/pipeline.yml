@@ -1,0 +1,28 @@
+version: "2.2"
+pipelines:
+  - id: postgres-to-log
+    status: stopped
+    description: Postgres to log (CDC)
+    connectors:
+      - id: postgres-source
+        type: source
+        plugin: builtin:postgres
+        settings:
+          tables: "employees"
+          url: "postgresql://meroxauser:meroxapass@benchi-postgres:5432/meroxadb"
+          cdcMode: "logrepl"
+          logrepl.slotName: "conduit_slot"
+          logrepl.publicationName: "conduit_pub"
+          logrepl.autoCleanup: "true"
+          logrepl.withAvroSchema: "false"
+          snapshotMode: "never"
+          sdk.batch.size: 10000
+          sdk.batch.delay: "1s"
+          sdk.schema.extract.key.enabled: false
+          sdk.schema.extract.payload.enabled: false
+      - id: log
+        type: destination
+        plugin: builtin:log
+        settings:
+          sdk.schema.extract.key.enabled: false
+          sdk.schema.extract.payload.enabled: false
