@@ -1,0 +1,2 @@
+test,tool,msg-rate-in-per-second[mongo.test.users],msg-megabytes-in-per-second[mongo.test.users],msg-megabytes-out-per-second[mongo.test.users],cpu-percentage[benchi-conduit],memory-usage[benchi-conduit],cpu-percentage[benchi-kafka-connect],memory-usage[benchi-kafka-connect],msg-rate-per-second[mongo-to-kafka],msg-megabytes-in-per-second[mongo-to-kafka],msg-megabytes-out-per-second[mongo-to-kafka]
+mongo-kafka-snapshot,conduit,30094.12,29.96,,138.77,370.68,,,29984.84,14.24,14.39
