@@ -1,0 +1,55 @@
+infrastructure:
+  postgres:
+    compose: ../../shared/postgres/compose.yml
+
+tools:
+  conduit:
+    compose:
+      - ../../shared/conduit/compose.yml
+      - ./conduit/compose.override.yml
+
+metrics:
+  conduit_metrics:
+    collector: conduit
+    tools: conduit
+    settings:
+      url: http://localhost:8080/metrics
+      pipelines: postgres-to-chaos
+  docker_metrics:
+    collector: docker
+    settings:
+      containers:
+        - benchi-conduit
+
+tests:
+  - name: postgres-to-chaos-cdc
+    duration: 2m
+
+    steps:
+      pre-infrastructure:
+      post-infrastructure:
+      
+      pre-tool:
+      post-tool:
+        - name: "Conduit: Set up CDC"
+          tools: conduit
+          container: benchi-conduit
+          run: |
+            /benchi/scripts/install_tools.sh
+            /benchi/scripts/start_pipeline.sh postgres-to-chaos
+            /benchi/scripts/stop_pipeline.sh postgres-to-chaos
+        
+        - name: "Postgres: Insert test data"
+          container: benchi-postgres
+          run: /benchi/scripts/insert_test_employees.sh "20000000"
+      
+      pre-test:
+        - name: "Conduit: Start pipeline"
+          tools: conduit
+          container: benchi-conduit
+          run: /benchi/scripts/start_pipeline.sh postgres-to-chaos
+
+      during:
+      post-test:
+      pre-cleanup:
+      post-cleanup:
