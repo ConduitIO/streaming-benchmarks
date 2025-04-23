@@ -22,7 +22,7 @@
         "source.struct.version": "v2",
         "skipped.operations": "t",
         "snapshot.mode": "no_data",
-        "mongodb.poll.interval.ms": 30000,
+        "mongodb.poll.interval.ms": 100,
 
         "cursor.pipeline": "",
         "cursor.pipeline.order": "internal_first",
