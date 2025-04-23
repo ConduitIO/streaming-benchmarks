@@ -26,3 +26,6 @@
 /benchmarks/kafka-snowflake/kafka-connect/.env
 /benchmarks/kafka-snowflake/snowflake_key.pem
 /benchmarks/kafka-snowflake/snowflake_key.pub
+
+# Result logs
+/results/**/*.log

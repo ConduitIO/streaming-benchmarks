@@ -21,6 +21,7 @@ services:
       start_period: 30s
     ports:
       - "7071:7071"
+      - "9092:9092"
     volumes:
       - ./jmx:/opt/kafka/jmx  # Mount JMX files
       - ./scripts:/benchi/scripts
