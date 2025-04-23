@@ -225,6 +225,14 @@ pipelines:
 
 </details>
 
+Number of messages per second processed during the benchmark:
+
+![Conduit throughput](./kafka-snowflake_conduit/conduit_metrics.png)
+
+Docker container resource consumption:
+
+![Conduit docker](./kafka-snowflake_conduit/docker_metrics.png)
+
 ### Kafka Connect
 
 |                  |                                                 |
@@ -292,3 +300,7 @@ BENCHI_INIT_PATH="/benchi/init"
 ```
 
 </details>
+
+Docker container resource consumption:
+
+![Conduit docker](./kafka-snowflake_kafka-connect/docker_metrics.png)
