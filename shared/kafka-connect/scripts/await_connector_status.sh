@@ -47,7 +47,13 @@ i=1
 while [ $i -le $MAX_RETRIES ]; do
   echo "Attempt $i of $MAX_RETRIES..."
 
-  STATUS=$(curl -s "$KAFKA_CONNECT_URL/connectors/$CONNECTOR_NAME/status" | jq -r '.connector.state')
+  HTTP_RESPONSE=$(curl -s -w "%{http_code}" -o /tmp/connector_status "$KAFKA_CONNECT_URL/connectors/$CONNECTOR_NAME/status")
+  if [ "$HTTP_RESPONSE" -ge 400 ]; then
+    echo "Error: HTTP request to get connector status failed with status code $HTTP_RESPONSE"
+    exit 1
+  else
+    STATUS=$(cat /tmp/connector_status | jq -r '.connector.state')
+  fi
 
   # Check if curl failed
   if [ $? -ne 0 ]; then
