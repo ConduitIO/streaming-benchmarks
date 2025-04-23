@@ -7,7 +7,9 @@
         "database.include.list": "test",
         "collection.include.list": "test.*",
 
+        "key.converter.schemas.enable": false,
         "value.converter.schemas.enable": false,
+
         "key.converter": "org.apache.kafka.connect.json.JsonConverter",
         "value.converter": "org.apache.kafka.connect.json.JsonConverter",
 
