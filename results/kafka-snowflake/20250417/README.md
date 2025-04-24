@@ -1,12 +1,28 @@
 # Kafka-Snowflake (2025-04-17)
 
-Report for the Kafka to Snowflake benchmark.
+The benchmark tests the performance of the data pipeline when reading from a Kafka
+source and writing to a Snowflake destination.
 
 ```mermaid
 flowchart LR
     A[Kafka]-->B{Tool}
     B --> C[Snowflake]
 ```
+
+We found that Conduit was able to process 13,333 messages per second, while Kafka
+Connect was able to process 66,400 messages per second. The test was run for 1
+minute, and the results were aggregated over the entire test duration.
+
+It's important to note what caused the difference in throughput. Both tools
+function entirely differently and have different use cases. Kafka Connect is
+dumping the raw data into Snowflake, letting the user transform the data in
+Snowflake in later steps. Conduit, on the other hand, is transforming the data
+as it flows through the pipeline, inserting the transformed data into proper
+columns in Snowflake. Additionally, Conduit deduplicates the data, while Kafka
+Connect does not. This means that Conduit is doing more work than Kafka Connect,
+which is reflected in the throughput numbers.
+
+## Results
 
 |                 |            |
 |-----------------|------------|
@@ -138,7 +154,15 @@ We used an empty Snowflake account with a fresh database.
 
 ### Aggregated
 
-// TODO
+| Metric       | Conduit      | Kafka Connect |
+|--------------|--------------|---------------|
+| Throughput   | 13.333 msg/s | 66.400 msg/s  |
+| CPU usage    | 71.47 %      | 129.95 %      |
+| Memory usage | 1037 MB      | 1689 MB       |
+
+![Throughput](./throughput.png)
+![CPU usage](./cpu-usage.png)
+![Memory usage](./memory-usage.png)
 
 ### Conduit
 
@@ -225,7 +249,7 @@ pipelines:
 
 </details>
 
-Number of messages per second processed during the benchmark:
+Messages per second:
 
 ![Conduit throughput](./kafka-snowflake_conduit/conduit_metrics.png)
 
@@ -300,6 +324,11 @@ BENCHI_INIT_PATH="/benchi/init"
 ```
 
 </details>
+
+Messages per second were not available for Kafka Connect, as Benchi didn't support
+Kafka Connect metrics at the time of the test. The throughput was estimated to be
+66,400, as the test took 1 minute and Kafka Connect was able to process 3,984,092
+messages.
 
 Docker container resource consumption:
 

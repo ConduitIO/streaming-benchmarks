@@ -13,14 +13,27 @@ comparable.
 The raw results of the benchmarks can be found in the [results](./results)
 directory. Here we are just posting the aggregated results.
 
-### Benchmark: MongoDB to Kafka
+### Benchmark: Kafka to Snowflake
 
-> [Click here](./results/TODO) to see the full results.
+> [Click here](./results/kafka-snowflake/20250417) to see the full results.
 
 This benchmark tests the performance of the data pipeline when reading from a
-MongoDB source and writing to a Kafka destination.
+Kafka source and writing to a Snowflake destination.
 
-> TODO aggregated results table and graph
+We found that Conduit was able to process 13,333 messages per second, while Kafka
+Connect was able to process 66,400 messages per second. The test was run for 1
+minute, and the results were aggregated over the entire test duration.
+
+It's important to note what caused the difference in throughput. Both tools
+function entirely differently and have different use cases. Kafka Connect is
+dumping the raw data into Snowflake, letting the user transform the data in
+Snowflake in later steps. Conduit, on the other hand, is transforming the data
+as it flows through the pipeline, inserting the transformed data into proper
+columns in Snowflake. Additionally, Conduit deduplicates the data, while Kafka
+Connect does not. This means that Conduit is doing more work than Kafka Connect,
+which is reflected in the throughput numbers.
+
+![Throughput](./results/kafka-snowflake/20250417/throughput.png)
 
 ## Running the benchmarks
 
