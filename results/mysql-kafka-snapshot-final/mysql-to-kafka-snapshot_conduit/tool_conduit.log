@@ -1,0 +1,240 @@
+Compose now can delegate build to bake for better performances
+Just set COMPOSE_BAKE=true
+#0 building with "default" instance using docker driver
+
+#1 [benchi-conduit internal] load build definition from Dockerfile
+#1 transferring dockerfile: 444B done
+#1 DONE 0.0s
+
+#2 [benchi-conduit internal] load metadata for docker.io/library/golang:1.24-bullseye
+#2 DONE 0.1s
+
+#3 [benchi-conduit internal] load metadata for docker.io/library/alpine:3.21
+#3 DONE 0.1s
+
+#4 [benchi-conduit internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [benchi-conduit base 1/4] FROM docker.io/library/golang:1.24-bullseye@sha256:f0fe88a509ede4f792cbd42056e939c210a1b2be282cfe89c57a654ef8707cd2
+#5 DONE 0.0s
+
+#6 [benchi-conduit final 1/3] FROM docker.io/library/alpine:3.21@sha256:a8560b36e8b8210634f77d9f7f9efd7ffa463e380b75e2e74aff4511df3ef88c
+#6 DONE 0.0s
+
+#7 [benchi-conduit internal] load build context
+#7 transferring context: 612B done
+#7 DONE 0.0s
+
+#8 [benchi-conduit final 2/3] WORKDIR /app
+#8 CACHED
+
+#9 [benchi-conduit base 4/4] RUN CGO_ENABLED=0 make build
+#9 CACHED
+
+#10 [benchi-conduit base 2/4] WORKDIR /app
+#10 CACHED
+
+#11 [benchi-conduit base 3/4] COPY . .
+#11 CACHED
+
+#12 [benchi-conduit final 3/3] COPY --from=base /app/conduit /app
+#12 CACHED
+
+#13 [benchi-conduit] exporting to image
+#13 exporting layers done
+#13 writing image sha256:8f4d4bb652aa8040bae583ee59a4baef5713b9c08d716e60ea18381d31c334bd done
+#13 naming to docker.io/benchi/conduit done
+#13 DONE 0.0s
+
+#14 [benchi-conduit] resolving provenance for metadata file
+#14 DONE 0.0s
+ benchi-conduit  Built
+ Container benchi-conduit  Creating
+ Container benchi-conduit  Created
+Attaching to benchi-conduit
+benchi-conduit  | {"level":"info","component":"badger.DB","time":1745452420563,"message":"All 0 tables opened in 0s"}
+benchi-conduit  | {"level":"info","component":"badger.DB","time":1745452420565,"message":"Discard stats nextEmptySlot: 0"}
+benchi-conduit  | {"level":"info","component":"badger.DB","time":1745452420565,"message":"Set nextTxnTs to 0"}
+benchi-conduit  | {"level":"info","component":"plugin.processor.standalone.Registry","time":1745452420566,"message":"loading processor plugins from directory /app/processors ..."}
+benchi-conduit  | {"level":"warn","component":"plugin.processor.standalone.Registry","error":"open /app/processors: no such file or directory","time":1745452420566,"message":"could not read processor plugin directory"}
+benchi-conduit  | {"level":"info","component":"plugin.processor.standalone.Registry","plugin_path":"/app/processors","count":0,"time":1745452420566,"message":"standalone processor plugins initialized"}
+benchi-conduit  | {"level":"info","component":"plugin.processor.builtin.Registry","count":22,"time":1745452420566,"message":"builtin processor plugins initialized"}
+benchi-conduit  | {"level":"info","time":1745452420566,"message":"using lifecycle service v2"}
+benchi-conduit  | {"level":"debug","component":"processor.Service","time":1745452420566,"message":"initializing processors"}
+benchi-conduit  | {"level":"info","component":"processor.Service","count":0,"time":1745452420566,"message":"processors initialized"}
+benchi-conduit  | {"level":"info","address":"[::]:39961","time":1745452420567,"message":"connector utilities started"}
+benchi-conduit  | {"level":"info","time":1745452420567,"message":"connector utilities started on [::]:39961"}
+benchi-conduit  | {"level":"info","component":"plugin.connector.builtin.Registry","count":10,"time":1745452420567,"message":"builtin connector plugins initialized"}
+benchi-conduit  | {"level":"debug","component":"plugin.connector.standalone.Registry","time":1745452420567,"message":"loading connector plugins from directory /app/connectors"}
+benchi-conduit  | {"level":"warn","component":"plugin.connector.standalone.Registry","error":"open /app/connectors: no such file or directory","time":1745452420567,"message":"could not read connector plugin directory"}
+benchi-conduit  | {"level":"info","component":"plugin.connector.standalone.Registry","plugin_path":"/app/connectors","count":0,"time":1745452420567,"message":"standalone connector plugins initialized"}
+benchi-conduit  | {"level":"debug","component":"connector.Service","time":1745452420567,"message":"initializing connectors"}
+benchi-conduit  | {"level":"info","component":"connector.Service","count":0,"time":1745452420567,"message":"connectors initialized"}
+benchi-conduit  | {"level":"debug","component":"pipeline.Service","time":1745452420567,"message":"initializing pipelines"}
+benchi-conduit  | {"level":"info","component":"pipeline.Service","count":0,"time":1745452420567,"message":"pipelines initialized"}
+benchi-conduit  | {"level":"debug","component":"provisioning.Service","pipelines_path":"/app/pipelines","time":1745452420567,"message":"initializing the provisioning service"}
+benchi-conduit  | {"level":"debug","component":"provisioning.Service","action":"create pipeline with ID mysql-to-kafka","time":1745452420567,"message":"executing action"}
+benchi-conduit  | {"level":"debug","component":"provisioning.Service","action":"create connector with ID mysql-to-kafka:mysql-source","time":1745452420570,"message":"executing action"}
+benchi-conduit  | {"level":"debug","component":"provisioning.Service","action":"create connector with ID mysql-to-kafka:kafka-destination","time":1745452420570,"message":"executing action"}
+benchi-conduit  | {"level":"info","component":"provisioning.Service","created":["mysql-to-kafka"],"deleted":[],"pipelines_path":"/app/pipelines","time":1745452420570,"message":"pipeline configs provisioned"}
+benchi-conduit  | {"level":"debug","component":"lifecycle.Service","time":1745452420570,"message":"initializing pipelines statuses"}
+benchi-conduit  | {"level":"info","address":"[::]:8084","time":1745452420570,"message":"grpc API started"}
+benchi-conduit  | {"level":"info","address":"[::]:8080","time":1745452420570,"message":"http API started"}
+benchi-conduit  | {"level":"info","time":1745452420570}
+benchi-conduit  | {"level":"info","time":1745452420570,"message":"click here to navigate to explore the HTTP API: http://localhost:8080/openapi"}
+benchi-conduit  | {"level":"info","time":1745452420570}
+benchi-conduit  | {"level":"debug","component":"lifecycle.Service","pipeline_id":"mysql-to-kafka","time":1745452459515,"request_id":"47644a68-e09c-480a-9536-43310bb3f7b9","message":"starting pipeline"}
+benchi-conduit  | {"level":"info","pipeline_id":"mysql-to-kafka","component":"lifecycle.Service","tasks":["mysql-to-kafka:mysql-source(*funnel.SourceTask)","mysql-to-kafka:kafka-destination(*funnel.DestinationTask)"],"order":[[1],null],"time":1745452459515,"request_id":"47644a68-e09c-480a-9536-43310bb3f7b9","message":"pipeline tasks and order"}
+benchi-conduit  | {"level":"debug","pipeline_id":"mysql-to-kafka","connector_id":"mysql-to-kafka:mysql-source","component":"task:source","time":1745452459515,"message":"opening source"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","component":"connector.Source","time":1745452459515,"message":"dispensing source connector plugin"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"builtin.sourcePluginAdapter","request":{"Config":{"dsn":"root:root@tcp(benchi-mysql:3306)/testdb","fetchSize":"100000","sdk.batch.delay":"0s","sdk.batch.size":"50000","sdk.schema.extract.key.enabled":"false","sdk.schema.extract.payload.enabled":"false","tableConfig.users.sortingColumn":"id","tables":"users"}},"time":1745452459515,"message":"calling Configure"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","time":1745452459515,"message":"sanitizing configuration and applying defaults"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","time":1745452459515,"message":"validating configuration according to the specifications"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","target":"*common.SourceConfig","time":1745452459515,"message":"decoding configuration into the target object"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"builtin.sourcePluginAdapter","request":{"Config":{"dsn":"root:root@tcp(benchi-mysql:3306)/testdb","fetchSize":"100000","sdk.batch.delay":"0s","sdk.batch.size":"50000","sdk.schema.extract.key.enabled":"false","sdk.schema.extract.payload.enabled":"false","tableConfig.users.sortingColumn":"id","tables":"users"}},"time":1745452459515,"message":"calling LifecycleOnCreated"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"builtin.sourcePluginAdapter","request":{"Position":null},"time":1745452459515,"message":"calling Start"}
+benchi-conduit  | {"level":"info","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","time":1745452459515,"message":"Parsing table regexes..."}
+benchi-conduit  | {"level":"info","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","tables":["users"],"count":1,"time":1745452459522,"message":"Successfully detected tables"}
+benchi-conduit  | {"level":"info","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","config":"marshaling error: json: unsupported type: func(*client.Conn) error","time":1745452459523,"message":"create BinlogSyncer"}
+benchi-conduit  | {"level":"info","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","time":1745452459527,"message":"locking tables to setup fetch workers and obtain cdc start position"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.185956,"time":1745452460516,"message":"persisted connectors"}
+benchi-conduit  | {"level":"info","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","time":1745452462804,"message":"locked tables"}
+benchi-conduit  | {"level":"warn","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","table":"users","time":1745452462804,"message":"single key position not found in last position, defaulting to empty"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","query":"SELECT MIN(id) as min_value, MAX(id) as max_value FROM users","min_value_type":"int64","max_value_type":"int64","scannedRow":{"MinValue":1,"MaxValue":3000000},"time":1745452462804}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","start":1,"start type":"int64","end":3000000,"end type":"int64","time":1745452462804,"message":"fetched start and end"}
+benchi-conduit  | {"level":"info","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","time":1745452462804,"message":"setup fetch workers"}
+benchi-conduit  | {"level":"info","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","time":1745452462804,"message":"fetched cdc start position"}
+benchi-conduit  | {"level":"info","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","time":1745452462807,"message":"unlocked tables"}
+benchi-conduit  | {"level":"info","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","time":1745452462807,"message":"started worker for table users"}
+benchi-conduit  | {"level":"info","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","time":1745452462807,"message":"started snapshot iterator"}
+benchi-conduit  | {"level":"info","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","time":1745452462807,"message":"started cdc iterator"}
+benchi-conduit  | {"level":"info","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","time":1745452462807,"message":"opened source connector"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","time":1745452462807,"message":"started fetch worker by key for table \"users\""}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","table":"users","start":1,"end":3000000,"fetchSize":100000,"time":1745452462807,"message":"fetching rows"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","query":"SELECT * FROM users WHERE id >= ? AND id <= ? ORDER BY id LIMIT 100000","args":[1,3000000],"time":1745452462807,"message":"created query"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","pos":{"Name":"binlog.000002","Pos":151426369},"time":1745452462807,"message":"update master position"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","ts":1745452462,"time":1745452462807,"message":"update master timestamp"}
+benchi-conduit  | {"level":"info","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","file":"binlog.000002","position":151426369,"GTID set":null,"time":1745452462807,"message":"skip dump, use last binlog replication position or GTID set"}
+benchi-conduit  | {"level":"info","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","position":{"Name":"binlog.000002","Pos":151426369},"time":1745452462807,"message":"begin to sync binlog from position"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"builtin.sourcePluginAdapter","time":1745452462810,"message":"calling Run"}
+benchi-conduit  | {"level":"info","connector_id":"mysql-to-kafka:mysql-source","component":"connector.Source","time":1745452462810,"message":"source connector plugin successfully started"}
+benchi-conduit  | {"level":"debug","pipeline_id":"mysql-to-kafka","connector_id":"mysql-to-kafka:mysql-source","component":"task:source","time":1745452462810,"message":"source open"}
+benchi-conduit  | {"level":"debug","pipeline_id":"mysql-to-kafka","connector_id":"mysql-to-kafka:kafka-destination","component":"task:destination","time":1745452462810,"message":"opening destination"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:kafka-destination","component":"connector.Destination","time":1745452462810,"message":"dispensing destination connector plugin"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:kafka-destination","plugin_type":"destination","plugin_name":"builtin:kafka","component":"builtin.destinationPluginAdapter","request":{"Config":{"compression":"none","servers":"benchi-kafka:9092","topic":"mysql.testdb.users"}},"time":1745452462810,"message":"calling Configure"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:kafka-destination","plugin_type":"destination","plugin_name":"builtin:kafka","component":"plugin","time":1745452462810,"message":"sanitizing configuration and applying defaults"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:kafka-destination","plugin_type":"destination","plugin_name":"builtin:kafka","component":"plugin","time":1745452462810,"message":"validating configuration according to the specifications"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:kafka-destination","plugin_type":"destination","plugin_name":"builtin:kafka","component":"plugin","target":"*destination.Config","time":1745452462810,"message":"decoding configuration into the target object"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:kafka-destination","plugin_type":"destination","plugin_name":"builtin:kafka","component":"builtin.destinationPluginAdapter","request":{"Config":{"compression":"none","servers":"benchi-kafka:9092","topic":"mysql.testdb.users"}},"time":1745452462810,"message":"calling LifecycleOnCreated"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:kafka-destination","plugin_type":"destination","plugin_name":"builtin:kafka","component":"builtin.destinationPluginAdapter","request":{},"time":1745452462810,"message":"calling Open"}
+benchi-conduit  | {"level":"info","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","flavor":"mysql","version":"8.0.42","time":1745452462812,"message":"Connected to server"}
+benchi-conduit  | {"level":"info","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","pos":{"Name":"binlog.000002","Pos":151426369},"time":1745452462812,"message":"start sync binlog at binlog file"}
+benchi-conduit  | {"level":"info","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","file":"binlog.000002","position":151426369,"time":1745452462813,"message":"rotate to next binlog"}
+benchi-conduit  | {"level":"info","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","nextLogName":"binlog.000002","time":1745452462813,"message":"received fake rotate event"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:kafka-destination","plugin_type":"destination","plugin_name":"builtin:kafka","component":"builtin.destinationPluginAdapter","time":1745452462819,"message":"calling Run"}
+benchi-conduit  | {"level":"info","connector_id":"mysql-to-kafka:kafka-destination","component":"connector.Destination","time":1745452462819,"message":"destination connector plugin successfully started"}
+benchi-conduit  | {"level":"debug","pipeline_id":"mysql-to-kafka","connector_id":"mysql-to-kafka:kafka-destination","component":"task:destination","time":1745452462819,"message":"destination open"}
+benchi-conduit  | {"level":"debug","pipeline_id":"mysql-to-kafka","connector_id":"dlq","component":"task:destination","time":1745452462819,"message":"opening destination"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka-dlq","component":"connector.Destination","time":1745452462819,"message":"dispensing destination connector plugin"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka-dlq","plugin_type":"destination","plugin_name":"builtin:log","component":"builtin.destinationPluginAdapter","request":{"Config":{"level":"warn","message":"record delivery failed"}},"time":1745452462819,"message":"calling Configure"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka-dlq","plugin_type":"destination","plugin_name":"builtin:log","component":"plugin","time":1745452462819,"message":"sanitizing configuration and applying defaults"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka-dlq","plugin_type":"destination","plugin_name":"builtin:log","component":"plugin","time":1745452462819,"message":"validating configuration according to the specifications"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka-dlq","plugin_type":"destination","plugin_name":"builtin:log","component":"plugin","target":"*log.DestinationConfig","time":1745452462819,"message":"decoding configuration into the target object"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka-dlq","plugin_type":"destination","plugin_name":"builtin:log","component":"builtin.destinationPluginAdapter","request":{},"time":1745452462819,"message":"calling Open"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka-dlq","plugin_type":"destination","plugin_name":"builtin:log","component":"builtin.destinationPluginAdapter","time":1745452462819,"message":"calling Run"}
+benchi-conduit  | {"level":"info","connector_id":"mysql-to-kafka-dlq","component":"connector.Destination","time":1745452462819,"message":"destination connector plugin successfully started"}
+benchi-conduit  | {"level":"debug","pipeline_id":"mysql-to-kafka","connector_id":"dlq","component":"task:destination","time":1745452462819,"message":"destination open"}
+benchi-conduit  | {"level":"info","component":"lifecycle.Service","pipeline_id":"mysql-to-kafka","time":1745452462819,"request_id":"47644a68-e09c-480a-9536-43310bb3f7b9","message":"pipeline started"}
+benchi-conduit  | {"level":"info","http_endpoint":"POST /v1/pipelines/mysql-to-kafka/start","grpc_method":"/api.v1.PipelineService/StartPipeline","duration":3304.641346,"grpc_status_code":"OK","time":1745452462819,"request_id":"47644a68-e09c-480a-9536-43310bb3f7b9","message":"request processed"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.110817,"time":1745452463811,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","query":"SELECT * FROM users WHERE id > ? AND id <= ? ORDER BY id LIMIT 100000","args":[100000,3000000],"time":1745452464905,"message":"created query"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.154947,"time":1745452466283,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","query":"SELECT * FROM users WHERE id > ? AND id <= ? ORDER BY id LIMIT 100000","args":[200000,3000000],"time":1745452467501,"message":"created query"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.099299,"time":1745452468294,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.109746,"time":1745452469411,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","query":"SELECT * FROM users WHERE id > ? AND id <= ? ORDER BY id LIMIT 100000","args":[300000,3000000],"time":1745452469802,"message":"created query"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.123216,"time":1745452470549,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.110559,"time":1745452471684,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","query":"SELECT * FROM users WHERE id > ? AND id <= ? ORDER BY id LIMIT 100000","args":[400000,3000000],"time":1745452472100,"message":"created query"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.121754,"time":1745452472889,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.104839,"time":1745452473973,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","query":"SELECT * FROM users WHERE id > ? AND id <= ? ORDER BY id LIMIT 100000","args":[500000,3000000],"time":1745452474339,"message":"created query"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.10637,"time":1745452475105,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.100577,"time":1745452476209,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","query":"SELECT * FROM users WHERE id > ? AND id <= ? ORDER BY id LIMIT 100000","args":[600000,3000000],"time":1745452476551,"message":"created query"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.10741,"time":1745452477311,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.104021,"time":1745452478412,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","query":"SELECT * FROM users WHERE id > ? AND id <= ? ORDER BY id LIMIT 100000","args":[700000,3000000],"time":1745452478815,"message":"created query"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.096013,"time":1745452479597,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.103976,"time":1745452480811,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","query":"SELECT * FROM users WHERE id > ? AND id <= ? ORDER BY id LIMIT 100000","args":[800000,3000000],"time":1745452481094,"message":"created query"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.127201,"time":1745452481845,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.097073,"time":1745452483118,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","query":"SELECT * FROM users WHERE id > ? AND id <= ? ORDER BY id LIMIT 100000","args":[900000,3000000],"time":1745452483413,"message":"created query"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.100355,"time":1745452484231,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.094464,"time":1745452485424,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","query":"SELECT * FROM users WHERE id > ? AND id <= ? ORDER BY id LIMIT 100000","args":[1000000,3000000],"time":1745452485674,"message":"created query"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.123863,"time":1745452486464,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.096367,"time":1745452487671,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","query":"SELECT * FROM users WHERE id > ? AND id <= ? ORDER BY id LIMIT 100000","args":[1100000,3000000],"time":1745452487950,"message":"created query"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.109138,"time":1745452488748,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.120417,"time":1745452490056,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","query":"SELECT * FROM users WHERE id > ? AND id <= ? ORDER BY id LIMIT 100000","args":[1200000,3000000],"time":1745452490348,"message":"created query"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.087916,"time":1745452491135,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.104718,"time":1745452492387,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","query":"SELECT * FROM users WHERE id > ? AND id <= ? ORDER BY id LIMIT 100000","args":[1300000,3000000],"time":1745452492722,"message":"created query"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.431235,"time":1745452493511,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.111529,"time":1745452494713,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","query":"SELECT * FROM users WHERE id > ? AND id <= ? ORDER BY id LIMIT 100000","args":[1400000,3000000],"time":1745452495014,"message":"created query"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.091705,"time":1745452495768,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.149259,"time":1745452497033,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","query":"SELECT * FROM users WHERE id > ? AND id <= ? ORDER BY id LIMIT 100000","args":[1500000,3000000],"time":1745452497307,"message":"created query"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.115013,"time":1745452498113,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.091195,"time":1745452499294,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","query":"SELECT * FROM users WHERE id > ? AND id <= ? ORDER BY id LIMIT 100000","args":[1600000,3000000],"time":1745452499574,"message":"created query"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.091681,"time":1745452500347,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.091165,"time":1745452501559,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","query":"SELECT * FROM users WHERE id > ? AND id <= ? ORDER BY id LIMIT 100000","args":[1700000,3000000],"time":1745452501873,"message":"created query"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.108276,"time":1745452502648,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.093094,"time":1745452503865,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","query":"SELECT * FROM users WHERE id > ? AND id <= ? ORDER BY id LIMIT 100000","args":[1800000,3000000],"time":1745452504148,"message":"created query"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.100391,"time":1745452504917,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.088738,"time":1745452506144,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","query":"SELECT * FROM users WHERE id > ? AND id <= ? ORDER BY id LIMIT 100000","args":[1900000,3000000],"time":1745452506451,"message":"created query"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.539495,"time":1745452507206,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.09538,"time":1745452508500,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","query":"SELECT * FROM users WHERE id > ? AND id <= ? ORDER BY id LIMIT 100000","args":[2000000,3000000],"time":1745452508803,"message":"created query"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.109111,"time":1745452509615,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.125602,"time":1745452510796,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","query":"SELECT * FROM users WHERE id > ? AND id <= ? ORDER BY id LIMIT 100000","args":[2100000,3000000],"time":1745452511099,"message":"created query"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.088049,"time":1745452511876,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.102879,"time":1745452513117,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","query":"SELECT * FROM users WHERE id > ? AND id <= ? ORDER BY id LIMIT 100000","args":[2200000,3000000],"time":1745452513396,"message":"created query"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.089619,"time":1745452514176,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.113245,"time":1745452515397,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","query":"SELECT * FROM users WHERE id > ? AND id <= ? ORDER BY id LIMIT 100000","args":[2300000,3000000],"time":1745452515763,"message":"created query"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.091404,"time":1745452516538,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.110003,"time":1745452517749,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","query":"SELECT * FROM users WHERE id > ? AND id <= ? ORDER BY id LIMIT 100000","args":[2400000,3000000],"time":1745452518036,"message":"created query"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.097791,"time":1745452518832,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.113287,"time":1745452520036,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","query":"SELECT * FROM users WHERE id > ? AND id <= ? ORDER BY id LIMIT 100000","args":[2500000,3000000],"time":1745452520319,"message":"created query"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.089013,"time":1745452521073,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.108728,"time":1745452522342,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","query":"SELECT * FROM users WHERE id > ? AND id <= ? ORDER BY id LIMIT 100000","args":[2600000,3000000],"time":1745452522655,"message":"created query"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.149617,"time":1745452523441,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.103065,"time":1745452524661,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","query":"SELECT * FROM users WHERE id > ? AND id <= ? ORDER BY id LIMIT 100000","args":[2700000,3000000],"time":1745452524927,"message":"created query"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.545392,"time":1745452525704,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.097994,"time":1745452526937,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","query":"SELECT * FROM users WHERE id > ? AND id <= ? ORDER BY id LIMIT 100000","args":[2800000,3000000],"time":1745452527215,"message":"created query"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.116011,"time":1745452528023,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.090097,"time":1745452529204,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","query":"SELECT * FROM users WHERE id > ? AND id <= ? ORDER BY id LIMIT 100000","args":[2900000,3000000],"time":1745452529483,"message":"created query"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.104408,"time":1745452530267,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.127135,"time":1745452531516,"message":"persisted connectors"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","query":"SELECT * FROM users WHERE id > ? AND id <= ? ORDER BY id LIMIT 100000","args":[3000000,3000000],"time":1745452531821,"message":"created query"}
+benchi-conduit  | {"level":"debug","connector_id":"mysql-to-kafka:mysql-source","plugin_type":"source","plugin_name":"builtin:mysql","component":"plugin","time":1745452531822,"message":"finished fetch worker by key for table \"users\""}
+benchi-conduit  | {"level":"debug","component":"connector.Persister","stack":null,"count":1,"duration":0.14442,"time":1745452532634,"message":"persisted connectors"}
+[Kbenchi-conduit exited with code 2

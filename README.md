@@ -15,7 +15,7 @@ directory. Here we are just posting the aggregated results.
 
 ### Benchmark: MongoDB to Kafka
 
-> [Click here](./results/TODO) to see the full results.
+> [Click here](results/TODO) to see the full results.
 
 This benchmark tests the performance of the data pipeline when reading from a
 MongoDB source and writing to a Kafka destination.

@@ -12,7 +12,7 @@ pipelines:
           dsn: root:root@tcp(benchi-mysql:3306)/testdb
           tables: users
           fetchSize: 100000
-          sdk.batch.size: 100000
+          sdk.batch.size: 50000
           sdk.batch.delay: 0s
           tableConfig.users.sortingColumn: id
           sdk.schema.extract.key.enabled: false
