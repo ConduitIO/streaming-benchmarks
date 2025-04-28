@@ -33,12 +33,15 @@ While the snapshot message rates are pretty close (Conduit’s message rate is
 about 9% higher), we see a greater gap in CDC, where Conduit’s message rate is
 about 52% higher.
 
-On the other hand, when
-we [compared Conduit to Debezium's Mongo connector](./results/mongo-kafka/20250428)),
-we found that the message throughput in CDC with Conduit and its Mongo connector
-is 15% higher than with Kafka Connect and the Debezium connector. Kafka Connect
-and Debezium used about 25% more CPU and nearly 21x more memory (7.5 GB vs. 350
-MB).
+Our [comparison between Conduit and Debezium's Mongo connector](./results/mongo-kafka/20250428)
+showed performance differences. Conduit's Mongo connector delivered 17% higher
+CDC message throughput (37k msg/s vs. 32k msg/s). Kafka Connect with Debezium
+used 25% more CPU and required 7.5 GB of memory compared to Conduit's 350 MB.
+
+Note that tests for the official connector and the Debezium connector were
+conducted on different machines, resulting in varying throughput rates for
+Conduit. Due to this testing environment difference, throughput comparisons
+between the official connector and Debezium should be interpreted with caution.
 
 ## Running the benchmarks
 

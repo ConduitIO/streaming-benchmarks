@@ -50,4 +50,15 @@ running: `make run-mongo-kafka-cdc`.
 
 ## Results
 
-TBD
+This section compares performance metrics between Conduit and Kafka Connect with
+Debezium, examining message throughput and resource utilization during CDC
+operations. The following charts illustrate results from our testing.
+
+![CPU Usage Graph](cpu-usage.svg)
+![Memory Usage Graph](memory-usage.svg)
+![Message Throughput Graph](message-throughput.svg)
+
+In CDC mode, Conduit demonstrates 17% higher message throughput (37,692 msg/s
+versus 32,080 msg/s). Regarding resource consumption, Conduit utilizes less
+CPU (117% versus 147%) and significantly less memory—only 350 MB compared to
+Kafka Connect's 7,560 MB, representing a 95% reduction in memory requirements.
