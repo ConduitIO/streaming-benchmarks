@@ -60,6 +60,11 @@ tests:
           container: benchi-postgres
           run: /benchi/scripts/insert_test_employees.sh "20000000"
       pre-test:
+        - name: "Conduit: print plugin info"
+          tools: conduit
+          container: benchi-conduit
+          run: curl localhost:8080/v1/connectors/plugins | jq '.[].name'
+
         - name: "Conduit: Start pipeline"
           tools: conduit
           container: benchi-conduit
