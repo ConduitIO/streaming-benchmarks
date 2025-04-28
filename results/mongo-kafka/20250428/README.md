@@ -31,11 +31,16 @@ Connect).
 ### Kafka Connect
 
 We tested Kafka Connect v7.8.1 with Debezium's Mongo connector v3.1. The Kafka
-Connect worker uses the default settings. We utilize the MongoDB connector with
-several custom configurations: schema inference is disabled, CDC returns the
-complete document (rather than the default behavior of showing only differences
-between original and updated documents), and we've adjusted the batch size. Full
-connector configurations can be
+Connect worker uses the default settings. Here are some notable configuration
+changes that we made:
+
+- schema inference is disabled
+- CDC returns the complete document (rather than the default behavior of showing only differences
+between original and updated documents)
+- we've adjusted the batch size
+- the Kafka Connect worker is given a heap of 10 GB.
+
+Full connector configurations can be
 found [here](https://github.com/ConduitIO/streaming-benchmarks/blob/37a666ad97ff495465bd18e3c6d53b35b16bf5f1/benchmarks/mongo-kafka-cdc/kafka-connect-dbz/data/connector.json).
 
 ## Running the benchmarks
