@@ -20,3 +20,5 @@
 .vscode
 
 .DS_Store
+
+results/**/*.log
