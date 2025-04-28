@@ -20,3 +20,10 @@ if ! command -v curl > /dev/null 2>&1; then
 else
     echo "curl is already installed."
 fi
+
+if ! command -v jq > /dev/null 2>&1; then
+    echo "jq not found, installing..."
+    apk add --no-cache jq
+else
+    echo "jq is already installed."
+fi
