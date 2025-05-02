@@ -13,7 +13,7 @@ pipelines:
           collections.users.format.options.email: string
           collections.users.format.options.position: string
           collections.users.format.options.salary: int
-          collections.users.format.options.full_time: boolean
+          collections.users.format.options.full_time: bool
           collections.users.format.options.hire_date: time
           collections.users.format.options.created_at: time
           collections.users.format.options.updated_at: time
