@@ -33,7 +33,7 @@ fi
 # Record start time
 start_time=$(date +%s)
 echo "Inserting $TOTAL_RECORDS records..."
-psql -U meroxauser -d meroxadb -c "
+psql "postgresql://meroxauser:meroxapass@benchi-postgres/meroxadb?sslmode=disable" -c "
 INSERT INTO employees (name, email, full_time, position, hire_date, salary, updated_at, created_at)
 SELECT 'John Doe', 'john.doe@example.com', true, 'Software Engineer', CURRENT_DATE, 60000.00, NOW(), NOW()
 FROM generate_series(1, $TOTAL_RECORDS);

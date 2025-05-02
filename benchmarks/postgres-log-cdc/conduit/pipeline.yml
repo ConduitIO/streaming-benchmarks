@@ -24,5 +24,6 @@ pipelines:
         type: destination
         plugin: builtin:log
         settings:
+          level: trace
           sdk.schema.extract.key.enabled: false
           sdk.schema.extract.payload.enabled: false
