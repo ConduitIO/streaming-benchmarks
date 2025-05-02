@@ -1,6 +1,6 @@
 version: "2.2"
 pipelines:
-  - id: generator-chaos
+  - id: generator-log
     status: running
     connectors:
     - id: generator
