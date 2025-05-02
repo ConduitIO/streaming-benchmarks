@@ -28,4 +28,5 @@ pipelines:
           servers: "benchi-kafka:9092"
           topic: "generator.to.kafka"
           compression: "none"
-
+          sdk.schema.extract.key.enabled: false
+          sdk.schema.extract.payload.enabled: false

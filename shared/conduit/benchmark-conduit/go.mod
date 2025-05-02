@@ -7,7 +7,7 @@ require (
 	github.com/conduitio-labs/conduit-connector-mongo v0.2.2
 	github.com/conduitio-labs/conduit-connector-mysql v0.1.3
 	github.com/conduitio-labs/conduit-connector-snowflake v0.4.0
-	github.com/conduitio/conduit v0.14.0-nightly.20250305.0.20250502134138-5ecf44b3bf8f
+	github.com/conduitio/conduit v0.14.0-nightly.20250305.0.20250502151350-b9d2de00f4c2
 )
 
 require (
@@ -84,7 +84,7 @@ require (
 	github.com/cohere-ai/cohere-go/v2 v2.13.0 // indirect
 	github.com/conduitio/conduit-commons v0.5.2 // indirect
 	github.com/conduitio/conduit-connector-file v0.10.1 // indirect
-	github.com/conduitio/conduit-connector-generator v0.10.3-0.20250502133955-43d7958e623c // indirect
+	github.com/conduitio/conduit-connector-generator v0.10.3-0.20250502151243-4c187c0f791b // indirect
 	github.com/conduitio/conduit-connector-kafka v0.12.1 // indirect
 	github.com/conduitio/conduit-connector-log v0.7.1 // indirect
 	github.com/conduitio/conduit-connector-postgres v0.11.3-0.20250501143815-6ddf342c560d // indirect
