@@ -30,3 +30,9 @@ tests:
     tools:
       conduit:
         compose: ./conduit/compose.override-1kb.yml
+  - name: generator-kafka-structured
+    duration: 1m
+
+    tools:
+      conduit:
+        compose: ./conduit/compose.override-structured.yml

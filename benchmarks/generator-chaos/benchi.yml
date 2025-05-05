@@ -35,3 +35,10 @@ tests:
     tools:
       conduit:
         compose: ./conduit/compose.override-10kb.yml
+
+  - name: generator-chaos-structured
+    duration: 1m
+
+    tools:
+      conduit:
+        compose: ./conduit/compose.override-structured.yml
