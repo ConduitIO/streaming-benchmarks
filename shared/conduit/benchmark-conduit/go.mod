@@ -7,7 +7,7 @@ require (
 	github.com/conduitio-labs/conduit-connector-mongo v0.2.2
 	github.com/conduitio-labs/conduit-connector-mysql v0.1.3
 	github.com/conduitio-labs/conduit-connector-snowflake v0.4.0
-	github.com/conduitio/conduit v0.13.4
+	github.com/conduitio/conduit v0.14.0-nightly.20250305.0.20250502175607-f308a3f8b2ab
 )
 
 require (
@@ -233,7 +233,6 @@ require (
 	github.com/nxadm/tail v1.4.11 // indirect
 	github.com/oklog/run v1.1.0 // indirect
 	github.com/olekukonko/tablewriter v0.0.5 // indirect
-	github.com/onsi/gomega v1.36.3 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.3 // indirect
 	github.com/pierrec/lz4/v4 v4.1.22 // indirect
 	github.com/pingcap/errors v0.11.5-0.20240311024730-e056997136bb // indirect
@@ -324,7 +323,7 @@ require (
 	go.opentelemetry.io/auto/sdk v1.1.0 // indirect
 	go.opentelemetry.io/otel v1.35.0 // indirect
 	go.opentelemetry.io/otel/metric v1.35.0 // indirect
-	go.opentelemetry.io/otel/sdk/metric v1.35.0 // indirect
+	go.opentelemetry.io/otel/sdk v1.35.0 // indirect
 	go.opentelemetry.io/otel/trace v1.35.0 // indirect
 	go.uber.org/atomic v1.11.0 // indirect
 	go.uber.org/automaxprocs v1.6.0 // indirect
