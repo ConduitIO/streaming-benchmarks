@@ -7,7 +7,7 @@ require (
 	github.com/conduitio-labs/conduit-connector-mongo v0.2.2
 	github.com/conduitio-labs/conduit-connector-mysql v0.1.3
 	github.com/conduitio-labs/conduit-connector-snowflake v0.4.0
-	github.com/conduitio/conduit v0.14.0-nightly.20250305.0.20250502175607-f308a3f8b2ab
+	github.com/conduitio/conduit v0.14.0-nightly.20250305.0.20250505093530-4abb45542bfe
 )
 
 require (
