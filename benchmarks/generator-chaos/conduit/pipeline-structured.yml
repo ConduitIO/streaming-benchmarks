@@ -1,6 +1,6 @@
 version: "2.2"
 pipelines:
-  - id: generator-kafka
+  - id: generator-chaos
     status: running
     connectors:
       - id: generator
@@ -20,13 +20,9 @@ pipelines:
           collections.users.format.options.updated_at: time
           sdk.schema.extract.key.enabled: false
           sdk.schema.extract.payload.enabled: false
-      - id: kafka-destination
+      - id: chaos
         type: destination
-        plugin: builtin:kafka
-        name: kafka-destination
+        plugin: builtin:chaos
         settings:
-          servers: "benchi-kafka:9092"
-          topic: "generator.to.kafka"
-          compression: "none"
           sdk.schema.extract.key.enabled: false
           sdk.schema.extract.payload.enabled: false
