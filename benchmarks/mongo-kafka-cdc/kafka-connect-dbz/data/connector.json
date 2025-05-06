@@ -1,0 +1,32 @@
+{
+    "name": "dbz-mongo",
+    "config": {
+        "connector.class": "io.debezium.connector.mongodb.MongoDbConnector",
+        "mongodb.connection.string": "mongodb://benchi-mongo1:30001,benchi-mongo2:30002,benchi-mongo3:30003/test?replicaSet=test-replica-set",
+        "topic.prefix": "mongo",
+        "database.include.list": "test",
+        "collection.include.list": "test.*",
+
+        "key.converter.schemas.enable": false,
+        "value.converter.schemas.enable": false,
+
+        "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+        "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+
+        "capture.mode": "change_streams_update_full",
+        "tombstones.on.delete": "true",
+        "capture.mode.full.update.type": "lookup",
+        "max.batch.size": 32768,
+        "max.queue.size": 65536,
+        "source.struct.version": "v2",
+        "skipped.operations": "t",
+        "snapshot.mode": "no_data",
+        "mongodb.poll.interval.ms": 100,
+
+        "cursor.pipeline": "",
+        "cursor.pipeline.order": "internal_first",
+
+        "poll.interval.ms": 1000,
+        "producer.override.batch.size": 1000000
+    }
+}
