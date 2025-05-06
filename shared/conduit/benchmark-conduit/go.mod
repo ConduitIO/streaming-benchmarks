@@ -7,7 +7,7 @@ require (
 	github.com/conduitio-labs/conduit-connector-mongo v0.2.2
 	github.com/conduitio-labs/conduit-connector-mysql v0.1.3
 	github.com/conduitio-labs/conduit-connector-snowflake v0.4.0
-	github.com/conduitio/conduit v0.14.0-nightly.20250305.0.20250505093530-4abb45542bfe
+	github.com/conduitio/conduit v0.14.0-nightly.20250506.0.20250506120956-db9b2fb94e1f
 )
 
 require (
@@ -81,7 +81,7 @@ require (
 	github.com/charithe/durationcheck v0.0.10 // indirect
 	github.com/chavacava/garif v0.1.0 // indirect
 	github.com/ckaznocha/intrange v0.3.0 // indirect
-	github.com/cohere-ai/cohere-go/v2 v2.13.0 // indirect
+	github.com/cohere-ai/cohere-go/v2 v2.14.1 // indirect
 	github.com/conduitio/conduit-commons v0.5.2 // indirect
 	github.com/conduitio/conduit-connector-file v0.10.1 // indirect
 	github.com/conduitio/conduit-connector-generator v0.10.3-0.20250502151243-4c187c0f791b // indirect
@@ -93,7 +93,7 @@ require (
 	github.com/conduitio/conduit-connector-sdk v0.13.3 // indirect
 	github.com/conduitio/conduit-processor-sdk v0.4.3 // indirect
 	github.com/conduitio/conduit-schema-registry v0.2.5 // indirect
-	github.com/conduitio/ecdysis v0.4.1 // indirect
+	github.com/conduitio/ecdysis v0.4.2 // indirect
 	github.com/conduitio/evolviconf v0.1.0 // indirect
 	github.com/conduitio/evolviconf/evolviyaml v0.1.0 // indirect
 	github.com/conduitio/yaml/v3 v3.3.0 // indirect
@@ -266,7 +266,7 @@ require (
 	github.com/samber/slog-zerolog/v2 v2.7.3 // indirect
 	github.com/sanposhiho/wastedassign/v2 v2.1.0 // indirect
 	github.com/santhosh-tekuri/jsonschema/v6 v6.0.1 // indirect
-	github.com/sashabaranov/go-openai v1.38.1 // indirect
+	github.com/sashabaranov/go-openai v1.39.1 // indirect
 	github.com/sashamelentyev/interfacebloat v1.1.0 // indirect
 	github.com/sashamelentyev/usestdlibvars v1.28.0 // indirect
 	github.com/securego/gosec/v2 v2.22.2 // indirect
@@ -328,7 +328,7 @@ require (
 	go.uber.org/atomic v1.11.0 // indirect
 	go.uber.org/automaxprocs v1.6.0 // indirect
 	go.uber.org/goleak v1.3.0 // indirect
-	go.uber.org/mock v0.5.1 // indirect
+	go.uber.org/mock v0.5.2 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.27.0 // indirect
 	golang.org/x/crypto v0.37.0 // indirect
@@ -345,7 +345,7 @@ require (
 	golang.org/x/xerrors v0.0.0-20231012003039-104605ab7028 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20250404141209-ee84b53bf3d0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250404141209-ee84b53bf3d0 // indirect
-	google.golang.org/grpc v1.71.1 // indirect
+	google.golang.org/grpc v1.72.0 // indirect
 	google.golang.org/protobuf v1.36.6 // indirect
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1 // indirect
 	gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7 // indirect
