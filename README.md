@@ -15,12 +15,33 @@ directory. Here we are just posting the aggregated results.
 
 ### Benchmark: MongoDB to Kafka
 
-> [Click here](./results/TODO) to see the full results.
+> [Click here](./results/mongo-kafka) to see the full results.
 
 This benchmark tests the performance of the data pipeline when reading from a
-MongoDB source and writing to a Kafka destination.
+MongoDB source and writing to a Kafka destination. We tested the speed at which
+the tools read the data in snapshot mode and CDC mode. We also tested
+the [official MongoDB connector](https://www.mongodb.com/docs/kafka-connector/current/
+as well
+as [the Debezium connector](https://debezium.io/documentation/reference/stable/connectors/mongodb.html).
 
-> TODO aggregated results table and graph
+[Compared to the official connector](./results/mongo-kafka/20250422), Conduit’s
+CPU usage is higher by around 13% in snapshots and 28% in CDC. When it comes to
+memory usage, we see a bigger gap, this time with Conduit using less resources (
+390 MB or 68%) than Kafka Connect ( 1200 MB).
+
+While the snapshot message rates are pretty close (Conduit’s message rate is
+about 9% higher), we see a greater gap in CDC, where Conduit’s message rate is
+about 52% higher.
+
+Our [comparison between Conduit and Debezium's Mongo connector](./results/mongo-kafka/20250428)
+showed performance differences. Conduit's Mongo connector delivered 17% higher
+CDC message throughput (37k msg/s vs. 32k msg/s). Kafka Connect with Debezium
+used 25% more CPU and required 7.5 GB of memory compared to Conduit's 350 MB.
+
+Note that tests for the official connector and the Debezium connector were
+conducted on different machines, resulting in varying throughput rates for
+Conduit. Due to this testing environment difference, throughput comparisons
+between the official connector and Debezium should be interpreted with caution.
 
 ## Running the benchmarks
 
