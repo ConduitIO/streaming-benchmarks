@@ -7,7 +7,7 @@ require (
 	github.com/conduitio-labs/conduit-connector-mongo v0.2.2
 	github.com/conduitio-labs/conduit-connector-mysql v0.1.3
 	github.com/conduitio-labs/conduit-connector-snowflake v0.4.0
-	github.com/conduitio/conduit v0.14.0-nightly.20250507.0.20250507181147-ca33e092dfd2
+	github.com/conduitio/conduit v0.14.0-nightly.20250507.0.20250507182133-821f6487ab63
 )
 
 require (
@@ -84,13 +84,13 @@ require (
 	github.com/cohere-ai/cohere-go/v2 v2.14.1 // indirect
 	github.com/conduitio/conduit-commons v0.5.2 // indirect
 	github.com/conduitio/conduit-connector-file v0.10.1 // indirect
-	github.com/conduitio/conduit-connector-generator v0.10.2 // indirect
+	github.com/conduitio/conduit-connector-generator v0.10.3-0.20250507130320-e6586570c863 // indirect
 	github.com/conduitio/conduit-connector-kafka v0.12.1 // indirect
 	github.com/conduitio/conduit-connector-log v0.7.1 // indirect
-	github.com/conduitio/conduit-connector-postgres v0.12.1 // indirect
+	github.com/conduitio/conduit-connector-postgres v0.12.2-0.20250507092642-41d8eebe91ad // indirect
 	github.com/conduitio/conduit-connector-protocol v0.9.2 // indirect
 	github.com/conduitio/conduit-connector-s3 v0.9.1 // indirect
-	github.com/conduitio/conduit-connector-sdk v0.13.3 // indirect
+	github.com/conduitio/conduit-connector-sdk v0.13.4-0.20250505120140-616bbe099bb4 // indirect
 	github.com/conduitio/conduit-processor-sdk v0.4.3 // indirect
 	github.com/conduitio/conduit-schema-registry v0.2.5 // indirect
 	github.com/conduitio/ecdysis v0.4.2 // indirect
