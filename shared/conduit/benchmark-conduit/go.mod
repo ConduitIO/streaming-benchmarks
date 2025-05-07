@@ -7,7 +7,7 @@ require (
 	github.com/conduitio-labs/conduit-connector-mongo v0.2.2
 	github.com/conduitio-labs/conduit-connector-mysql v0.1.3
 	github.com/conduitio-labs/conduit-connector-snowflake v0.4.0
-	github.com/conduitio/conduit v0.14.0-nightly.20250507.0.20250507130422-786a16cdf45e
+	github.com/conduitio/conduit v0.14.0-nightly.20250507.0.20250507172114-273e89bb998f
 )
 
 require (
@@ -87,7 +87,7 @@ require (
 	github.com/conduitio/conduit-connector-generator v0.10.3-0.20250507130320-e6586570c863 // indirect
 	github.com/conduitio/conduit-connector-kafka v0.12.1 // indirect
 	github.com/conduitio/conduit-connector-log v0.7.1 // indirect
-	github.com/conduitio/conduit-connector-postgres v0.12.2-0.20250507092642-41d8eebe91ad // indirect
+	github.com/conduitio/conduit-connector-postgres v0.12.1 // indirect
 	github.com/conduitio/conduit-connector-protocol v0.9.2 // indirect
 	github.com/conduitio/conduit-connector-s3 v0.9.1 // indirect
 	github.com/conduitio/conduit-connector-sdk v0.13.4-0.20250505120140-616bbe099bb4 // indirect
@@ -99,7 +99,7 @@ require (
 	github.com/conduitio/yaml/v3 v3.3.0 // indirect
 	github.com/curioswitch/go-reassign v0.3.0 // indirect
 	github.com/daixiang0/gci v0.13.6 // indirect
-	github.com/danieljoos/wincred v1.2.2 // indirect
+	github.com/danieljoos/wincred v1.2.1 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/denis-tingaikin/go-header v0.5.0 // indirect
 	github.com/dgraph-io/badger/v4 v4.6.0 // indirect
@@ -323,7 +323,6 @@ require (
 	go.opentelemetry.io/auto/sdk v1.1.0 // indirect
 	go.opentelemetry.io/otel v1.35.0 // indirect
 	go.opentelemetry.io/otel/metric v1.35.0 // indirect
-	go.opentelemetry.io/otel/sdk v1.35.0 // indirect
 	go.opentelemetry.io/otel/trace v1.35.0 // indirect
 	go.uber.org/atomic v1.11.0 // indirect
 	go.uber.org/automaxprocs v1.6.0 // indirect
