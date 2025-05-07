@@ -23,7 +23,7 @@ metrics:
 
 tests:
   - name: postgres-to-chaos-cdc
-    duration: 2m
+    duration: 1m
 
     steps:
       pre-infrastructure:
