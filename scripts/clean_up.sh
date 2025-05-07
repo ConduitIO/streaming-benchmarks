@@ -5,24 +5,24 @@
 
 set -euo pipefail
 
-# Stop all running containers
 echo "Stopping all running containers..."
 docker stop $(docker ps -q) || echo "No running containers to stop"
 
-# Remove stopped containers
+echo
 echo "Removing stopped containers..."
 docker container prune -f
 
-# Remove unused volumes
+echo
 echo "Removing unused volumes..."
 docker volume prune -f
 
-# Clean up unused Docker resources
+echo
 echo "Cleaning up unused Docker resources..."
 docker system prune -f
 
-# Remove specific image
+echo
 echo "Removing benchi/conduit image..."
 docker image rm benchi/conduit || echo "Image benchi/conduit not found or couldn't be removed"
 
+echo
 echo "Docker cleanup completed!"
