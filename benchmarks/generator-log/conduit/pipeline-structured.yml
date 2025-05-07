@@ -1,0 +1,28 @@
+version: "2.2"
+pipelines:
+  - id: generator-log
+    status: running
+    connectors:
+    - id: generator
+      type: source
+      plugin: builtin:generator
+      settings:
+        collections.users.format.type: structured
+        collections.users.format.options.singleton: true
+        collections.users.format.options.id: int
+        collections.users.format.options.name: string
+        collections.users.format.options.email: string
+        collections.users.format.options.position: string
+        collections.users.format.options.salary: int
+        collections.users.format.options.full_time: bool
+        collections.users.format.options.hire_date: time
+        collections.users.format.options.created_at: time
+        collections.users.format.options.updated_at: time
+        sdk.schema.extract.key.enabled: false
+        sdk.schema.extract.payload.enabled: false
+    - id: log
+      type: destination
+      plugin: builtin:log
+      settings:
+        sdk.schema.extract.key.enabled: false
+        sdk.schema.extract.payload.enabled: false
