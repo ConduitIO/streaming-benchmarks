@@ -8,7 +8,7 @@ services:
     ports:
       - "8083:8083"
     environment:
-      KAFKA_HEAP_OPTS: "-Xms16G -Xmx16G"
+      KAFKA_HEAP_OPTS: "-Xms10G -Xmx10G"
       CONNECT_BOOTSTRAP_SERVERS: "benchi-kafka:9092"
       CONNECT_REST_ADVERTISED_HOST_NAME: benchi-kafka-connect
       CONNECT_REST_PORT: 8083
