@@ -1,0 +1,52 @@
+ Container benchi-mysql  Creating
+ Container benchi-mysql  Created
+Attaching to benchi-mysql
+benchi-mysql  | 2025-04-24 00:38:50+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.42-1.el9 started.
+benchi-mysql  | 2025-04-24 00:38:50+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+benchi-mysql  | 2025-04-24 00:38:50+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.42-1.el9 started.
+benchi-mysql  | 2025-04-24 00:38:50+00:00 [Note] [Entrypoint]: Initializing database files
+benchi-mysql  | 2025-04-24T00:38:50.900792Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+benchi-mysql  | 2025-04-24T00:38:50.900878Z 0 [System] [MY-013169] [Server] /usr/sbin/mysqld (mysqld 8.0.42) initializing of server in progress as process 80
+benchi-mysql  | 2025-04-24T00:38:50.909410Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+benchi-mysql  | 2025-04-24T00:38:51.450739Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+benchi-mysql  | 2025-04-24T00:38:52.747009Z 6 [Warning] [MY-010453] [Server] root@localhost is created with an empty password ! Please consider switching off the --initialize-insecure option.
+benchi-mysql  | 2025-04-24 00:38:56+00:00 [Note] [Entrypoint]: Database files initialized
+benchi-mysql  | 2025-04-24 00:38:56+00:00 [Note] [Entrypoint]: Starting temporary server
+benchi-mysql  | 2025-04-24T00:38:57.089459Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+benchi-mysql  | 2025-04-24T00:38:57.091883Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.42) starting as process 124
+benchi-mysql  | 2025-04-24T00:38:57.112416Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+benchi-mysql  | 2025-04-24T00:38:57.339609Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+benchi-mysql  | 2025-04-24T00:38:57.549830Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+benchi-mysql  | 2025-04-24T00:38:57.549863Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+benchi-mysql  | 2025-04-24T00:38:57.553870Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+benchi-mysql  | 2025-04-24T00:38:57.572375Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Socket: /var/run/mysqld/mysqlx.sock
+benchi-mysql  | 2025-04-24T00:38:57.572423Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.42'  socket: '/var/run/mysqld/mysqld.sock'  port: 0  MySQL Community Server - GPL.
+benchi-mysql  | 2025-04-24 00:38:57+00:00 [Note] [Entrypoint]: Temporary server started.
+benchi-mysql  | '/var/lib/mysql/mysql.sock' -> '/var/run/mysqld/mysqld.sock'
+benchi-mysql  | Warning: Unable to load '/usr/share/zoneinfo/iso3166.tab' as time zone. Skipping it.
+benchi-mysql  | Warning: Unable to load '/usr/share/zoneinfo/leap-seconds.list' as time zone. Skipping it.
+benchi-mysql  | Warning: Unable to load '/usr/share/zoneinfo/leapseconds' as time zone. Skipping it.
+benchi-mysql  | Warning: Unable to load '/usr/share/zoneinfo/tzdata.zi' as time zone. Skipping it.
+benchi-mysql  | Warning: Unable to load '/usr/share/zoneinfo/zone.tab' as time zone. Skipping it.
+benchi-mysql  | Warning: Unable to load '/usr/share/zoneinfo/zone1970.tab' as time zone. Skipping it.
+benchi-mysql  | 2025-04-24 00:38:59+00:00 [Note] [Entrypoint]: Creating database conduit
+benchi-mysql  | 
+benchi-mysql  | 2025-04-24 00:38:59+00:00 [Note] [Entrypoint]: Stopping temporary server
+benchi-mysql  | 2025-04-24T00:38:59.746102Z 11 [System] [MY-013172] [Server] Received SHUTDOWN from user root. Shutting down mysqld (Version: 8.0.42).
+benchi-mysql  | 2025-04-24T00:39:01.677195Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.0.42)  MySQL Community Server - GPL.
+benchi-mysql  | 2025-04-24 00:39:01+00:00 [Note] [Entrypoint]: Temporary server stopped
+benchi-mysql  | 
+benchi-mysql  | 2025-04-24 00:39:01+00:00 [Note] [Entrypoint]: MySQL init process done. Ready for start up.
+benchi-mysql  | 
+benchi-mysql  | 2025-04-24T00:39:02.028954Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+benchi-mysql  | 2025-04-24T00:39:02.031653Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.42) starting as process 1
+benchi-mysql  | 2025-04-24T00:39:02.037739Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+benchi-mysql  | 2025-04-24T00:39:02.253389Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+benchi-mysql  | 2025-04-24T00:39:02.495756Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+benchi-mysql  | 2025-04-24T00:39:02.495791Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+benchi-mysql  | 2025-04-24T00:39:02.498003Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+benchi-mysql  | 2025-04-24T00:39:02.519074Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.42'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.
+benchi-mysql  | 2025-04-24T00:39:02.519023Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/run/mysqld/mysqlx.sock
+benchi-mysql  | 2025-04-24T00:41:33.718857Z 0 [System] [MY-013172] [Server] Received SHUTDOWN from user <via user signal>. Shutting down mysqld (Version: 8.0.42).
+benchi-mysql  | 2025-04-24T00:41:42.980781Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.0.42)  MySQL Community Server - GPL.
+[Kbenchi-mysql exited with code 0
