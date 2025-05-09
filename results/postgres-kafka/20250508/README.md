@@ -12,16 +12,16 @@ Postgres) was provided via Docker containers.
 
 We ran a single Kafka broker and a
 Postgres database instance. The configurations for the benchmarks can be found
-[here](../../benchmarks/postgres-kafka-snapshot/benchi.yml) and
-[here](../../benchmarks/postgres-kafka-cdc/benchi.yml).
+[here](../../../benchmarks/postgres-kafka-snapshot/benchi.yml) and
+[here](../../../benchmarks/postgres-kafka-cdc/benchi.yml).
 
 ### Conduit
 
 We tested Conduit v0.13.2 with the Postgres connector. Conduit was run with the
 [re-architectured pipeline engine](https://meroxa.com/blog/optimizing-conduit-5x-the-throughput/).
 The pipeline configurations can be found
-[here](../../benchmarks/postgres-kafka-snapshot/conduit/pipeline.yml) and
-[here](../../benchmarks/postgres-kafka-cdc/conduit/pipeline.yml). 
+[here](../../../benchmarks/postgres-kafka-snapshot/conduit/pipeline.yml) and
+[here](../../../benchmarks/postgres-kafka-cdc/conduit/pipeline.yml). 
 
 Notable configurations:
 - Snapshot mode: `initial_only` for snapshots.
@@ -32,8 +32,8 @@ Notable configurations:
 
 We tested Kafka Connect v7.8.1 with the Debezium Postgres connector. The Kafka
 Connect worker used the default settings. Full connector configurations can be
-found [here](../../benchmarks/postgres-kafka-snapshot/kafka-connect/data/connector.json) and
-[here](../../benchmarks/postgres-kafka-cdc/kafka-connect/data/connector.json).
+found [here](../../../benchmarks/postgres-kafka-snapshot/kafka-connect/data/connector.json) and
+[here](../../../benchmarks/postgres-kafka-cdc/kafka-connect/data/connector.json).
 
 Notable configurations:
 - Snapshot mode: `initial_only` for snapshots.
