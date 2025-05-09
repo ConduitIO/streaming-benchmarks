@@ -1,0 +1,32 @@
+infrastructure:
+  kafka:
+    compose: ../../shared/kafka/compose.yml
+
+tools:
+  conduit:
+    compose: ../../shared/conduit/compose.yml
+
+metrics:
+  conduit_metrics:
+    collector: conduit
+    tools: conduit
+    settings:
+      url: http://localhost:8080/metrics
+      pipelines: generator-kafka
+  kafka_metrics:
+    collector: kafka
+    settings:
+      url: http://localhost:7071/metrics
+      topics: generator.to.kafka
+  docker_metrics:
+    collector: docker
+    settings:
+      containers: benchi-conduit
+
+tests:
+  - name: generator-kafka-1kb
+    duration: 1m
+
+    tools:
+      conduit:
+        compose: ./conduit/compose.override-1kb.yml

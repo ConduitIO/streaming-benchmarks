@@ -1,3 +1,4 @@
 log.format: json
 log.level: debug
 preview.pipeline-arch-v2: true
+preview.pipeline-arch-v2-disable-metrics: true
