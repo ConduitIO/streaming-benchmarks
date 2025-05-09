@@ -1,0 +1,44 @@
+{
+    "name": "benchi-source-connector",
+    "config": {
+        "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+        "tasks.max": "4",
+        "database.hostname": "benchi-postgres",
+        "database.port": "5432",
+        "database.user": "meroxauser",
+        "database.password": "meroxapass",
+        "database.dbname": "meroxadb",
+        "database.server.name": "postgres_server",
+
+        "table.include.list": "public.employees",
+
+        "snapshot.mode": "initial_only",
+        "snapshot.fetch.size": 50000,
+        "snapshot.max.threads": 4,
+        "snapshot.isolation.mode": "repeatable_read",
+
+        "max.batch.size": 20000,
+        "max.queue.size": 100000,
+        "poll.interval.ms": 100,
+
+        "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+        "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+        "key.converter.schemas.enable": "false",
+        "value.converter.schemas.enable": "false",
+
+        "transforms": "unwrap",
+        "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
+        "transforms.unwrap.drop.tombstones": "true",
+        "transforms.unwrap.delete.handling.mode": "none",
+
+        "errors.tolerance": "all",
+        "errors.log.enable": true,
+        "errors.log.include.messages": true,
+
+        "producer.override.batch.size": 1000000,
+        "producer.override.linger.ms": 50,
+        "producer.override.compression.type": "lz4",
+        "topic.prefix": "postgres"
+    }
+
+}
