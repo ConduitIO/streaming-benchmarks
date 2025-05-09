@@ -18,7 +18,7 @@ Postgres database instance. The configurations for the benchmarks can be found
 ### Conduit
 
 We tested Conduit v0.13.2 with the Postgres connector. Conduit was run with the
-[re-architectured pipeline engine](https://meroxa.com/blog/optimizing-conduit-5x-the-throughput/) with this [configuration](../../../streaming-benchmarks/blob/add-pg-to-kafka/shared/conduit/conduit.yaml).
+[re-architectured pipeline engine](https://meroxa.com/blog/optimizing-conduit-5x-the-throughput/) with this [configuration](../../../shared/conduit/conduit.yaml).
 
 The pipelines used can be found
 [here](../../../benchmarks/postgres-kafka-snapshot/conduit/pipeline.yml) and
@@ -48,6 +48,17 @@ running: `make run-postgres-kafka-cdc` or `make run-postgres-kafka-snapshot`.
 The results of the benchmarks are summarized below. Detailed results can be
 found in the `.csv` files under the `results/postgres-kafka/20250508` directory.
 
+### Charts
+
+![CPU Usage Graph](cpu-usage.svg)
+<br/>
+<br/>
+![Memory Usage Graph](memory-usage.svg)
+<br/>
+<br/>
+![Message Throughput Graph](message-throughput.svg)
+<br/>
+
 ### Summary
 
 | Mode        | Tool           | Message Rate (msg/s) | CPU %    | Memory (MB) |
@@ -64,10 +75,3 @@ In **CDC mode**, Conduit’s message throughput was about **7% higher** than Kaf
 In **snapshot mode**, the message rates were closer, with Conduit about **3% higher** (70.753 msg/s vs. 68.783 msg/s). Conduit used **less memory** (2.234 MB vs. 2.729 MB), but its CPU usage was **higher** (231% vs. 184%).
 
 Overall, Conduit demonstrates both higher throughput and significantly improved memory efficiency, especially in CDC mode, where pipelines spend most of their operational lifetime. While CPU usage for Conduit is higher during snapshots, its lower resource consumption and higher throughput in CDC mode make it a strong choice for Postgres-to-Kafka pipelines.
-
-### Charts
-
-![CPU Usage Graph](cpu-usage.svg)
-![Memory Usage Graph](memory-usage.svg)
-![Message Throughput Graph](message-throughput.svg)
-

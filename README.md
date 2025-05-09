@@ -45,7 +45,7 @@ between the official connector and Debezium should be interpreted with caution.
 
 ### Benchmark: Postgres to Kafka
 
-> [Click here](./results/postgres-kafka) to see the full results.
+> [Click here](./results/postgres-kafka/20250508) to see the full results.
 
 This benchmark tests the performance of the data pipeline when reading from a
 Postgres source and writing to a Kafka destination. We evaluated how quickly
