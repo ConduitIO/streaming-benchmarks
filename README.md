@@ -55,22 +55,29 @@ The comparison included [Conduit](https://github.com/conduitio/conduit) and
 [Kafka Connect](https://docs.confluent.io/platform/current/connect/index.html)
 with the [Debezium Postgres connector](https://debezium.io/documentation/reference/stable/connectors/postgresql.html).
 
-[Compared to Kafka Connect](./results/postgres-kafka/20250508), Conduit’s message throughput was about 7% higher in CDC mode (48.060 msg/s vs. 44.889 msg/s) and about 3% higher in snapshot mode (70.753 msg/s vs. 68.783 msg/s).
+Compared to Kafka Connect, Conduit’s message throughput was about 7% higher in
+CDC mode (48.060 msg/s vs. 44.889 msg/s) and about 3% higher in snapshot mode
+(70.753 msg/s vs. 68.783 msg/s).
 
-In CDC mode, Conduit used dramatically less memory (110 MB vs. 6.863 MB, or about 98% less) and required about 25% less CPU (110% vs. 147%).
+In CDC mode, Conduit used dramatically less memory (110 MB vs. 6.863 MB, or about
+98% less) and required about 25% less CPU (110% vs. 147%).
 
-In snapshot mode, Conduit used about 18% less memory (2.234 MB vs. 2.729 MB), but required about 25% more CPU (231% vs. 184%).
+In snapshot mode, Conduit used about 18% less memory (2.234 MB vs. 2.729 MB), but
+required about 25% more CPU (231% vs. 184%).
 
-These results highlight Conduit’s strong performance, particularly in CDC scenarios, where it achieved higher throughput and much lower memory usage and CPU consumption. 
+These results highlight Conduit’s strong performance, particularly in CDC scenarios,
+where it achieved higher throughput and much lower memory usage and CPU consumption.
 
-In snapshot mode, although Conduit’s throughput was slightly higher and memory usage was lower, CPU usage increased. Overall, Conduit offers a compelling choice for Postgres-to-Kafka pipelines where efficiency and throughput are critical.
+In snapshot mode, although Conduit’s throughput was slightly higher and memory usage
+was lower, CPU usage increased. Overall, Conduit offers a compelling choice for
+Postgres-to-Kafka pipelines where efficiency and throughput are critical.
 
 ### Benchmark: Kafka to Snowflake
 
 > [Click here](./results/kafka-snowflake/20250417) to see the full results.
 
 This benchmark tests the performance of the data pipeline when reading from a
-Kafka source and writing to a Snowflake destination.
+Kafka source and writing to a [Snowflake](https://www.snowflake.com/) destination.
 
 We found that Conduit was able to process 13,333 messages per second, while Kafka
 Connect was able to process 66,400 messages per second. The test was run for 1
