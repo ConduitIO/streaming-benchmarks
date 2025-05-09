@@ -1,0 +1,26 @@
+{
+    "name": "snowflake-sink",
+    "config": {
+        "connector.class": "com.snowflake.kafka.connector.SnowflakeSinkConnector",
+        "tasks.max": "1",
+        "topics": "snowflake.test.users",
+
+        "snowflake.url.name": "${SNOWFLAKE_HOST}",
+        "snowflake.user.name": "${SNOWFLAKE_USERNAME}",
+        "snowflake.private.key": "${SNOWFLAKE_PRIVATE_KEY}",
+        "snowflake.private.key.passphrase": "${SNOWFLAKE_PRIVATE_KEY_PASSPHRASE}",
+
+        "snowflake.database.name": "benchi",
+        "snowflake.schema.name": "public",
+        "snowflake.table.name": "kafka_connect_test",
+        "buffer.count.records": "10000",
+        "buffer.size.bytes": "5000000",
+        "buffer.flush.time": "60",
+        "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+        "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+        "value.converter.schemas.enable": "false",
+
+        "snowflake.ingestion.method": "SNOWPIPE_STREAMING",
+        "snowflake.role.name": "${SNOWFLAKE_ROLE_NAME}"
+    }
+}

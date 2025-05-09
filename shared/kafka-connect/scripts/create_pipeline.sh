@@ -20,7 +20,32 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 CONNECTOR_JSON_PATH=$1
 check_connector_json_path "$CONNECTOR_JSON_PATH"
 
-http_code=$(curl --silent --output /tmp/curl_response --write-out "%{http_code}" -X POST -H "Content-Type: application/json" -d @"$CONNECTOR_JSON_PATH" localhost:8083/connectors)
+# Create a temporary file
+temp_file=$(mktemp)
+
+# Replace environment variables
+cat "$CONNECTOR_JSON_PATH" > "$temp_file"
+
+# Extract all unique environment variable patterns like ${VAR}
+grep -o '\${[A-Za-z0-9_]\+}' "$CONNECTOR_JSON_PATH" | sort | uniq | while read VAR_PATTERN; do
+    # Extract the variable name without ${} wrapper
+    VAR_NAME=$(echo "$VAR_PATTERN" | sed 's/^\${//;s/}$//')
+
+    # Get the variable value using eval and handle unset variables
+    VAR_VALUE=$(eval echo \$$VAR_NAME 2>/dev/null)
+
+    # Escape special characters in both the pattern and replacement value for sed
+    ESCAPED_PATTERN=$(echo "$VAR_PATTERN" | sed 's/[\/&]/\\&/g')
+    ESCAPED_VALUE=$(echo "$VAR_VALUE" | sed 's/[\/&]/\\&/g')
+
+    # Replace all occurrences of the pattern with the value
+    sed -i "s/$ESCAPED_PATTERN/$ESCAPED_VALUE/g" "$temp_file"
+done
+
+# Send the request
+http_code=$(curl --silent --output /tmp/curl_response --write-out "%{http_code}" \
+  -X POST -H "Content-Type: application/json" \
+  -d @"$temp_file" localhost:8083/connectors)
 
 if [ $? -ne 0 ]; then
     echoerr "curl command failed with exit code $?"
