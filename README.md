@@ -20,7 +20,7 @@ directory. Here we are just posting the aggregated results.
 This benchmark tests the performance of the data pipeline when reading from a
 MongoDB source and writing to a Kafka destination. We tested the speed at which
 the tools read the data in snapshot mode and CDC mode. We also tested
-the [official MongoDB connector](https://www.mongodb.com/docs/kafka-connector/current/
+the [official MongoDB connector](https://www.mongodb.com/docs/kafka-connector/current/)
 as well
 as [the Debezium connector](https://debezium.io/documentation/reference/stable/connectors/mongodb.html).
 
