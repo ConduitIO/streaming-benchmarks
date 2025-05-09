@@ -1,2 +1,0 @@
-test,tool,msg-rate-per-second[postgres-to-kafka],msg-megabytes-in-per-second[postgres-to-kafka],msg-megabytes-out-per-second[postgres-to-kafka],msg-rate-in-per-second[postgres.public.employees],msg-megabytes-in-per-second[postgres.public.employees],msg-megabytes-out-per-second[postgres.public.employees],cpu-percentage[benchi-conduit],memory-usage[benchi-conduit],cpu-percentage[benchi-kafka-connect],memory-usage[benchi-kafka-connect]
-postgres-to-kafka-snapshot,conduit,111080.17,,,111170.26,67.10,,244.16,2414.77,,
