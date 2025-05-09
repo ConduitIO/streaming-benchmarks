@@ -18,15 +18,16 @@ Postgres database instance. The configurations for the benchmarks can be found
 ### Conduit
 
 We tested Conduit v0.13.2 with the Postgres connector. Conduit was run with the
-[re-architectured pipeline engine](https://meroxa.com/blog/optimizing-conduit-5x-the-throughput/).
-The pipeline configurations can be found
+[re-architectured pipeline engine](https://meroxa.com/blog/optimizing-conduit-5x-the-throughput/) with this [configuration](../../../streaming-benchmarks/blob/add-pg-to-kafka/shared/conduit/conduit.yaml).
+
+The pipelines used can be found
 [here](../../../benchmarks/postgres-kafka-snapshot/conduit/pipeline.yml) and
 [here](../../../benchmarks/postgres-kafka-cdc/conduit/pipeline.yml). 
 
 Notable configurations:
+
 - Snapshot mode: `initial_only` for snapshots.
 - CDC mode: `logrepl` with logical replication slots.
-- Compression was disabled in the Kafka destination connector.
 
 ### Kafka Connect
 
@@ -35,10 +36,7 @@ Connect worker used the default settings. Full connector configurations can be
 found [here](../../../benchmarks/postgres-kafka-snapshot/kafka-connect/data/connector.json) and
 [here](../../../benchmarks/postgres-kafka-cdc/kafka-connect/data/connector.json).
 
-Notable configurations:
-- Snapshot mode: `initial_only` for snapshots.
-- CDC mode: `logrepl` with logical replication slots.
-- Batch size and queue size were adjusted for optimal performance.
+Batch size and queue size were adjusted for optimal performance.
 
 ## Running the benchmarks
 
