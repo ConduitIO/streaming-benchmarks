@@ -1,3 +1,0 @@
-time=2025-05-08T13:28:27.133Z level=INFO msg="Results directory" path=/home/ec2-user/code/streaming-benchmarks/shared/conduit/benchmark-conduit/results/20250508_132827
-time=2025-05-08T13:28:27.134Z level=INFO msg="Config file" path=/home/ec2-user/code/streaming-benchmarks/shared/conduit/benchmark-conduit/benchmarks/postgres-kafka-snapshot/benchi.yml
-time=2025-05-08T13:28:27.134Z level=ERROR msg="Error initializing" error="failed to parse config: failed to open config file /home/ec2-user/code/streaming-benchmarks/shared/conduit/benchmark-conduit/benchmarks/postgres-kafka-snapshot/benchi.yml: open /home/ec2-user/code/streaming-benchmarks/shared/conduit/benchmark-conduit/benchmarks/postgres-kafka-snapshot/benchi.yml: no such file or directory"
