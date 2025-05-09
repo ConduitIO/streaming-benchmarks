@@ -1,0 +1,8 @@
+services:
+  benchi-conduit:
+    volumes:
+      # mount path is relative to the location of the original docker-compose file (/shared/conduit/compose.yml)
+      - ../../benchmarks/generator-chaos/conduit/pipeline.yml:/app/pipelines/pipeline.yml
+      - ../../benchmarks/generator-chaos/conduit/data:/benchi/data
+    environment:
+      PAYLOAD_PATH: /benchi/data/payload_4mb.txt

@@ -9,8 +9,9 @@ pipelines:
       settings:
         format.type: file # take payload from file, to skip generation overhead
         format.options.path: ${PAYLOAD_PATH} # different payload sizes - 25B, 1kB, 10kB
-        sdk.batch.size: 10000
-        sdk.batch.delay: 0s
+        # sdk.batch.size: 10000
+        # sdk.batch.delay: 0s
+        rate: 10000
         sdk.schema.extract.key.enabled: false
         sdk.schema.extract.payload.enabled: false
     - id: chaos
