@@ -24,13 +24,23 @@ check_connector_json_path "$CONNECTOR_JSON_PATH"
 temp_file=$(mktemp)
 
 # Replace environment variables
-# TODO make this applicable for all connectors
-cat "$CONNECTOR_JSON_PATH" | sed \
-  -e "s|\${SNOWFLAKE_HOST}|$SNOWFLAKE_HOST|g" \
-  -e "s|\${SNOWFLAKE_USERNAME}|$SNOWFLAKE_USERNAME|g" \
-  -e "s|\${SNOWFLAKE_PRIVATE_KEY}|$SNOWFLAKE_PRIVATE_KEY|g" \
-  -e "s|\${SNOWFLAKE_PRIVATE_KEY_PASSPHRASE}|$SNOWFLAKE_PRIVATE_KEY_PASSPHRASE|g" \
-  > "$temp_file"
+cat "$CONNECTOR_JSON_PATH" > "$temp_file"
+
+# Extract all unique environment variable patterns like ${VAR}
+grep -o '\${[A-Za-z0-9_]\+}' "$CONNECTOR_JSON_PATH" | sort | uniq | while read VAR_PATTERN; do
+    # Extract the variable name without ${} wrapper
+    VAR_NAME=$(echo "$VAR_PATTERN" | sed 's/^\${//;s/}$//')
+
+    # Get the variable value using eval and handle unset variables
+    VAR_VALUE=$(eval echo \$$VAR_NAME 2>/dev/null)
+
+    # Escape special characters in both the pattern and replacement value for sed
+    ESCAPED_PATTERN=$(echo "$VAR_PATTERN" | sed 's/[\/&]/\\&/g')
+    ESCAPED_VALUE=$(echo "$VAR_VALUE" | sed 's/[\/&]/\\&/g')
+
+    # Replace all occurrences of the pattern with the value
+    sed -i "s/$ESCAPED_PATTERN/$ESCAPED_VALUE/g" "$temp_file"
+done
 
 # Send the request
 http_code=$(curl --silent --output /tmp/curl_response --write-out "%{http_code}" \

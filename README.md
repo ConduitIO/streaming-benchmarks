@@ -33,8 +33,6 @@ columns in Snowflake. Additionally, Conduit deduplicates the data, while Kafka
 Connect does not. This means that Conduit is doing more work than Kafka Connect,
 which is reflected in the throughput numbers.
 
-![Throughput](./results/kafka-snowflake/20250417/throughput.png)
-
 ## Running the benchmarks
 
 To run the benchmarks yourself, you need to have Docker and Docker Compose

@@ -62,7 +62,7 @@ tests:
       during:
         - name: "Kafka: Insert test data"
           container: benchi-kafka
-          run: /benchi/scripts/insert_test_users.sh "snowflake.test.users" 1000000
+          run: /benchi/scripts/insert_test_users.sh "snowflake.test.users" 4000000
 
       post-test:
       pre-cleanup:

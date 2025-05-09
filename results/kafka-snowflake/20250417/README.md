@@ -318,7 +318,10 @@ BENCHI_INIT_PATH="/benchi/init"
         "buffer.flush.time": "60",
         "key.converter": "org.apache.kafka.connect.storage.StringConverter",
         "value.converter": "org.apache.kafka.connect.json.JsonConverter",
-        "value.converter.schemas.enable": "false"
+        "value.converter.schemas.enable": "false",
+
+        "snowflake.ingestion.method": "SNOWPIPE_STREAMING",
+        "snowflake.role.name": "${SNOWFLAKE_ROLE_NAME}"
     }
 }
 ```
