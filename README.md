@@ -13,7 +13,7 @@ comparable.
 The raw results of the benchmarks can be found in the [results](./results)
 directory. Here we are just posting the aggregated results.
 
-### Benchmark: Kafka to Snowflake
+### Benchmark: MongoDB to Kafka
 
 > [Click here](./results/mongo-kafka) to see the full results.
 
