@@ -15,6 +15,10 @@ install-benchi: ## Install latest version of benchi.
 install-csvtk: ## Install csvtk for processing CSV files.
 	./scripts/install-csvtk.sh
 
+.PHONY:
+lint: ## Lint all benchmarks.
+	@./scripts/lint-paths.sh
+
 .PHONY: list
 list: ## List all benchmarks.
 	@find ${BENCHMARKS_PATH} -name benchi.yml | xargs -I {} dirname {} | xargs -I {} basename {}
@@ -32,7 +36,3 @@ run-%: ## Run a specific benchmark.
 .PHONY: rmi-conduit
 rmi-conduit: ## Remove the Conduit docker image (use when built-in connectors get added or upgraded).
 	docker rmi benchi/conduit
-
-.PHONY:
-lint:
-	@./scripts/lint-paths.sh

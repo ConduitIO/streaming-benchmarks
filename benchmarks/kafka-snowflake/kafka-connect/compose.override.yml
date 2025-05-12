@@ -1,0 +1,7 @@
+services:
+  benchi-kafka-connect:
+    volumes:
+      # mount path is relative to the location of the original docker-compose file (/shared/kafka-connect/compose.yml)
+      - ../../benchmarks/kafka-snowflake/kafka-connect/data:/benchi/data
+      - ../../benchmarks/kafka-snowflake/kafka-connect/init:/benchi/init
+    env_file: ../../benchmarks/kafka-snowflake/kafka-connect/.env
