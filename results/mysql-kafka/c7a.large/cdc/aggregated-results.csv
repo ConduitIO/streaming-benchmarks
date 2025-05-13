@@ -1,0 +1,2 @@
+test,tool,msg-rate-in-per-second[mysql.testdb.users],msg-megabytes-in-per-second[mysql.testdb.users],msg-megabytes-out-per-second[mysql.testdb.users],cpu-percentage[benchi-conduit],memory-usage[benchi-conduit],cpu-percentage[benchi-kafka-connect],memory-usage[benchi-kafka-connect]
+mysql-to-kafka-cdc,conduit,63414.12,45.19,,70.00,682.69,,

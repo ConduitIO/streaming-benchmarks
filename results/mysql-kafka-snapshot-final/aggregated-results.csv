@@ -1,3 +1,0 @@
-test,tool,cpu-percentage[benchi-conduit],memory-usage[benchi-conduit],cpu-percentage[benchi-kafka-connect],memory-usage[benchi-kafka-connect],msg-rate-per-second[mysql-to-kafka],msg-megabytes-in-per-second[mysql-to-kafka],msg-megabytes-out-per-second[mysql-to-kafka],msg-rate-in-per-second[mysql.testdb.users],msg-megabytes-in-per-second[mysql.testdb.users],msg-megabytes-out-per-second[mysql.testdb.users]
-mysql-to-kafka-snapshot,conduit,159.98,493.43,,,47837.72,2.45,2.41,45420.05,32.90,
-mysql-to-kafka-snapshot,kafka-connect,,,145.90,2168.45,,,,50176.36,22.36,
