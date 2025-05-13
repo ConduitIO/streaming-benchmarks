@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="433px" height="381px" viewBox="0 0 433 381" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>memory-usage</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="memory-usage" fill-rule="nonzero">
+            <text id="RAM-usage-(MB)" fill="#000000" font-family="Arial-BoldMT, Arial" font-size="18" font-weight="bold">
+                <tspan x="183.5" y="16">RAM usage (MB)</tspan>
+            </text>
+            <line x1="33" y1="336" x2="33" y2="36" id="Path" stroke="#000000" fill="#000000"></line>
+            <text id="0" fill="#000000" font-family="Helvetica" font-size="10" font-weight="normal">
+                <tspan x="17" y="341">0</tspan>
+            </text>
+            <text id="2000" fill="#000000" font-family="Helvetica" font-size="10" font-weight="normal">
+                <tspan x="0" y="253.85">2000</tspan>
+            </text>
+            <text id="4000" fill="#000000" font-family="Helvetica" font-size="10" font-weight="normal">
+                <tspan x="0" y="168.14">4000</tspan>
+            </text>
+            <text id="6000" fill="#000000" font-family="Helvetica" font-size="10" font-weight="normal">
+                <tspan x="0" y="82.42">6000</tspan>
+            </text>
+            <text id="7000" fill="#000000" font-family="Helvetica" font-size="10" font-weight="normal">
+                <tspan x="0" y="36">7000</tspan>
+            </text>
+            <line x1="33" y1="336" x2="433" y2="336" id="Path" stroke="#000000" fill="#000000"></line>
+            <text id="CDC" fill="#000000" font-family="ArialMT, Arial" font-size="12" font-weight="normal">
+                <tspan x="145" y="356">CDC</tspan>
+            </text>
+            <rect id="Rectangle" fill="#4285F4" x="108" y="331.28" width="40" height="4.72"></rect>
+            <rect id="Rectangle" fill="#DB4437" x="158" y="41.86" width="40" height="294.14"></rect>
+            <text id="Snapshot" fill="#000000" font-family="ArialMT, Arial" font-size="12" font-weight="normal">
+                <tspan x="307.5" y="356">Snapshot</tspan>
+            </text>
+            <rect id="Rectangle" fill="#4285F4" x="283" y="240.28" width="40" height="95.72"></rect>
+            <rect id="Rectangle" fill="#DB4437" x="333" y="219.03" width="40" height="116.97"></rect>
+            <rect id="Rectangle" fill="#4285F4" x="133" y="366" width="15" height="15"></rect>
+            <text id="Conduit" fill="#000000" font-family="ArialMT, Arial" font-size="12" font-weight="normal">
+                <tspan x="153" y="378">Conduit</tspan>
+            </text>
+            <rect id="Rectangle" fill="#DB4437" x="233" y="366" width="15" height="15"></rect>
+            <text id="Kafka-Connect" fill="#000000" font-family="ArialMT, Arial" font-size="12" font-weight="normal">
+                <tspan x="253" y="378">Kafka Connect</tspan>
+            </text>
+        </g>
+    </g>
+</svg>
