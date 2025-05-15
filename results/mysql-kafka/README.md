@@ -25,7 +25,7 @@ The pipelines used can be found
 [here](../../benchmarks/mysql-kafka-cdc/conduit/pipeline.yml).
 
 ### Kafka Connect
-debezium/debezium-connector-mysql:2.4.2
+
 We tested Kafka Connect with the Debezium MySQL connector v2.4.2. Full connector configurations can be
 found [here](../../benchmarks/mysql-kafka-snapshot/kafka-connect/data/connector.json) and
 [here](../../benchmarks/mysql-kafka-cdc/kafka-connect/data/connector.json).
