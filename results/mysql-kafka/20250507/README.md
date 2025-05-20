@@ -12,23 +12,23 @@ MySQL) was provided via Docker containers.
 
 We ran a single Kafka broker and a
 MySQL database instance. The configurations for the benchmarks can be found
-[here](../../benchmarks/mysql-kafka-snapshot/benchi.yml) and
-[here](../../benchmarks/mysql-kafka-cdc/benchi.yml).
+[here](../../../benchmarks/mysql-kafka-snapshot/benchi.yml) and
+[here](../../../benchmarks/mysql-kafka-cdc/benchi.yml).
 
 ### Conduit
 
 We tested Conduit v0.13.2 with a builtin MySQL connector. Conduit was run with the
-[re-architectured pipeline engine](https://meroxa.com/blog/optimizing-conduit-5x-the-throughput/) with this [configuration](../../shared/conduit/conduit.yaml).
+[re-architectured pipeline engine](https://meroxa.com/blog/optimizing-conduit-5x-the-throughput/) with this [configuration](../../../shared/conduit/conduit.yaml).
 
 The pipelines used can be found
-[here](../../benchmarks/mysql-kafka-snapshot/conduit/pipeline.yml) and
-[here](../../benchmarks/mysql-kafka-cdc/conduit/pipeline.yml).
+[here](../../../benchmarks/mysql-kafka-snapshot/conduit/pipeline.yml) and
+[here](../../../benchmarks/mysql-kafka-cdc/conduit/pipeline.yml).
 
 ### Kafka Connect
 
 We tested Kafka Connect with the Debezium MySQL connector v2.4.2. Full connector configurations can be
-found [here](../../benchmarks/mysql-kafka-snapshot/kafka-connect/data/connector.json) and
-[here](../../benchmarks/mysql-kafka-cdc/kafka-connect/data/connector.json).
+found [here](../../../benchmarks/mysql-kafka-snapshot/kafka-connect/data/connector.json) and
+[here](../../../benchmarks/mysql-kafka-cdc/kafka-connect/data/connector.json).
 
 ## Running the benchmarks
 
