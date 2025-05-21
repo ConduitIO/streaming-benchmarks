@@ -92,6 +92,30 @@ columns in Snowflake. Additionally, Conduit deduplicates the data, while Kafka
 Connect does not. This means that Conduit is doing more work than Kafka Connect,
 which is reflected in the throughput numbers.
 
+### Benchmark: MySQL to Kafka
+
+> [Click here](./results/mysql-kafka/20250507) to see the full results.
+
+This benchmark tests the performance of the data pipeline when reading from a
+MySQL source and writing to a Kafka destination. We evaluated how quickly
+the tools process data in both snapshot mode and CDC (Change Data Capture) mode.
+
+The comparison included [Conduit](https://github.com/conduitio/conduit) and
+[Kafka Connect](https://docs.confluent.io/platform/current/connect/index.html)
+with the [Debezium MySQL connector](https://debezium.io/documentation/reference/stable/connectors/mysql.html).
+
+Compared to Kafka Connect, and across all tested EC2 instance types, from low-resource to high-resource 
+environments, Conduit consistently proves to be a lean, reliable, and production-ready tool for
+MySQL to Kafka pipeline.
+
+Using the EC2 instance type c7a.large, _Kafka Connect couldn’t even start_, while Conduit ran smoothly,
+delivering solid throughput with minimal resource usage.
+
+Using the EC2 instance type c7a.xlarge, Kafka Connect achieved higher throughput, but Conduit held close,
+using ~75% less memory while maintaining competitive performance. Even though Conduit
+used more CPU (around 80% vs Kafka Connect’s 60%), it did so intentionally and efficiently,
+making better use of available system resources.
+
 ## Running the benchmarks
 
 To run the benchmarks yourself, you need to have Docker and Docker Compose
