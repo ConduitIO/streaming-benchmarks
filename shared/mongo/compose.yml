@@ -3,7 +3,6 @@ services:
     container_name: benchi-mongo1
     networks:
       - benchi
-
     image: 'mongodb/mongodb-community-server:8.0.9-ubi8'
     command:
       - '--replSet'
@@ -12,8 +11,10 @@ services:
       - '--port'
       - '30001'
     healthcheck:
-      test: 'test $$(echo "rs.initiate({_id:''test-replica-set'',members:[{_id:0,host:\"benchi-mongo1:30001\"},{_id:1,host:\"benchi-mongo2:30002\"},{_id:2,host:\"benchi-mongo3:30003\"}]}).ok || rs.status().ok" | mongo --port 30001 --quiet) -eq 1'
+      test: ["CMD", "mongosh", "--port", "30001", "--eval", "db.adminCommand('ping').ok", "--quiet"]
       interval: 10s
+      timeout: 5s
+      retries: 3
       start_period: 30s
     volumes:
       - ./scripts:/benchi/scripts
@@ -22,7 +23,6 @@ services:
     container_name: benchi-mongo2
     networks:
       - benchi
-
     image: 'mongodb/mongodb-community-server:8.0.9-ubi8'
     command:
       - '--replSet'
@@ -30,12 +30,17 @@ services:
       - '--bind_ip_all'
       - '--port'
       - '30002'
+    healthcheck:
+      test: ["CMD", "mongosh", "--port", "30002", "--eval", "db.adminCommand('ping').ok", "--quiet"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
 
   benchi-mongo3:
     container_name: benchi-mongo3
     networks:
       - benchi
-
     image: 'mongodb/mongodb-community-server:8.0.9-ubi8'
     command:
       - '--replSet'
@@ -43,6 +48,29 @@ services:
       - '--bind_ip_all'
       - '--port'
       - '30003'
+    healthcheck:
+      test: ["CMD", "mongosh", "--port", "30003", "--eval", "db.adminCommand('ping').ok", "--quiet"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+  benchi-mongo-init:
+    container_name: benchi-mongo-init
+    networks:
+      - benchi
+    image: 'mongodb/mongodb-community-server:8.0.9-ubi8'
+    depends_on:
+      benchi-mongo1:
+        condition: service_healthy
+      benchi-mongo2:
+        condition: service_healthy
+      benchi-mongo3:
+        condition: service_healthy
+    command: ["bash", "/benchi/scripts/init-replica-set.sh"]
+    volumes:
+      - ./scripts:/benchi/scripts
+    restart: "no"
 
 networks:
   benchi:
